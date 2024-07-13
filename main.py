@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-# Dummy data for user authentication
+# authentication
 users = {
     'testuser': 'password123'
 }
