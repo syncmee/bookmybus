@@ -19,8 +19,8 @@
         <li><a href="#home" class="nav-link px-2 link-secondary">Home</a></li>
         <li><a href="#destinations" class="nav-link px-2">Destinations</a></li>
         <li><a href="#features" class="nav-link px-2">Features</a></li>
-        <li><a href="#" class="nav-link px-2">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2">About</a></li>
+        <li><a href="#pricing" class="nav-link px-2">Pricing</a></li>
+        <li><a href="#about" class="nav-link px-2">About</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
@@ -39,7 +39,7 @@
     <div class="col-lg-6 mx-auto" bis_skin_checked="1">
       <p class="lead mb-4">Discover the Joy of Effortless Travel Planning and Secure Bookings with BookMyBus. Experience Reliable Connections, Comfortable Rides, and Memorable Journeys Every Time..</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5" bis_skin_checked="1">
-      <a class="btn btn-outline-secondary" href="#about">About Us</a>
+      <a class="btn btn-outline-secondary" href="static/bookticket.html">Book Ticket</a>
       </div>
     </div>
     <div class="overflow-hidden" style="max-height: 30vh;" bis_skin_checked="1">
@@ -189,7 +189,7 @@
         <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"></use></svg>
         <div bis_skin_checked="1">
           <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Travel Alerts and Notifications</h3>
-          <p>Sends timely alerts and notifications about booking status, departure times, and any changes.p>
+          <p>Sends timely alerts and notifications about booking status, departure times, and any changes.</p>
         </div>
       </div>
       <div class="col d-flex align-items-start" bis_skin_checked="1">
@@ -204,7 +204,6 @@
 </section>
 <!-- Pricing -->
 <section id="pricing">
-
   <div class="container px-4 py-5">
     <h2 class="pb-2 border-bottom">Pricing</h2>
     <p class="fs-5 text-body-secondary">Explore our flexible pricing options designed to cater to your travel needs. Whether you're looking for a budget-friendly ride or a luxurious journey, BookMyBus offers a variety of fare categories to suit every traveler.</p>
@@ -224,7 +223,7 @@
               <li>Budget-friendly travel option</li>
               <li>Ideal for short to medium-distance journeys</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Know More</button>
           </div>
         </div>
       </div>
@@ -241,7 +240,7 @@
               <li>Enhanced travel experience</li>
               <li>Wi-Fi Enabled</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+            <button type="button" class="w-100 btn btn-lg btn-primary">Know More</button>
           </div>
         </div>
       </div>
@@ -258,7 +257,7 @@
               <li>Privacy curtains for each berth</li>
               <li>Ideal for overnight journeys</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+            <button type="button" class="w-100 btn btn-lg btn-primary">Know More</button>
           </div>
         </div>
       </div>
@@ -266,6 +265,36 @@
   </div>
 
 
+</section>
+<!-- About -->
+<section id="about">
+<div class="bg-dark text-secondary px-4 py-5 text-center" bis_skin_checked="1">
+    <div class="py-5" bis_skin_checked="1">
+      <h1 class="display-5 fw-bold text-white">About Us</h1>
+      <div class="col-lg-6 mx-auto" bis_skin_checked="1">
+        <p class="fs-5 mb-4">Welcome to BookMyBus, your trusted platform for hassle-free bus ticket bookings. At BookMyBus, we are committed to revolutionizing your travel experience by providing a seamless and convenient way to book bus tickets online. Whether you're planning a quick commute or a long-distance journey, our user-friendly interface and extensive network of bus operators ensure that you find the perfect route at the best prices.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" bis_skin_checked="1">
+          <a href="{{ url_for('contact_page') }}">
+          <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Contact Us</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="footer">
+  <div class="container" bis_skin_checked="1">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="home" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="#destinations" class="nav-link px-2 text-body-secondary">Destination</a></li>
+      <li class="nav-item"><a href="#features" class="nav-link px-2 text-body-secondary">Features</a></li>
+      <li class="nav-item"><a href="#pricing" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+      <li class="nav-item"><a href="#about" class="nav-link px-2 text-body-secondary">About</a></li>
+    </ul>
+    <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+  </footer>
+</div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

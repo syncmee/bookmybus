@@ -32,6 +32,8 @@ def login():
 def dashboard():
     return 'Welcome to your dashboard!'
 
-
+@app.route('/contact_us')
+def contact_page():
+    return render_template('contact_page.html')
 if __name__ == '__main__':
     app.run(debug=True)
