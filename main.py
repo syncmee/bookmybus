@@ -21,16 +21,16 @@ def login():
 
         # Simple user authentication check
         if username in users and users[username] == password:
-            return redirect(url_for('dashboard'))
+            # Redirect to the dashboard route with the username parameter
+            return redirect(url_for('dashboard', user=username))
         else:
             return '<h1>Invalid credentials, please try again.</h1>'
 
     return render_template('sign-in.html')
 
-
-@app.route('/dashboard')
-def dashboard():
-    return 'Welcome to your dashboard!'
+@app.route('/dashboard/<user>')
+def dashboard(user):
+    return render_template("dashboard.html", user=user)
 
 @app.route('/contact_us')
 def contact_page():

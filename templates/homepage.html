@@ -39,7 +39,7 @@
     <div class="col-lg-6 mx-auto" bis_skin_checked="1">
       <p class="lead mb-4">Discover the Joy of Effortless Travel Planning and Secure Bookings with BookMyBus. Experience Reliable Connections, Comfortable Rides, and Memorable Journeys Every Time..</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5" bis_skin_checked="1">
-      <a class="btn btn-outline-secondary" href="static/bookticket.html">Book Ticket</a>
+      <a class="btn btn-outline-secondary" href="{{ url_for('login') }}">Book Ticket</a>
       </div>
     </div>
     <div class="overflow-hidden" style="max-height: 30vh;" bis_skin_checked="1">
@@ -59,7 +59,7 @@
       <div class="col" bis_skin_checked="1">
         <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('https://i.pinimg.com/564x/53/05/3a/53053ab72cad14290687d421dd514aa2.jpg');" bis_skin_checked="1">
           <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1" bis_skin_checked="1">
-            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Stark, breathtaking, serene, ethereal.</h3>
+            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Stark, breathtaking serene, ethereal.</h3>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto">
                 <img src="static/Designer.png" alt="BookMyBus logo" width="32" height="32" class="rounded-circle border border-white">
@@ -227,6 +227,7 @@
           </div>
         </div>
       </div>
+
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3" bis_skin_checked="1">
@@ -263,8 +264,6 @@
       </div>
     </div>
   </div>
-
-
 </section>
 <!-- About -->
 <section id="about">
@@ -296,6 +295,7 @@
   </footer>
 </div>
 </section>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
