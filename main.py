@@ -24,9 +24,9 @@ def login():
             return redirect(url_for('dashboard', user=username))
         else:
             return '<h1>Invalid credentials, please try again.</h1>'
-    return render_template('sign-in.html')
+    return render_template('sign-up.html')
 
-@app.route('/sign-up')
+@app.route('/sign-in')
 def sign_up():
     if request.method == 'POST':
         username = request.form['username']
