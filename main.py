@@ -3,10 +3,6 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# authentication
-users = {
-    'testuser': 'password123'
-}
 
 
 @app.route('/')
