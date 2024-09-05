@@ -1,14 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, request, session
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Integer, String, Float
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import pandas as pd
 
 app = Flask(__name__)
 
-
-
 @app.route('/')
 def home():
     return render_template('homepage.html')
-
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

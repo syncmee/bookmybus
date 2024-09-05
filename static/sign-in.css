@@ -4,7 +4,7 @@ body {
   height: 100%;
 }
 .header {
-  position: fixed;
+  position: sticky;
   top: 0; /* Makes the header stay at the top of the screen */
   width: 100%; /* Ensures the header spans the full width of the viewport */
   background-color: white; /* Optional: To ensure the header has a background color */
