@@ -2,6 +2,14 @@ html,
 body {
   height: 100%;
 }
+.header {
+  position: fixed;
+  top: 0; /* Makes the header stay at the top of the screen */
+  width: 100%; /* Ensures the header spans the full width of the viewport */
+  background-color: white; /* Optional: To ensure the header has a background color */
+  opacity: 1;
+  z-index: 1000; /* Ensures the header stays above other content */
+}
 
 .form-signin {
   max-width: 330px;
@@ -23,3 +31,8 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+:root {
+  scroll-behavior: smooth;
+}
+
