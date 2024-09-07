@@ -37,3 +37,6 @@ body {
   scroll-behavior: smooth;
 }
 
+.border-black-outline {
+    border: 1px solid black;
+}
