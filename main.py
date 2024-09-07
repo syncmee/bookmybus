@@ -93,7 +93,8 @@ def login():
             elif input_data in emails:
                 user_row = content[content['email'] == input_data]
             else:
-                return '<h1>Invalid credentials, please try again.</h1>'
+                flash('Invalid credentials, please try again.', 'danger')
+                return redirect(url_for('login'))
 
             # Get the password and name from the user row
             user_password = user_row['password'].values[0]
@@ -107,7 +108,8 @@ def login():
                 # Redirect to the dashboard route with the user's name
                 return redirect(url_for('dashboard', user=user_name))
             else:
-                return '<h1>Invalid credentials, please try again.</h1>'
+                flash('Invalid credentials, please try again.', 'danger')
+                return redirect(url_for('login'))
 
     return render_template('sign-up.html')
 

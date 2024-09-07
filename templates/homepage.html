@@ -33,7 +33,7 @@
 
         <div class="col-md-3 text-end">
           <a href="{{ url_for('login') }}">
-            <button type="button" class="btn btn-primary">Login</button>
+            <button type="button" class="btn btn-dark">Login</button>
           </a>
         </div>
       </header>
@@ -55,7 +55,7 @@
           <div class="carousel-caption text-start">
             <h1>Seamless Travel Awaits </h1>
             <p class="opacity-100"><strong>Book Your Bus Tickets in Seconds with BookMyBus.</strong></p>
-            <p><a class="btn btn-lg btn-primary" href="/login">Book Now</a></p>
+            <p><a class="btn btn-lg btn-dark" href="/login">Book Now</a></p>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@
           <div class="carousel-caption">
             <h1>Embark on Your Dream Journey.</h1>
             <p>Discover Beautiful Destinations with BookMyBus</p>
-            <p><a class="btn btn-lg btn-primary" href="#destinations">Destinations</a></p>
+            <p><a class="btn btn-lg btn-dark" href="#destinations">Destinations</a></p>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@
           <div class="carousel-caption text-end">
             <h1>Save Big on Your Next Journey.</h1>
             <p>Exclusive Discounts on Bus Tickets with BookMyBus</p>
-            <p><a class="btn btn-lg btn-primary" href="/login">Sign Up</a></p>
+            <p><a class="btn btn-lg btn-dark" href="/login">Sign Up</a></p>
           </div>
         </div>
       </div>
@@ -242,7 +242,7 @@
   </div>
 </section>
 <!-- Pricing -->
-<section id="pricing">
+<section id="pricing" style="background-color: white;">
   <div class="container px-4 py-5" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
     <h2 class="pb-2 border-bottom">Pricing</h2>
     <p class="fs-5 text-body-secondary">Explore our flexible pricing options designed to cater to your travel needs. Whether you're looking for a budget-friendly ride or a luxurious journey, BookMyBus offers a variety of fare categories to suit every traveler.</p>
@@ -262,14 +262,14 @@
               <li>Budget-friendly travel option</li>
               <li>Ideal for short journeys</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Know More</button>
+            <button type="button" class="w-100 btn btn-outline-dark ripple-surface-dark" data-mdb-ripple-init="" data-mdb-ripple-color="dark" style="">Know More</button>
           </div>
         </div>
       </div>
 
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3" bis_skin_checked="1">
+          <div class="card-header py-3 border-dark" bis_skin_checked="1">
             <h4 class="my-0 fw-normal">AC Bus</h4>
           </div>
           <div class="card-body" bis_skin_checked="1">
@@ -280,13 +280,13 @@
               <li>Enhanced travel experience</li>
               <li>Wi-Fi Enabled</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Know More</button>
+            <button type="button" class="w-100 btn btn-lg btn-dark">Know More</button>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
-          <div class="card-header py-3 text-bg-primary border-primary" bis_skin_checked="1">
+          <div class="card-header py-3 text-bg-dark " style="border-color: white;" bis_skin_checked="1">
             <h4 class="my-0 fw-normal">AC Sleeper Bus</h4>
           </div>
           <div class="card-body" bis_skin_checked="1">
@@ -297,7 +297,7 @@
               <li>Privacy curtains for each berth</li>
               <li>Ideal for overnight journeys</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Know More</button>
+            <button type="button" class="w-100 btn btn-lg btn-dark">Know More</button>
           </div>
         </div>
       </div>
@@ -306,20 +306,55 @@
 </section>
 <!-- About -->
 <section id="about">
-  <div class="bg-dark text-secondary px-4 py-5 text-center" bis_skin_checked="1" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
-    <div class="py-5" bis_skin_checked="1">
+  <div class="bg-dark text-secondary px-4 py-5 text-center" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
+    <div class="py-5">
       <h1 class="display-5 fw-bold text-white">About Us</h1>
-      <div class="col-lg-6 mx-auto" bis_skin_checked="1">
+      <div class="col-lg-6 mx-auto">
         <p class="fs-5 mb-4">Welcome to BookMyBus, your trusted platform for hassle-free bus ticket bookings. At BookMyBus, we are committed to revolutionizing your travel experience by providing a seamless and convenient way to book bus tickets online. Whether you're planning a quick commute or a long-distance journey, our user-friendly interface and extensive network of bus operators ensure that you find the perfect route at the best prices.</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" bis_skin_checked="1">
-          <a href="{{ url_for('contact_page') }}">
-            <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Contact Us</button>
-          </a>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" data-bs-toggle="modal" data-bs-target="#contactModal">
+            Contact Us
+          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="justify-content: center; background-color: white;">
+        <div style="width: 100%; text-align: center;">
+          <img src="static/bmb_animated_logo.gif" height="50">
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background-color: ;">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="subject" class="col-form-label" >Subject</label>
+            <input type="text" class="form-control" id="subject">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text" style="height: 142px;"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="background-color: white;">
+        <button type="button" class="btn btn-light ripple-surface-dark" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Footer -->
 <section id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
   <div class="container" bis_skin_checked="1">
