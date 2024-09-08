@@ -61,7 +61,8 @@ def login():
 
             # Check if the username or email already exists
             if username in x or email in y:
-                return '<h1>Username or email already exists. Please try a different one.</h1>'
+                flash('Username or Email already exists. Please try a different one!', 'danger')
+                return redirect(url_for('login'))
             else:
                 # Add the new user to the dataframe
                 new_user = pd.DataFrame({
