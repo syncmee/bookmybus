@@ -40,3 +40,10 @@ body {
 .border-black-outline {
     border: 1px solid black;
 }
+input.form-control,
+textarea.form-control {
+    border: 2px solid black; /* Black border */
+    border-radius: 4px; /* Optional: Rounded corners */
+    padding: 10px; /* Adds some padding inside the input */
+    transition: border-color 0.3s ease-in-out; /* Smooth transition on focus */
+}
