@@ -47,3 +47,18 @@ textarea.form-control {
     padding: 10px; /* Adds some padding inside the input */
     transition: border-color 0.3s ease-in-out; /* Smooth transition on focus */
 }
+
+.social-links a {
+    margin-right: 10px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+.social-links a.facebook { color: #3b5998; } /* Facebook blue */
+.social-links a.instagram { color: #E1306C; } /* Instagram pink */
+.social-links a.github { color: white; } /* Twitter blue */
+.social-links a.linkedin { color: #0077b5; } /* LinkedIn blue */
+.social-links a.google { color: #DB4437; } /* Google red */
+
+/* Optionally, add hover effects to make them lighter when hovered */
+.social-links a:hover {
+    opacity: 0.5; /* Make them slightly lighter on hover */
+}

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
     <link rel="stylesheet" id="roboto-subset.css-css" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5" type="text/css" media="all">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body >
 <!--- Header --->
@@ -262,7 +262,7 @@
               <li>Budget-friendly travel option</li>
               <li>Ideal for short journeys</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModalXl">Know More</button>
+            <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-bs-toggle="modal" data-bs-target="#bus_compare">Know More</button>
           </div>
         </div>
       </div>
@@ -280,7 +280,7 @@
               <li>Enhanced travel experience</li>
               <li>Wi-Fi Enabled</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModalXl">Know More</button>
+            <button type="button" class="w-100 btn btn-lg btn-dark" data-bs-toggle="modal" data-bs-target="#bus_compare">Know More</button>
           </div>
         </div>
       </div>
@@ -298,14 +298,14 @@
               <li>Privacy curtains for each berth</li>
               <li>Ideal for overnight journeys</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModalXl">Know More</button>
+            <button type="button" class="w-100 btn btn-lg btn-dark" data-bs-toggle="modal" data-bs-target="#bus_compare">Know More</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="modal fade" id="exampleModalXl" tabindex="-1" aria-labelledby="exampleModalXlLabel" aria-hidden="true" data-aos="fade-up-left" data-aos-easing="ease-in-out" data-aos-duration="600">
+  <div class="modal fade" id="bus_compare" tabindex="-1" aria-labelledby="bus_compareLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
@@ -375,10 +375,10 @@
 </section>
 
 <!-- About -->
-<section id="about" style="background-color: black; color: white">
-  <div class="container col-xxl-8 px-4 py-1" >
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" >
+<section id="about" style="background-color: black; color: white;border-bottom: solid white;">
+  <div class="container col-xxl-8 px-4 py-1">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-2" >
+      <div class="col-10 col-sm-8 col-lg-6"  data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" >
         <img src="/static/bmb_logo_blackbg.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
       </div>
       <div class="col-lg-6">
@@ -401,9 +401,8 @@
       </div>
     </div>
   </div>
-</section>
 
-<!-- Modal -->
+  <!-- Modal -->
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -435,6 +434,26 @@
     </div>
   </div>
 </div>
+
+</section>
+<!-- Portfolio -->
+<section id="portfolio" class="text-center py-5" style="background-color: black; color: white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4 fw-bold" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" >
+        <img src="/static/rohit.jpeg" alt="Rohit Talukdar" class="img-fluid rounded-circle mb-3" style="width: 50%; height: auto;">
+        <p class="lead" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="800" >Hello, I'm <strong>Rohit Talukdar</strong>, the developer of the BookMyBus website. I specialize in python, web development and design.</p>
+        <div class="social-links" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="1000">
+          <a href="https://www.facebook.com/rohit.talukdar.54" class="facebook" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
+          <a href="https://www.instagram.com/rohittalukdarr/" class="instagram" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="https://github.com/syncmee/" class="github" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+          <a href="https://www.linkedin.com/in/rohittalukdar/" class="linkedin" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rtalukdar2002@gmail.com" class="google" target="_blank"><i class="fab fa-google fa-lg"></i></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Footer -->
 <section id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
