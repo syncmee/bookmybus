@@ -21,14 +21,20 @@
     />
 
     <link href="static/reservation.css" rel="stylesheet">
+    <link href="static/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
- <div class="container" style="background-color: white; color: black; border-color: black">
+ <div id="loading">
+    <img src="static/BookMyBus_loading.gif" alt="Loading..." width="500px" height="500px">
+  </div>
+
+ <div class="container-sm" style="background-color: white; color: black; border-color: black">
  <div class="bus-search-container">
         <!-- From Section -->
         <div class="bus-search-section">
             <div class="icon">
-                🚌
+                <img src="/static/passenger-in.png" width="33px">
             </div>
             <div class="input-wrapper">
                 <label for="from-destination">From</label>
@@ -45,7 +51,7 @@
         <!-- To Section -->
         <div class="bus-search-section">
             <div class="icon">
-                🚌
+                <img src="/static/passenger-out.png" width="40px">
             </div>
             <div class="input-wrapper">
                 <label for="to-destination">To</label>
@@ -57,29 +63,29 @@
         <!-- Date Section -->
         <div class="bus-search-section">
             <div class="icon">
-                📅
+                <img src="/static/calendar.png" width="35px" id="calendar-icon">
             </div>
-            <div class="date-input">
+            <div class="date-input" >
                 <label for="date-input">Date</label>
-                <input type="date" id="date-input" value="2024-09-29">
+                <input type="date" id="date-input" >
             </div>
         </div>
+
 
         <!-- Search Button -->
         <div class="bus-search-section">
             <button class="btn btn-dark">SEARCH BUSES</button>
         </div>
     </div>
-
 </div>
-
 <!-- MDB -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script
   type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js">
 </script>
-<script src="/static/reservation.js">
-</script>
+<script src="/static/reservation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </body>
 </html>
