@@ -20,87 +20,66 @@
       rel="stylesheet"
     />
 
-    <link href="static/styles.css" rel="stylesheet">
+    <link href="static/reservation.css" rel="stylesheet">
 </head>
 <body>
+ <div class="container" style="background-color: white; color: black; border-color: black">
+ <div class="bus-search-container">
+        <!-- From Section -->
+        <div class="bus-search-section">
+            <div class="icon">
+                🚌
+            </div>
+            <div class="input-wrapper">
+                <label for="from-destination">From</label>
+                <input type="text" id="from-destination" name="from-destination" placeholder="Enter city" autocomplete="off" oninput="showSuggestions(this, 'from')">
+                <div id="from-suggestions" class="autocomplete-list"></div>
+            </div>
+        </div>
 
-<section id="..">
-<form action="reservation.php" method="post">
-  <div class="col-md-auto">
-    <label for="name"></label>
-    <input type="text" id="name" name="visitor_name" placeholder="From" pattern=[A-Z\sa-z]{3,20} required >
-    <label for="email"></label>
-    <input type="email" id="email" name="visitor_email" placeholder="To" required >
-  </div>
-  <div class="elem-group">
-    <label for="phone">Your Phone</label>
-    <input type="tel" id="phone" name="visitor_phone" placeholder="498-348-3872" pattern=(\d{3})-?\s?(\d{3})-?\s?(\d{4}) required>
-  </div>
-  <hr>
-  <div class="elem-group inlined">
-    <label for="adult">Adults</label>
-    <input type="number" id="adult" name="total_adults" placeholder="2" min="1" required>
-  </div>
-  <div class="elem-group inlined">
-    <label for="child">Children</label>
-    <input type="number" id="child" name="total_children" placeholder="2" min="0" required>
-  </div>
-  <div class="elem-group inlined">
-    <label for="checkin-date">Check-in Date</label>
-    <input type="date" id="checkin-date" name="checkin" required>
-  </div>
-  <div class="elem-group inlined">
-    <label for="checkout-date">Check-out Date</label>
-    <input type="date" id="checkout-date" name="checkout" required>
-  </div>
-  <div class="elem-group">
-    <label for="room-selection">Select Room Preference</label>
-    <select id="room-selection" name="room_preference" required>
-        <option value="">Choose a Room from the List</option>
-        <option value="connecting">Connecting</option>
-        <option value="adjoining">Adjoining</option>
-        <option value="adjacent">Adjacent</option>
-    </select>
-  </div>
-  <hr>
-  <div class="elem-group">
-    <label for="message">Anything Else?</label>
-    <textarea id="message" name="visitor_message" placeholder="Tell us anything else that might be important." required></textarea>
-  </div>
-  <button type="submit">Book The Rooms</button>
-</form>
+        <!-- Swap Icon -->
+        <div class="bus-search-section">
+            <div class="swap-icon">⇄</div>
+        </div>
 
-</section>
+        <!-- To Section -->
+        <div class="bus-search-section">
+            <div class="icon">
+                🚌
+            </div>
+            <div class="input-wrapper">
+                <label for="to-destination">To</label>
+                <input type="text" id="to-destination" name="to-destination" placeholder="Enter city" autocomplete="off" oninput="showSuggestions(this, 'to')">
+                <div id="to-suggestions" class="autocomplete-list"></div>
+            </div>
+        </div>
+
+        <!-- Date Section -->
+        <div class="bus-search-section">
+            <div class="icon">
+                📅
+            </div>
+            <div class="date-input">
+                <label for="date-input">Date</label>
+                <input type="date" id="date-input" value="2024-09-29">
+            </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="bus-search-section">
+            <button class="btn btn-dark">SEARCH BUSES</button>
+        </div>
+    </div>
+
+</div>
 
 <!-- MDB -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script
   type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js">
-
 </script>
-<script>
-var currentDateTime = new Date();
-var year = currentDateTime.getFullYear();
-var month = (currentDateTime.getMonth() + 1);
-var date = (currentDateTime.getDate() + 1);
-
-if(date < 10) {
-  date = '0' + date;
-}
-if(month < 10) {
-  month = '0' + month;
-}
-
-var dateTomorrow = year + "-" + month + "-" + date;
-var checkinElem = document.querySelector("#checkin-date");
-var checkoutElem = document.querySelector("#checkout-date");
-
-checkinElem.setAttribute("min", dateTomorrow);
-
-checkinElem.onchange = function () {
-    checkoutElem.setAttribute("min", this.value);
-}
+<script src="/static/reservation.js">
 </script>
 </body>
 </html>

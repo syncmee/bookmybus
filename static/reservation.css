@@ -1,61 +1,95 @@
 body {
-  width: 500px;
-  margin: 0 auto;
-  padding: 50px;
+            font-family: 'Roboto', sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+.bus-search-container {
+    display: flex;
+    background-color: white;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+        }
+
+.bus-search-section {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-right: 1px solid #ddd;
+        }
+
+.bus-search-section:last-child {
+    border-right: none;
+        }
+
+.icon {
+    margin-right: 10px;
+        }
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+        }
+
+input, .date-input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+        }
+
+.date-input {
+    display: flex;
+    flex-direction: column;
+        }
+
+input::placeholder {
+    font-weight: normal;
+    color: #aaa;
+        }
+
+.swap-icon {
+    font-size: 20px;
+    color: #999;
+    margin: 0 10px;
 }
 
-div.elem-group {
-  margin: 20px 0;
+.search-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 0 40px 40px 0;
 }
 
-div.elem-group.inlined {
-  width: 49%;
-  display: inline-block;
-  float: left;
-  margin-left: 1%;
+.search-btn:hover {
+    background-color: #c0392b;
+        }
+.autocomplete-list {
+    position: absolute;
+    top:calc(50% + 50px);
+    border: 1px solid #ddd;
+    background-color: white;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
 }
 
-label {
-  display: block;
-  font-family: 'Nanum Gothic';
-  padding-bottom: 10px;
-  font-size: 1.25em;
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
 }
 
-input, select, textarea {
-  border-radius: 2px;
-  border: 2px solid #777;
-  box-sizing: border-box;
-  font-size: 1.25em;
-  font-family: 'Nanum Gothic';
-  width: 100%;
-  padding: 10px;
-}
-
-div.elem-group.inlined input {
-  width: 95%;
-  display: inline-block;
-}
-
-textarea {
-  height: 250px;
-}
-
-hr {
-  border: 1px dotted #ccc;
-}
-
-button {
-  height: 50px;
-  background: orange;
-  border: none;
-  color: white;
-  font-size: 1.25em;
-  font-family: 'Nanum Gothic';
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  border: 2px solid black;
-}
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
