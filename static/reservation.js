@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     flatpickr(dateInput, {
 //        altInput: true,
 //        altFormat: "d m, Y",
-//        dateFormat: "Y-m-d",
+        dateFormat: "F j, Y",
         minDate: "today"// Custom Flatpickr options here
     });
 

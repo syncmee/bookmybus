@@ -19,10 +19,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
       rel="stylesheet"
     />
-
-    <link href="static/styles.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/reservation.css" rel="stylesheet">
 </head>
 <body>
+<div id="loading">
+<img src="/static/BookMyBus_loading.gif" alt="Loading..." width="500px" height="500px" >
+</div>
+
 <section id="header" style="background-color: white;">
     <header>
     <div class="px-3 py-2  border-bottom">
@@ -35,35 +39,31 @@
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
               <a href="#" class="nav-link text-black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
-                </svg>
+                <i class="fas fa-house"></i>
                 Home
               </a>
             </li>
             <li>
               <a href="#" class="nav-link text-black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
-                  <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2z"/>
-                  <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5z"/>
-                </svg>
-                My Tickets
+                <i class="fas fa-ticket"></i>
+                  My Tickets
               </a>
             </li>
             <li>
               <a href="#" class="nav-link text-black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4M3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.39.39 0 0 0-.029-.518z"/>
-                  <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A8 8 0 0 1 0 10m8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3"/>
-                </svg>
+                <i class="fas fa-bars-progress"></i>
                 Check Status
               </a>
             </li>
+            <li>
+              <a href="#" class="nav-link text-black">
+                <i class="far fa-address-card"></i>
+                Cancel Ticket
+              </a>
+            </li>
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                </svg>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color:#A13333">
+                <i class="fas fa-user"></i>
                 {{ user.title() }}
             </a>
             <ul class="dropdown-menu">
@@ -76,6 +76,60 @@
       </div>
     </div>
   </header>
+</section>
+<section id="home">
+<form>
+ <div class="container-sm d-flex flex-wrap" style="background-color: white; color: black; border-color: black">
+ <div class="bus-search-container">
+        <!-- From Section -->
+        <div class="bus-search-section">
+            <div class="icon">
+                <img src="/static/passenger-in.png" width="33px">
+            </div>
+            <div class="input-wrapper">
+                <label for="from-destination">From</label>
+                <input type="text" id="from-destination" name="from-destination" placeholder="Enter city" autocomplete="off" oninput="showSuggestions(this, 'from')" required>
+                <div id="from-suggestions" class="autocomplete-list"></div>
+            </div>
+        </div>
+
+        <!-- Swap Icon -->
+        <div class="bus-search-section">
+            <div class="swap-icon">⇄</div>
+        </div>
+
+        <!-- To Section -->
+        <div class="bus-search-section">
+            <div class="icon">
+                <img src="/static/passenger-out.png" width="40px">
+            </div>
+            <div class="input-wrapper">
+                <label for="to-destination">To</label>
+                <input type="text" id="to-destination" name="to-destination" placeholder="Enter city" autocomplete="off" oninput="showSuggestions(this, 'to')" required>
+                <div id="to-suggestions" class="autocomplete-list"></div>
+            </div>
+        </div>
+
+        <!-- Date Section -->
+        <div class="bus-search-section">
+            <div class="icon">
+                <img src="/static/calendar.png" width="35px" id="calendar-icon">
+            </div>
+            <div class="date-input" >
+                <label for="date-input">Date</label>
+                <input type="date" id="date-input" autocomplete="">
+            </div>
+        </div>
+
+
+        <!-- Search Button -->
+        <div class="bus-search-section">
+            <button type="submit" class="btn btn-dark">SEARCH BUSES</button>
+        </div>
+    </div>
+</div>
+</form>
+
 
 </section>
 
@@ -85,30 +139,15 @@
 <script
   type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js">
-
 </script>
 <script>
-var currentDateTime = new Date();
-var year = currentDateTime.getFullYear();
-var month = (currentDateTime.getMonth() + 1);
-var date = (currentDateTime.getDate() + 1);
-
-if(date < 10) {
-  date = '0' + date;
-}
-if(month < 10) {
-  month = '0' + month;
-}
-
-var dateTomorrow = year + "-" + month + "-" + date;
-var checkinElem = document.querySelector("#checkin-date");
-var checkoutElem = document.querySelector("#checkout-date");
-
-checkinElem.setAttribute("min", dateTomorrow);
-
-checkinElem.onchange = function () {
-    checkoutElem.setAttribute("min", this.value);
-}
+    window.addEventListener("load", function() {
+  setTimeout(function() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  }, 2010); // 2000ms = 2 seconds
+});
 </script>
+<script src="/static/reservation.js"></script>
 </body>
 </html>
