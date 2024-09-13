@@ -16,6 +16,19 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # Redirect to login page if unauthorized access
 
+# Destinations for Ticket-Booking
+VALID_DESTINATIONS = {
+    'from': ["Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Kolkata", "Pune",
+             "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kanpur", "Nagpur", "Indore",
+             "Bhopal", "Visakhapatnam", "Patna", "Vadodara", "Chandigarh", "Coimbatore",
+             "Kochi", "Guwahati", "Amritsar", "Jodhpur", "Agra"],
+    'to': ["Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Kolkata", "Pune",
+           "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kanpur", "Nagpur", "Indore",
+           "Bhopal", "Visakhapatnam", "Patna", "Vadodara", "Chandigarh", "Coimbatore",
+           "Kochi", "Guwahati", "Amritsar", "Jodhpur", "Agra"]
+}
+
+
 # User model for SQLAlchemy
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -80,9 +93,28 @@ def login():
 
     return render_template('sign-up.html')
 
-@app.route('/dashboard/<user>')
+@app.route('/dashboard/<user>', methods=['GET', 'POST'])
 @login_required
 def dashboard(user):
+    if request.method == 'POST':
+        from_destination = request.form.get('from-destination')
+        to_destination = request.form.get('to-destination')
+
+        if from_destination not in VALID_DESTINATIONS['from']:
+            flash('Please select a valid city from the "From" dropdown menu.', 'danger')
+            return redirect(url_for('dashboard', user=user))
+
+        if to_destination not in VALID_DESTINATIONS['to']:
+            flash('Please select a valid city from the "To" dropdown menu.', 'danger')
+            return redirect(url_for('dashboard', user=user))
+
+        if to_destination == from_destination:
+            flash('Please select a different city.', 'danger')
+            return redirect(url_for('dashboard', user=user))
+
+        # Proceed with further processing (e.g., searching for buses)
+        return "Search submitted successfully"
+
     return render_template("dashboard.html", user=user)
 
 @app.route('/contact_us')

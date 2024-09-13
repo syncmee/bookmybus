@@ -19,6 +19,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     padding: 15px;
     border: 2px solid black;
+    width: 100%;
         }
 
 .bus-search-section {
@@ -79,9 +80,11 @@ input::placeholder {
 .search-btn:hover {
     background-color: #c0392b;
         }
+
 .autocomplete-list {
-    position: absolute;
+    position: fixed;
     bottom:calc(50% + 50px);
+    margin-top: -20px;
     border: 1px solid #ddd;
     background-color: white;
     max-height: 200px;
