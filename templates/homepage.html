@@ -404,6 +404,7 @@
   </div>
 
   <!-- Modal -->
+<form action="/" method="post">
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -412,29 +413,32 @@
           <img src="static/logos/bmb_header.gif" height="50">
         </div>
       </div>
-      <div class="modal-body" style="background-color: ;">
-        <form>
+      <div class="modal-body">
           <div class="mb-1">
-            <label for="recipient-name" class="col-form-label">Name</label>
-            <input type="text" class="form-control" id="recipient-name" required>
+            <label for="recipient-name" class="col-form-label"></label>
+            <input type="text" class="form-control" id="recipient-name" name="recipient-name" placeholder="Name" required>
           </div>
           <div class="mb-1">
-            <label for="subject" class="col-form-label" >Subject</label>
-            <input type="text" class="form-control" id="subject" required>
+            <label for="subject" class="col-form-label"></label>
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
           </div>
           <div class="mb-1">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" style="height: 142px;" required></textarea>
+            <label for="email" class="col-form-label"></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
           </div>
-        </form>
+          <div class="mb-1">
+            <label for="message-text" class="col-form-label"></label>
+            <textarea class="form-control" id="message-text" name="message-text" style="height: 142px;" placeholder="Type your message.." required></textarea>
+          </div>
       </div>
       <div class="modal-footer" style="background-color: white;">
         <button type="button" class="btn btn-light ripple-surface-dark" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-dark" >Send message</button>
+        <button type="submit" class="btn btn-dark">Send message</button>
       </div>
     </div>
   </div>
 </div>
+</form>
 
 </section>
 <!-- Portfolio -->

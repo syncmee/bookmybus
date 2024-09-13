@@ -2,9 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import smtplib
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Necessary for session management
+
+# Email-Setup
+mail = "bookmybus.info@gmail.com"
+mail_password = "qprp xuxk gaml bdca"
 
 # Configure SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///userdata.db'
@@ -42,8 +47,25 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/')
+@app.route('/',methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        name = request.form.get('recipient-name')
+        subject = request.form.get('subject')
+        email = request.form.get('email')
+        message = request.form.get('message-text')
+
+        with smtplib.SMTP("smtp.gmail.com") as connection:
+            connection.starttls()
+            connection.login(user=mail, password=mail_password)
+            connection.sendmail(from_addr=mail,
+                                to_addrs=email,
+                                msg=f"Subject: Thank you for contacting BookMyBus - {subject} \n\n"
+                                    f"Dear {name},\n\n Thanks for reaching out to us\n\n"
+                                    f"{name}: {message}\n\n "
+                                    f"Soon Our Support Team Will Get Back To You Under This Thread. \n\n"
+                                    f"Thank you for choosing Book My Bus"
+                                )
     return render_template('homepage.html')
 
 @app.route('/test')
