@@ -8,12 +8,12 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link href="/static/styles.css" rel="stylesheet">
-    <link href="/static/reservation.css" rel="stylesheet">
+    <link href="/static/scripts/styles.css" rel="stylesheet">
+    <link href="/static/scripts/reservation.css" rel="stylesheet">
 </head>
 <body>
 <div id="loading">
-<img src="/static/BookMyBus_loading.gif" alt="Loading..." width="500px" height="500px" >
+<img src="/static/logos/loading_logo.gif" alt="Loading..." width="500px" height="500px" >
 </div>
 
 <section id="header" style="background-color: white;">
@@ -22,7 +22,7 @@
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-           <img src="/static/bmb_animated_logo.gif" height="50">
+           <img src="/static/logos/bmb_header.gif" height="50">
           </a>
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
@@ -89,7 +89,7 @@
         <!-- From Section -->
         <div class="bus-search-section">
             <div class="icon">
-                <img src="/static/passenger-in.png" width="33px">
+                <img src="/static/icons/passenger-in.png" width="33px">
             </div>
             <div class="input-wrapper">
                      <label for="from-destination">From</label>
@@ -133,7 +133,7 @@
         <!-- To Section -->
         <div class="bus-search-section">
             <div class="icon">
-                <img src="/static/passenger-out.png" width="40px">
+                <img src="/static/icons/passenger-out.png" width="40px">
             </div>
             <div class="input-wrapper">
                 <label for="to-destination">To</label>
@@ -171,7 +171,7 @@
         <!-- Date Section -->
         <div class="bus-search-section">
             <div class="icon">
-                <img src="/static/calendar.png" width="35px" id="calendar-icon">
+                <img src="/static/icons/calendar.png" width="35px" id="calendar-icon">
             </div>
             <div class="date-input" >
                 <label for="date-input">Date</label>
@@ -205,6 +205,6 @@
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="/static/reservation.js"></script>
+<script src="/static/js/reservation.js"></script>
 </body>
 </html>

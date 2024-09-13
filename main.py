@@ -97,8 +97,8 @@ def login():
 @login_required
 def dashboard(user):
     if request.method == 'POST':
-        from_destination = request.form.get('from-destination')
-        to_destination = request.form.get('to-destination')
+        from_destination = request.form.get('from-destination').title()
+        to_destination = request.form.get('to-destination').title()
 
         if from_destination not in VALID_DESTINATIONS['from']:
             flash('Please select a valid city from the "From" dropdown menu.', 'danger')
