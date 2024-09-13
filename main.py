@@ -60,9 +60,10 @@ def home():
             connection.login(user=mail, password=mail_password)
             connection.sendmail(from_addr=mail,
                                 to_addrs=email,
-                                msg=f"Subject: Thank you for contacting BookMyBus - {subject} \n\n"
-                                    f"Dear {name},\n\n Thanks for reaching out to us\n\n"
-                                    f"{name}: {message}\n\n "
+                                msg=f"Subject: [BookMyBus Customer Support] - {subject} \n\n"
+                                    f"##- Please type your reply above this line -##\n"
+                                    f"Hey {name},\nThanks for reaching out to us\n"
+                                    f"{name}: {message}\n"
                                     f"Soon Our Support Team Will Get Back To You Under This Thread. \n\n"
                                     f"Thank you for choosing Book My Bus"
                                 )

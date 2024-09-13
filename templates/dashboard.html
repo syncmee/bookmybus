@@ -16,6 +16,10 @@
 <img src="/static/logos/loading_logo.gif" alt="Loading..." width="500px" height="500px" >
 </div>
 
+<div class="bg-image"
+     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+            height: 100vh">
+
 <section id="header" style="background-color: white;">
     <header>
     <div class="px-3 py-2  border-bottom">
@@ -80,9 +84,14 @@
     {% endwith %}
 </div>
 
-
-<section id="home">
-
+<section id ="">
+    <div class="p-5 text-center">
+    <div class="">
+      <h1 class="text-body-emphasis">Full-width jumbotron</h1>
+    </div>
+  </div>
+</section>
+<section id="ticket">
 <form method="POST"  action="{{ url_for('dashboard', user=user) }}" id="bus-search-form">
  <div class="col-lg-11 d-flex p-3 mx-auto flex-column text-start" style="border-color: black">
  <div class="bus-search-container px-3">
@@ -190,7 +199,9 @@
 
 </section>
 
+</div>
 
+<!--Scripts-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script
   type="text/javascript"
