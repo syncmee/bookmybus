@@ -151,6 +151,36 @@ def dashboard(user):
             },
             {
                 'busline': 'BookMyBus',
+                'departure_time': '11:00 PM',
+                'arrival_time': '1:20 AM',
+                'duration': '2 hr 20 min',
+                'to': to_destination,
+                'price': '₹12,608',
+                'from': from_destination,
+                'type': 'Non-AC Bus'
+            },
+            {
+                'busline': 'BookMyBus',
+                'departure_time': '11:00 PM',
+                'arrival_time': '1:20 AM',
+                'duration': '2 hr 20 min',
+                'to': to_destination,
+                'price': '₹12,608',
+                'from': from_destination,
+                'type': 'Non-AC Bus'
+            },
+            {
+                'busline': 'BookMyBus',
+                'departure_time': '11:00 PM',
+                'arrival_time': '1:20 AM',
+                'duration': '2 hr 20 min',
+                'to': to_destination,
+                'price': '₹12,608',
+                'from': from_destination,
+                'type': 'Non-AC Bus'
+            },
+            {
+                'busline': 'BookMyBus',
                 'departure_time': '4:30 PM',
                 'arrival_time': '6:40 PM',
                 'duration': '2 hr 10 min',

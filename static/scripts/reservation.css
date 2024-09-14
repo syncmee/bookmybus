@@ -115,7 +115,7 @@ container {
         .flight-card {
             background-color: white;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             width: 100%;
