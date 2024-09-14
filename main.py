@@ -71,7 +71,36 @@ def home():
 
 @app.route('/test')
 def test():
-    return render_template('test.html')
+    flights = [
+        {
+            'airline': 'IndiGo',
+            'departure_time': '11:00 PM',
+            'arrival_time': '1:20 AM+1',
+            'duration': '2 hr 20 min',
+            'emissions': '-',
+            'price': '₹12,608',
+            'stops': 'Nonstop'
+        },
+        {
+            'airline': 'IndiGo',
+            'departure_time': '4:30 PM',
+            'arrival_time': '6:40 PM',
+            'duration': '2 hr 10 min',
+            'emissions': '96 kg CO2e -15% emissions',
+            'price': '₹13,291',
+            'stops': 'Nonstop'
+        },
+        {
+            'airline': 'Air India',
+            'departure_time': '2:20 AM',
+            'arrival_time': '4:35 AM',
+            'duration': '2 hr 15 min',
+            'emissions': '145 kg CO2e +28% emissions',
+            'price': '₹14,753',
+            'stops': 'Nonstop'
+        }
+    ]
+    return render_template('test.html', flights=flights)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -122,6 +151,7 @@ def dashboard(user):
     if request.method == 'POST':
         from_destination = request.form.get('from-destination').title()
         to_destination = request.form.get('to-destination').title()
+        travel_date = request.form.get('travel-date')
 
         if from_destination not in VALID_DESTINATIONS['from']:
             flash('Please select a valid city from the "From" dropdown menu.', 'danger')
@@ -136,13 +166,46 @@ def dashboard(user):
             return redirect(url_for('dashboard', user=user))
 
         # Proceed with further processing (e.g., searching for buses)
-        return "Search submitted successfully"
+        return redirect(url_for('search_results', user=user, from_destination=from_destination, to_destination=to_destination, travel_date=travel_date))
 
     return render_template("dashboard.html", user=user)
 
-@app.route('/contact_us')
-def contact_page():
-    return render_template('contact_page.html')
+
+@app.route('/dashboard/<user>/search-results-<from_destination>-to-<to_destination>-<travel_date>', methods=['GET'])
+@login_required
+def search_results(user, from_destination, to_destination, travel_date):
+    # Mock bus data (replace with actual data source)
+    bus_data = [
+        {
+            'operator': 'V DHANRAJ',
+            'departure': '23:15',
+            'duration': '07h 25m',
+            'arrival': '06:40',
+            'date': '15-Sep',
+            'price': 'INR 699',
+            'seats_available': '1 Seat available',
+            'rating': 4.6,
+            'reviews': 521,
+            'features': ['A/C', 'Seater / Sleeper (2+2)', 'Live Tracking']
+        },
+        {
+            'operator': 'Blueworld Tourist Private Limited',
+            'departure': '23:25',
+            'duration': '07h 10m',
+            'arrival': '06:35',
+            'date': '15-Sep',
+            'price': 'INR 799',
+            'seats_available': '3 Seats available',
+            'rating': 4.6,
+            'reviews': 347,
+            'features': ['A/C', 'Seater / Sleeper (2+1)', 'Live Tracking']
+        },
+        # Add more bus data as needed
+    ]
+
+    return render_template('test.html', bus_data=bus_data, user=user, from_destination=from_destination,
+                           to_destination=to_destination, travel_date=travel_date)
+
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():

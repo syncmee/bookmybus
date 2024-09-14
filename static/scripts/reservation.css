@@ -10,7 +10,6 @@
   z-index: 9999; /* Always on top */
 }
 
-
 .bus-search-container {
     display: flex;
     background-color: white;
@@ -105,4 +104,10 @@ input::placeholder {
 .flatpickr-input {
     border: none;
     outline: none;
+}
+.oswald-header {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Replace with desired weight */
+  font-style: normal;
 }

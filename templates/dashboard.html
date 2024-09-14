@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="/static/scripts/styles.css" rel="stylesheet">
     <link href="/static/scripts/reservation.css" rel="stylesheet">
+<!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="loading">
@@ -18,7 +22,7 @@
 
 <div class="bg-image"
      style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
-            height: 100vh">
+            min-height: 100vh">
 
 <section id="header" style="background-color: white;">
     <header>
@@ -86,9 +90,7 @@
 
 <section id ="">
     <div class="p-5 text-center">
-    <div class="">
-      <h1 class="text-body-emphasis">Full-width jumbotron</h1>
-    </div>
+      <h1 class=" oswald-header" style="color: white">Travel Across Cities with Ease</h1>
   </div>
 </section>
 <section id="ticket">
@@ -184,7 +186,7 @@
             </div>
             <div class="date-input" >
                 <label for="date-input">Date</label>
-                <input type="date" id="date-input" autocomplete="">
+                <input type="date" id="date-input" name="travel-date" autocomplete="">
             </div>
         </div>
 
