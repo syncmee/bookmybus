@@ -71,36 +71,8 @@ def home():
 
 @app.route('/test')
 def test():
-    flights = [
-        {
-            'airline': 'IndiGo',
-            'departure_time': '11:00 PM',
-            'arrival_time': '1:20 AM+1',
-            'duration': '2 hr 20 min',
-            'emissions': '-',
-            'price': '₹12,608',
-            'stops': 'Nonstop'
-        },
-        {
-            'airline': 'IndiGo',
-            'departure_time': '4:30 PM',
-            'arrival_time': '6:40 PM',
-            'duration': '2 hr 10 min',
-            'emissions': '96 kg CO2e -15% emissions',
-            'price': '₹13,291',
-            'stops': 'Nonstop'
-        },
-        {
-            'airline': 'Air India',
-            'departure_time': '2:20 AM',
-            'arrival_time': '4:35 AM',
-            'duration': '2 hr 15 min',
-            'emissions': '145 kg CO2e +28% emissions',
-            'price': '₹14,753',
-            'stops': 'Nonstop'
-        }
-    ]
-    return render_template('test.html', flights=flights)
+
+    return render_template('test.html', )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -165,10 +137,46 @@ def dashboard(user):
             flash('Please select a different city.', 'danger')
             return redirect(url_for('dashboard', user=user))
 
-        # Proceed with further processing (e.g., searching for buses)
-        return redirect(url_for('search_results', user=user, from_destination=from_destination, to_destination=to_destination, travel_date=travel_date))
+        # Define the flights list dynamically inside the route
+        flights = [
+            {
+                'busline': 'BookMyBus',
+                'departure_time': '11:00 PM',
+                'arrival_time': '1:20 AM',
+                'duration': '2 hr 20 min',
+                'to': to_destination,
+                'price': '₹12,608',
+                'from': from_destination,
+                'type': 'Non-AC Bus'
+            },
+            {
+                'busline': 'BookMyBus',
+                'departure_time': '4:30 PM',
+                'arrival_time': '6:40 PM',
+                'duration': '2 hr 10 min',
+                'to': to_destination,
+                'price': '₹12,608',
+                'from': from_destination,
+                'type': 'AC Bus'
+            },
+            {
+                'busline': 'BookMyBus',
+                'departure_time': '2:20 AM',
+                'arrival_time': '4:35 AM',
+                'duration': '2 hr 15 min',
+                'to': to_destination,
+                'price': '₹12,608',
+                'from': from_destination,
+                'type': 'AC Sleeper Bus'
+            }
+        ]
 
-    return render_template("dashboard.html", user=user)
+        # Pass additional data to the template to show the new container
+        return render_template("dashboard.html", user=user, show_details_form=True,
+                               from_destination=from_destination, to_destination=to_destination,
+                               travel_date=travel_date, flights=flights)
+
+    return render_template("dashboard.html", user=user, show_details_form=False)
 
 
 @app.route('/dashboard/<user>/search-results-<from_destination>-to-<to_destination>-<travel_date>', methods=['GET'])

@@ -35,7 +35,7 @@
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
-              <a href="#" class="nav-link text-black">
+              <a href="/" class="nav-link text-black">
                 <i class="fas fa-house"></i>
                 Home
               </a>
@@ -88,14 +88,14 @@
     {% endwith %}
 </div>
 
-<section id ="">
-    <div class="p-5 text-center">
-      <h1 class=" oswald-header" style="color: white">Travel Across Cities with Ease</h1>
-  </div>
-</section>
+
+
 <section id="ticket">
+<div class="p-5 text-center">
+    <h1 class=" oswald-header" style="color: white">Travel Across Cities with Ease</h1>
+</div>
+
 <form method="POST"  action="{{ url_for('dashboard', user=user) }}" id="bus-search-form">
- <div class="col-lg-11 d-flex p-3 mx-auto flex-column text-start" style="border-color: black">
  <div class="bus-search-container px-3">
         <!-- From Section -->
         <div class="bus-search-section">
@@ -196,14 +196,48 @@
             <button type="submit" class="btn btn-dark">SEARCH BUSES</button>
         </div>
     </div>
-</div>
+
 </form>
 
 </section>
+{% if show_details_form %}
+<section id="bus-search">
+      <div id="flightDetails" class="container">
+        <div class="p-5 text-center">
+            <h1 class=" oswald-header" style="color: white">Best Buses</h1>
+            <h2 class=" oswald-header" style="color: white">Ranked based on price and convenience</h2>
+        </div>
 
-</div>
+        {% for flight in flights %}
+        <div class="flight-card" id="flight-card">
+            <div class="flight-info">
+                <div class="flight-details">
+
+                    <h3> <img src="/static/logos/bmb_logo-nobg.png" width="150px" style="padding-right: 5px"></h3>
+                    <p>{{ flight.departure_time }} - {{ flight.arrival_time }}</p>
+                    <p>{{ flight.duration }}</p>
+                </div>
+                <div class="flight-details">
+                    <p><strong>{{ flight.from }} ➡ {{ flight.to }}</strong> </p>
+                    <p>{{ flight.type }}</p>
+                </div>
+                <div class="flight-price">
+                    {{ flight.price }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+
+
+
+
 
 <!--Scripts-->
+    </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script
   type="text/javascript"
