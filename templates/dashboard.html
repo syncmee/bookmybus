@@ -106,32 +106,9 @@
                      <label for="from-destination">From</label>
                   <input list="from-destinations" id="from-destination" name="from-destination" placeholder="Enter city" autofocus required>
                   <datalist id="from-destinations">
-                    <option value="Delhi">
-                    <option value="Mumbai">
-                    <option value="Bengaluru">
-                    <option value="Chennai">
-                    <option value="Hyderabad">
-                    <option value="Kolkata">
-                    <option value="Pune">
-                    <option value="Ahmedabad">
-                    <option value="Jaipur">
-                    <option value="Surat">
-                    <option value="Lucknow">
-                    <option value="Kanpur">
-                    <option value="Nagpur">
-                    <option value="Indore">
-                    <option value="Bhopal">
-                    <option value="Visakhapatnam">
-                    <option value="Patna">
-                    <option value="Vadodara">
-                    <option value="Chandigarh">
-                    <option value="Coimbatore">
-                    <option value="Kochi">
-                    <option value="Guwahati">
-                    <option value="Amritsar">
-                    <option value="Jodhpur">
-                    <option value="Agra">
-                  </datalist>
+                    {% for city in VALID_DESTINATIONS['from'] %}
+                        <option value="{{ city }}">
+                    {% endfor %}
 
             </div>
         </div>
@@ -150,31 +127,9 @@
                 <label for="to-destination">To</label>
                  <input list="to-destinations" id="to-destination" name="to-destination" placeholder="Enter city" required>
                   <datalist id="to-destinations" style="max-height: 120px;">
-                    <option value="Delhi">
-                    <option value="Mumbai">
-                    <option value="Bengaluru">
-                    <option value="Chennai">
-                    <option value="Hyderabad">
-                    <option value="Kolkata">
-                    <option value="Pune">
-                    <option value="Ahmedabad">
-                    <option value="Jaipur">
-                    <option value="Surat">
-                    <option value="Lucknow">
-                    <option value="Kanpur">
-                    <option value="Nagpur">
-                    <option value="Indore">
-                    <option value="Bhopal">
-                    <option value="Visakhapatnam">
-                    <option value="Patna">
-                    <option value="Vadodara">
-                    <option value="Chandigarh">
-                    <option value="Coimbatore">
-                    <option value="Kochi">
-                    <option value="Guwahati">
-                    <option value="Amritsar">
-                    <option value="Jodhpur">
-                    <option value="Agra">
+                    {% for city in VALID_DESTINATIONS['to'] %}
+                        <option value="{{ city }}">
+                    {% endfor %}
                   </datalist>
             </div>
         </div>
@@ -214,16 +169,18 @@
                 <div class="flight-details">
 
                     <h3> <img src="/static/logos/bmb_logo-nobg.png" width="150px" style="padding-right: 5px"></h3>
-                    <p>{{ flight.departure_time }} - {{ flight.arrival_time }}</p>
-                    <p>{{ flight.duration }}</p>
+                    <h6>{{ flight.departure_time }} - {{ flight.arrival_time }}</h6>
+                    <h6>{{ flight.duration }}</h6>
+                    <p>{{flight.date}}</p>
                 </div>
-                <div class="flight-details">
-                    <p><strong>{{ flight.from }} ➡ {{ flight.to }}</strong> </p>
-                    <p>{{ flight.type }}</p>
+                <div class="flight-details text-center" >
+                    <h5><strong>{{ flight.from }}<img src="/static/icons/right-arrow.png" style="height: 30px; widht: 100px">{{ flight.to }}</strong> </h5>
+                    <h6>{{ flight.type }}</h6>
                 </div>
                 <div class="flight-price">
-                    {{ flight.price }}
+                     <button type="submit" class="btn btn-dark btn-lg" style="padding-left: 20px">⮞ {{ flight.price }}</button></br>
                 </div>
+
             </div>
         </div>
         {% endfor %}

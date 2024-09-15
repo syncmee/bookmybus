@@ -3,6 +3,8 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
+import requests
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Necessary for session management
@@ -23,15 +25,70 @@ login_manager.login_view = 'login'  # Redirect to login page if unauthorized acc
 
 # Destinations for Ticket-Booking
 VALID_DESTINATIONS = {
-    'from': ["Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Kolkata", "Pune",
-             "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kanpur", "Nagpur", "Indore",
-             "Bhopal", "Visakhapatnam", "Patna", "Vadodara", "Chandigarh", "Coimbatore",
-             "Kochi", "Guwahati", "Amritsar", "Jodhpur", "Agra"],
-    'to': ["Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Kolkata", "Pune",
-           "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kanpur", "Nagpur", "Indore",
-           "Bhopal", "Visakhapatnam", "Patna", "Vadodara", "Chandigarh", "Coimbatore",
-           "Kochi", "Guwahati", "Amritsar", "Jodhpur", "Agra"]
+    'from': ["Agra", "Mumbai", "Jaipur", "Delhi", "Bengaluru", "Hyderabad", "Chennai",
+             "Kolkata", "Goa", "Varanasi", "Udaipur", "Amritsar", "Jaisalmer", "Mysore",
+             "Pune", "Rishikesh", "Leh", "Ladakh", "Kochi", "Ooty", "Darjeeling", "Shimla",
+             "Manali", "Kaziranga", "Khajuraho", "Ranthambore"],
+    'to': ["Agra", "Mumbai", "Jaipur", "Delhi", "Bengaluru", "Hyderabad", "Chennai",
+           "Kolkata", "Goa", "Varanasi", "Udaipur", "Amritsar", "Jaisalmer", "Mysore",
+           "Pune", "Rishikesh", "Leh", "Ladakh", "Kochi", "Ooty", "Darjeeling", "Shimla",
+           "Manali", "Kaziranga", "Khajuraho", "Ranthambore"]
 }
+
+# Mapbox API key
+api_key = "pk.eyJ1Ijoic3luY21lIiwiYSI6ImNtMTNrdzdzdzB2YXIyanMxaHMzZmZzamwifQ.8KxUY8AEe-zwc8ACUmEWtw"
+
+# Define city coordinates for Mapbox Directions API
+city_coordinates = {
+    "Agra": {"lat": 27.1767, "lon": 78.0081},
+    "Mumbai": {"lat": 19.0760, "lon": 72.8777},
+    "Jaipur": {"lat": 26.9124, "lon": 75.7873},
+    "Delhi": {"lat": 28.7041, "lon": 77.1025},
+    "Bengaluru": {"lat": 12.9716, "lon": 77.5946},
+    "Hyderabad": {"lat": 17.3850, "lon": 78.4867},
+    "Chennai": {"lat": 13.0827, "lon": 80.2707},
+    "Kolkata": {"lat": 22.5726, "lon": 88.3639},
+    "Goa": {"lat": 15.2993, "lon": 74.1240},
+    "Varanasi": {"lat": 25.3176, "lon": 82.9739},
+    "Udaipur": {"lat": 24.5854, "lon": 73.7125},
+    "Amritsar": {"lat": 31.6340, "lon": 74.8723},
+    "Jaisalmer": {"lat": 26.9157, "lon": 70.9083},
+    "Mysore": {"lat": 12.2958, "lon": 76.6394},
+    "Pune": {"lat": 18.5204, "lon": 73.8567},
+    "Rishikesh": {"lat": 30.0869, "lon": 78.2676},
+    "Leh": {"lat": 34.1526, "lon": 77.5770},
+    "Ladakh": {"lat": 34.2268, "lon": 77.5619},
+    "Kochi": {"lat": 9.9312, "lon": 76.2673},
+    "Ooty": {"lat": 11.4064, "lon": 76.6932},
+    "Darjeeling": {"lat": 27.0360, "lon": 88.2627},
+    "Shimla": {"lat": 31.1048, "lon": 77.1734},
+    "Manali": {"lat": 32.2396, "lon": 77.1887},
+    "Kaziranga": {"lat": 26.5775, "lon": 93.1711},
+    "Khajuraho": {"lat": 24.8318, "lon": 79.9199},
+    "Ranthambore": {"lat": 26.0173, "lon": 76.5026}
+}
+
+# Function to get distance and duration from Mapbox Directions API
+def get_distance_mapbox(api_key, origin, destination):
+    url = f"https://api.mapbox.com/directions/v5/mapbox/driving/{origin};{destination}"
+
+    params = {
+        'access_token': api_key,
+        'geometries': 'geojson',
+        'overview': 'full',
+        'steps': 'true'
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    if 'routes' in data and len(data['routes']) > 0:
+        duration = data['routes'][0]['duration']
+        hours = int(duration // 3600)
+        minutes = int((duration % 3600) // 60)
+        duration_str = f"{hours} hr {minutes} min" if hours > 0 else f"{minutes} min"
+        return duration_str
+    return "No route found"
 
 
 # User model for SQLAlchemy
@@ -137,112 +194,44 @@ def dashboard(user):
             flash('Please select a different city.', 'danger')
             return redirect(url_for('dashboard', user=user))
 
-        # Define the flights list dynamically inside the route
+        # Get latitude/longitude coordinates for the cities
+        origin = f"{city_coordinates[from_destination]['lon']},{city_coordinates[from_destination]['lat']}"
+        destination = f"{city_coordinates[to_destination]['lon']},{city_coordinates[to_destination]['lat']}"
+
+        # Get the travel time using Mapbox Directions API
+        travel_time = get_distance_mapbox(api_key, origin, destination)
+
+        # Define the bus list dynamically inside the route
         flights = [
             {
                 'busline': 'BookMyBus',
                 'departure_time': '11:00 PM',
                 'arrival_time': '1:20 AM',
-                'duration': '2 hr 20 min',
+                'duration': travel_time,  # Updated to use Mapbox duration
                 'to': to_destination,
                 'price': '₹12,608',
                 'from': from_destination,
-                'type': 'Non-AC Bus'
-            },
-            {
-                'busline': 'BookMyBus',
-                'departure_time': '11:00 PM',
-                'arrival_time': '1:20 AM',
-                'duration': '2 hr 20 min',
-                'to': to_destination,
-                'price': '₹12,608',
-                'from': from_destination,
-                'type': 'Non-AC Bus'
-            },
-            {
-                'busline': 'BookMyBus',
-                'departure_time': '11:00 PM',
-                'arrival_time': '1:20 AM',
-                'duration': '2 hr 20 min',
-                'to': to_destination,
-                'price': '₹12,608',
-                'from': from_destination,
-                'type': 'Non-AC Bus'
-            },
-            {
-                'busline': 'BookMyBus',
-                'departure_time': '11:00 PM',
-                'arrival_time': '1:20 AM',
-                'duration': '2 hr 20 min',
-                'to': to_destination,
-                'price': '₹12,608',
-                'from': from_destination,
-                'type': 'Non-AC Bus'
+                'type': 'Non-AC Bus',
+                'date': travel_date
             },
             {
                 'busline': 'BookMyBus',
                 'departure_time': '4:30 PM',
                 'arrival_time': '6:40 PM',
-                'duration': '2 hr 10 min',
+                'duration': travel_time,
                 'to': to_destination,
                 'price': '₹12,608',
                 'from': from_destination,
-                'type': 'AC Bus'
-            },
-            {
-                'busline': 'BookMyBus',
-                'departure_time': '2:20 AM',
-                'arrival_time': '4:35 AM',
-                'duration': '2 hr 15 min',
-                'to': to_destination,
-                'price': '₹12,608',
-                'from': from_destination,
-                'type': 'AC Sleeper Bus'
+                'type': 'AC Bus',
+                'date': travel_date
             }
         ]
 
-        # Pass additional data to the template to show the new container
         return render_template("dashboard.html", user=user, show_details_form=True,
                                from_destination=from_destination, to_destination=to_destination,
-                               travel_date=travel_date, flights=flights)
+                               travel_date=travel_date, flights=flights, VALID_DESTINATIONS=VALID_DESTINATIONS)
 
-    return render_template("dashboard.html", user=user, show_details_form=False)
-
-
-@app.route('/dashboard/<user>/search-results-<from_destination>-to-<to_destination>-<travel_date>', methods=['GET'])
-@login_required
-def search_results(user, from_destination, to_destination, travel_date):
-    # Mock bus data (replace with actual data source)
-    bus_data = [
-        {
-            'operator': 'V DHANRAJ',
-            'departure': '23:15',
-            'duration': '07h 25m',
-            'arrival': '06:40',
-            'date': '15-Sep',
-            'price': 'INR 699',
-            'seats_available': '1 Seat available',
-            'rating': 4.6,
-            'reviews': 521,
-            'features': ['A/C', 'Seater / Sleeper (2+2)', 'Live Tracking']
-        },
-        {
-            'operator': 'Blueworld Tourist Private Limited',
-            'departure': '23:25',
-            'duration': '07h 10m',
-            'arrival': '06:35',
-            'date': '15-Sep',
-            'price': 'INR 799',
-            'seats_available': '3 Seats available',
-            'rating': 4.6,
-            'reviews': 347,
-            'features': ['A/C', 'Seater / Sleeper (2+1)', 'Live Tracking']
-        },
-        # Add more bus data as needed
-    ]
-
-    return render_template('test.html', bus_data=bus_data, user=user, from_destination=from_destination,
-                           to_destination=to_destination, travel_date=travel_date)
+    return render_template("dashboard.html", user=user, show_details_form=False, VALID_DESTINATIONS=VALID_DESTINATIONS)
 
 
 @login_manager.unauthorized_handler
