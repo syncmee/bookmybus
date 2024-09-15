@@ -202,7 +202,7 @@ def dashboard(user):
         travel_time = get_distance_mapbox(api_key, origin, destination)
 
         # Define the bus list dynamically inside the route
-        flights = [
+        buses = [
             {
                 'busline': 'BookMyBus',
                 'departure_time': '11:00 PM',
@@ -229,7 +229,7 @@ def dashboard(user):
 
         return render_template("dashboard.html", user=user, show_details_form=True,
                                from_destination=from_destination, to_destination=to_destination,
-                               travel_date=travel_date, flights=flights, VALID_DESTINATIONS=VALID_DESTINATIONS)
+                               travel_date=travel_date, buses=buses, VALID_DESTINATIONS=VALID_DESTINATIONS)
 
     return render_template("dashboard.html", user=user, show_details_form=False, VALID_DESTINATIONS=VALID_DESTINATIONS)
 

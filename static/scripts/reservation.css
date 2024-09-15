@@ -113,7 +113,7 @@ container {
 
         }
 
-        .flight-card {
+        .bus-card {
             background-color: white;
             padding: 20px;
             margin-bottom: 3px;
@@ -124,7 +124,7 @@ container {
 
         }
 
-        .flight-info {
+        .bus-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -136,20 +136,20 @@ container {
             font-style: normal;
         }
 
-        .flight-details {
+        .bus-details {
             display: flex;
             flex-direction: column;
         }
 
-        .flight-details h6 {
+        .bus-details h6 {
             margin-bottom: 5px;
         }
 
-        .flight-details p {
+        .bus-details p {
             margin: 0px;
         }
 
-        .flight-price {
+        .bus-price {
             font-size: 1.2em;
             font-weight: bold;
         }

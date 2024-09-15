@@ -157,28 +157,28 @@
 </section>
 {% if show_details_form %}
 <section id="bus-search">
-      <div id="flightDetails" class="container">
+      <div id="busDetails" class="container">
         <div class="p-5 text-center">
             <h1 class=" oswald-header" style="color: white">Best Buses</h1>
             <h2 class=" oswald-header" style="color: white">Ranked based on price and convenience</h2>
         </div>
 
-        {% for flight in flights %}
-        <div class="flight-card" id="flight-card">
-            <div class="flight-info">
-                <div class="flight-details">
+        {% for bus in buses %}
+        <div class="bus-card" id="bus-card">
+            <div class="bus-info">
+                <div class="bus-details">
 
                     <h3> <img src="/static/logos/bmb_logo-nobg.png" width="150px" style="padding-right: 5px"></h3>
-                    <h6>{{ flight.departure_time }} - {{ flight.arrival_time }}</h6>
-                    <h6>{{ flight.duration }}</h6>
-                    <p>{{flight.date}}</p>
+                    <h6>{{ bus.departure_time }} - {{ bus.arrival_time }}</h6>
+                    <h6>{{ bus.duration }}</h6>
+                    <p>{{bus.date}}</p>
                 </div>
-                <div class="flight-details text-center" >
-                    <h5><strong>{{ flight.from }}<img src="/static/icons/right-arrow.png" style="height: 30px; widht: 100px">{{ flight.to }}</strong> </h5>
-                    <h6>{{ flight.type }}</h6>
+                <div class="bus-details text-center" >
+                    <h5><strong>{{ bus.from }}<img src="/static/icons/right-arrow.png" style="height: 30px; width: 100px">{{ bus.to }}</strong> </h5>
+                    <h6>{{ bus.type }}</h6>
                 </div>
-                <div class="flight-price">
-                     <button type="submit" class="btn btn-dark btn-lg" style="padding-left: 20px">⮞ {{ flight.price }}</button></br>
+                <div class="bus-price">
+                     <button type="submit" class="btn btn-dark btn-lg" style="padding-left: 20px">⮞ {{ bus.price }}</button></br>
                 </div>
 
             </div>
