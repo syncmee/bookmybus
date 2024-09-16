@@ -169,12 +169,21 @@
                 <div class="bus-details">
 
                     <h3> <img src="/static/logos/bmb_logo-nobg.png" width="150px" style="padding-right: 5px"></h3>
-                    <h6>{{ bus.departure_time }} - {{ bus.arrival_time }}</h6>
+                    <h6>
+                      {{ bus.departure_time }} - {{ bus.arrival_time[0] }}
+                      {% if '+1' in bus.arrival_time %}
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="right" title="Arrival on the next day"> +1 </a>
+                      {% elif '+2' in bus.arrival_time %}
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="right" title="Arrival on the day after tomorrow"> +2 </a>
+                      {% elif '+3' in bus.arrival_time %}
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="right" title="Arrival in three days"> +3 </a>
+                      {% endif %}
+                    </h6>
                     <h6>{{ bus.duration }}</h6>
                     <p>{{bus.date}}</p>
                 </div>
                 <div class="bus-details text-center" >
-                    <h5><strong>{{ bus.from }}<img src="/static/icons/img.png" style="height:60px;width: 150px">{{ bus.to }}</strong> </h5>
+                    <h5><strong>{{ bus.from }}<img src="/static/icons/img_1.png" style="height:50px;width: 130px">{{ bus.to }}</strong> </h5>
                     <h6>{{ bus.type }}</h6>
                 </div>
                 <div class="bus-price">
@@ -187,8 +196,6 @@
     </div>
 </section>
 {% endif %}
-
-
 
 
 

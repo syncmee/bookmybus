@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 import requests
-
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Necessary for session management
@@ -89,6 +89,42 @@ def get_distance_mapbox(api_key, origin, destination):
         duration_str = f"{hours} hr {minutes} min" if hours > 0 else f"{minutes} min"
         return duration_str
     return "No route found"
+from datetime import datetime, timedelta
+
+def adjust_arrival_time(departure_time_str, travel_time_str):
+    # Parse departure time assuming it's provided in 24-hour format
+    departure_time = datetime.strptime("2024-01-01 " + departure_time_str, "%Y-%m-%d %H:%M")
+
+    # Parse travel time
+    travel_time_parts = travel_time_str.split()
+    hours = int(travel_time_parts[0].replace("hr", "")) if "hr" in travel_time_parts else 0
+    minutes = int(travel_time_parts[-2].replace("min", "")) if "min" in travel_time_parts else 0
+    travel_duration = timedelta(hours=hours, minutes=minutes)
+
+    # Calculate arrival time
+    arrival_time = departure_time + travel_duration
+
+    # Format departure and arrival times in 24-hour format
+    departure_time_str_24 = departure_time.strftime("%H:%M")
+    arrival_time_str_24 = arrival_time.strftime("%H:%M")
+
+    day_difference = (arrival_time - departure_time).days
+
+    # Check if arrival is on the next day
+    if day_difference > 0:
+        next_day_indicator = f"+{day_difference}"
+    else:
+        next_day_indicator = ""
+
+    return departure_time_str_24, arrival_time_str_24, next_day_indicator
+
+# Example usage
+departure_time_str = "23:00"  # 24-hour format input
+travel_time_str = "2 hr 30 min"
+departure_24, arrival_24, next_day = adjust_arrival_time(departure_time_str, travel_time_str)
+print(f"Departure Time: {departure_24}")
+print(f"Arrival Time: {arrival_24} {next_day}")
+
 
 
 # User model for SQLAlchemy
@@ -201,37 +237,33 @@ def dashboard(user):
         # Get the travel time using Mapbox Directions API
         travel_time = get_distance_mapbox(api_key, origin, destination)
 
+        # Example departure times in 24-hour format
+        departure_times = ['23:00', '16:30', '22:00']  # List of departure times for each bus
+
         # Define the bus list dynamically inside the route
-        buses = [
-            {
+        buses = []
+        for departure_time in departure_times:
+            # Calculate the arrival time
+            departure_24, arrival_24, next_day = adjust_arrival_time(departure_time, travel_time)
+            bus = {
                 'busline': 'BookMyBus',
-                'departure_time': '11:00 PM',
-                'arrival_time': '1:20 AM',
-                'duration': travel_time,  # Updated to use Mapbox duration
-                'to': to_destination,
-                'price': '₹12,608',
-                'from': from_destination,
-                'type': 'Non-AC Bus',
-                'date': travel_date
-            },
-            {
-                'busline': 'BookMyBus',
-                'departure_time': '4:30 PM',
-                'arrival_time': '6:40 PM',
+                'departure_time': departure_24,  # Use the 24-hour format departure time
+                'arrival_time': [arrival_24.strip(), next_day.strip()],  # Format arrival time with next day indicator
                 'duration': travel_time,
                 'to': to_destination,
                 'price': '₹12,608',
                 'from': from_destination,
-                'type': 'AC Bus',
+                'type': 'Non-AC Bus' if departure_time == '23:00' else 'AC Bus',
                 'date': travel_date
             }
-        ]
+            buses.append(bus)
 
         return render_template("dashboard.html", user=user, show_details_form=True,
                                from_destination=from_destination, to_destination=to_destination,
                                travel_date=travel_date, buses=buses, VALID_DESTINATIONS=VALID_DESTINATIONS)
 
     return render_template("dashboard.html", user=user, show_details_form=False, VALID_DESTINATIONS=VALID_DESTINATIONS)
+
 
 
 @login_manager.unauthorized_handler
