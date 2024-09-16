@@ -108,13 +108,16 @@ def adjust_arrival_time(departure_time_str, travel_time_str):
     departure_time_str_24 = departure_time.strftime("%H:%M")
     arrival_time_str_24 = arrival_time.strftime("%H:%M")
 
-    day_difference = (arrival_time - departure_time).days
+    day_difference = (arrival_time.date() - departure_time.date()).days
 
     # Check if arrival is on the next day
-    if day_difference > 0:
-        next_day_indicator = f"+{day_difference}"
-    else:
-        next_day_indicator = ""
+    next_day_indicator = ""
+    if day_difference == 1:
+        next_day_indicator = "+1"
+    elif day_difference == 2:
+        next_day_indicator = "+2"
+    elif day_difference == 3:
+        next_day_indicator = "+3"
 
     return departure_time_str_24, arrival_time_str_24, next_day_indicator
 
@@ -238,7 +241,7 @@ def dashboard(user):
         travel_time = get_distance_mapbox(api_key, origin, destination)
 
         # Example departure times in 24-hour format
-        departure_times = ['23:00', '16:30', '22:00']  # List of departure times for each bus
+        departure_times = ['23:00', '02:30', '22:00', '06:00']  # List of departure times for each bus
 
         # Define the bus list dynamically inside the route
         buses = []
@@ -253,7 +256,7 @@ def dashboard(user):
                 'to': to_destination,
                 'price': '₹12,608',
                 'from': from_destination,
-                'type': 'Non-AC Bus' if departure_time == '23:00' else 'AC Bus',
+                'type': 'Non-AC Bus' if departure_time == '23:00' or '02:30' else 'AC Bus',
                 'date': travel_date
             }
             buses.append(bus)
