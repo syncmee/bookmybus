@@ -184,13 +184,14 @@
                     <p>{{bus.date}}</p>
                 </div>
                 <div class="bus-details text-center encode-sans" >
-                    <h4>{{ bus.from.upper() }}<img src="/static/icons/right-arrow.png" style="height:40px;width: 150px">{{ bus.to.upper() }}</h4>
+<!--                    <h4>{{ bus.from.upper() }} <img src="/static/icons/Busanimation.gif" width="100" height="50" > {{ bus.to.upper() }}</h4>-->
+                    <h4> DEL <img src="/static/icons/Busanimation.gif" width="120" height="50" > DAR </h4>
                     {% if bus.type == "Non-AC" %}
-                        <img src="/static/icons/nonac.png" height="40px" width="300" style="margin-bottom:8px" data-mdb-tooltip-init data-mdb-placement="right" title="Basic travel, no air conditioning">
+                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Basic travel, no air conditioning">Volvo 9600</a>
                     {% elif bus.type == "AC" %}
-                        <img src="/static/icons/ac.png" height="40px" width="300" style="margin-bottom:8px"data-mdb-tooltip-init data-mdb-placement="right" title="Comfortable travel with air-conditioned">
+                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Comfortable travel with air-conditioned">Volvo 1200x AC</a>
                     {% elif bus.type == "Sleeper" %}
-                        <img src="/static/icons/acsleeper.png" height="40px" width="300" style="margin-bottom:8px"data-mdb-tooltip-init data-mdb-placement="right" title="Luxury travel with sleeper seats">
+                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Luxury travel with sleeper seats">Scania Multi-Axle AC Sleeper </a>
                     {% endif %}
 
                     <!-- Footer -->
@@ -201,6 +202,8 @@
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> </a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Blankets"> <img src="/static/icons/blanket.png" height="30px" width="30px"> </a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="CCTV"> <img src="/static/icons/cctv.png" height="30px" width="30px"> </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"> </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"> </a>
                     </section>
                                 </div>
                 <div class="bus-price lobster-regular">
