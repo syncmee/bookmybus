@@ -10,7 +10,6 @@
   z-index: 9999; /* Always on top */
 }
 /* Bus Search  */
-
 #bus-search-form {
     display: flex;
     justify-content: center;
@@ -99,6 +98,21 @@ input::placeholder {
   font-style: normal;
 
 }
+.lobster-regular {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:220px;
+}
+.encode-sans {
+  font-family: "Encode Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 125;
+}
+
 /* Search Results */
 #search-results {
     display: flex;
@@ -139,6 +153,13 @@ container {
         .bus-details {
             display: flex;
             flex-direction: column;
+            .space-grotesk {
+              font-family: "Space Grotesk", sans-serif;
+              font-optical-sizing: auto;
+              font-weight: 300;
+              font-style: normal;
+            }
+
         }
 
         .bus-details h6 {
@@ -153,3 +174,15 @@ container {
             font-size: 1.2em;
             font-weight: bold;
         }
+
+footer {
+    position: sticky; /* Sticks the footer to the bottom of the page */
+    bottom: 0; /* Aligns the footer to the bottom */
+    width: 100%; /* Makes sure the footer spans the full width of the page */
+    background-color: rgba(255,255,255,0) !important; /* You can change this to match your design */
+    text-align: center; /* Centers the content of the footer */
+    padding: 10px 0; /* Adds padding for some breathing room */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for visual separation */
+    z-index: 1000; /* Ensures it stays above other elements */
+    margin-top: 30px
+}

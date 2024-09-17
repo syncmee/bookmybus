@@ -241,22 +241,30 @@ def dashboard(user):
         travel_time = get_distance_mapbox(api_key, origin, destination)
 
         # Example departure times in 24-hour format
-        departure_times = ['23:00', '02:30', '22:00', '06:00']  # List of departure times for each bus
+        departure_times = ['06:00','10:30','08:15','18:00', '16:45', '19:15']  # List of departure times for each bus
 
         # Define the bus list dynamically inside the route
         buses = []
         for departure_time in departure_times:
             # Calculate the arrival time
             departure_24, arrival_24, next_day = adjust_arrival_time(departure_time, travel_time)
+            # Define bus types based on departure time
+            if departure_time == '06:00' or departure_time == '18:00':
+                bus_type = 'Sleeper'; price = '₹3400'
+            elif departure_time == '10:30' or departure_time == '16:45':
+                bus_type = 'AC'; price = '₹2400'
+            elif departure_time == '08:15' or departure_time == '19:15':
+                bus_type = 'Non-AC'; price = '₹1400'
+
             bus = {
                 'busline': 'BookMyBus',
                 'departure_time': departure_24,  # Use the 24-hour format departure time
                 'arrival_time': [arrival_24.strip(), next_day.strip()],  # Format arrival time with next day indicator
                 'duration': travel_time,
                 'to': to_destination,
-                'price': '₹12,608',
+                'price': price,
                 'from': from_destination,
-                'type': 'Non-AC Bus' if departure_time == '23:00' or '02:30' else 'AC Bus',
+                'type': bus_type,
                 'date': travel_date
             }
             buses.append(bus)

@@ -156,6 +156,7 @@
 
 </section>
 {% if show_details_form %}
+<hr class="hr hr-blurry" />
 <section id="bus-search">
       <div id="busDetails" class="container">
         <div class="p-5 text-center">
@@ -182,12 +183,28 @@
                     <h6>{{ bus.duration }}</h6>
                     <p>{{bus.date}}</p>
                 </div>
-                <div class="bus-details text-center" >
-                    <h5><strong>{{ bus.from }}<img src="/static/icons/img_2.png" style="height:40px;width: 150px;padding:5px">{{ bus.to }}</strong> </h5>
-                    <h6>{{ bus.type }}</h6>
-                </div>
-                <div class="bus-price">
-                     <button type="submit" class="btn btn-dark btn-lg" style="padding-left: 20px">⮞ {{ bus.price }}</button></br>
+                <div class="bus-details text-center encode-sans" >
+                    <h4>{{ bus.from.upper() }}<img src="/static/icons/right-arrow.png" style="height:40px;width: 150px">{{ bus.to.upper() }}</h4>
+                    {% if bus.type == "Non-AC" %}
+                        <img src="/static/icons/nonac.png" height="40px" width="300" style="margin-bottom:8px" data-mdb-tooltip-init data-mdb-placement="right" title="Basic travel, no air conditioning">
+                    {% elif bus.type == "AC" %}
+                        <img src="/static/icons/ac.png" height="40px" width="300" style="margin-bottom:8px"data-mdb-tooltip-init data-mdb-placement="right" title="Comfortable travel with air-conditioned">
+                    {% elif bus.type == "Sleeper" %}
+                        <img src="/static/icons/acsleeper.png" height="40px" width="300" style="margin-bottom:8px"data-mdb-tooltip-init data-mdb-placement="right" title="Luxury travel with sleeper seats">
+                    {% endif %}
+
+                    <!-- Footer -->
+
+                    <section>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Blankets"> <img src="/static/icons/blanket.png" height="30px" width="30px"> </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="CCTV"> <img src="/static/icons/cctv.png" height="30px" width="30px"> </a>
+                    </section>
+                                </div>
+                <div class="bus-price lobster-regular">
+                    <button type="submit" class="btn btn-danger btn-lg" style="padding-left: 20px"><strong> {{ bus.price }} </strong></button></br>
                 </div>
 
             </div>
