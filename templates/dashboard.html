@@ -184,28 +184,100 @@
                     <p>{{bus.date}}</p>
                 </div>
                 <div class="bus-details text-center encode-sans" >
-<!--                    <h4>{{ bus.from.upper() }} <img src="/static/icons/Busanimation.gif" width="100" height="50" > {{ bus.to.upper() }}</h4>-->
-                    <h4> DEL <img src="/static/icons/Busanimation.gif" width="120" height="50" > DAR </h4>
+                    <h4>{{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60" > {{ bus.to.upper() }}</h4>
                     {% if bus.type == "Non-AC" %}
                     <a data-mdb-tooltip-init data-mdb-placement="right" title="Basic travel, no air conditioning">Volvo 9600</a>
+                    <section id="non-ac">
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> </a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="CCTV"> <img src="/static/icons/cctv.png" height="30px" width="30px"> </a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Reading Light"> <img src="/static/icons/reading-light.png" height="30px" width="30px"> </a>
+                    </section>
+
                     {% elif bus.type == "AC" %}
                     <a data-mdb-tooltip-init data-mdb-placement="right" title="Comfortable travel with air-conditioned">Volvo 1200x AC</a>
+                    <section id="accordion-ac">
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Comfortable Seats"> <img src="/static/icons/comfort-seats.png" height="30px" width="30px"></a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Leg Rest"> <img src="/static/icons/leg-rest.png" height="30px" width="30px"></a>
+
+                    <button
+                    data-mdb-collapse-init
+                    class="btn btn-light"
+                    type="button"
+                    data-mdb-target="#collapseAc"
+                    aria-expanded="false"
+                    aria-controls="collapseAc"
+                    >
+                    <i class="fas fa-circle-chevron-down fa-lg"></i> 6
+                    </button>
+
+                    <div id="collapseAc" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+                    <div class="accordion-body">
+                    <section id="ac">
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> Charging Port | </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> Water | </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> Track My Bus | </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="CCTV"> <img src="/static/icons/cctv.png" height="30px" width="30px"> CCTV | </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"> Wi-Fi </a>
+                    </BR>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"> Snacks | </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Comfortable Seats"> <img src="/static/icons/comfort-seats.png" height="30px" width="30px"> Comfortable Seats |</a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Reading Light"> <img src="/static/icons/reading-light.png" height="30px" width="30px"> Reading Light |</a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Blankets"> <img src="/static/icons/blanket.png" height="30px" width="30px"> Blankets | </a>
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Leg Rest"> <img src="/static/icons/leg-rest.png" height="30px" width="30px"> Leg Rest </a>
+                    </section>
+                    </div>
+                    </div>
+                    </section>
+
+
                     {% elif bus.type == "Sleeper" %}
                     <a data-mdb-tooltip-init data-mdb-placement="right" title="Luxury travel with sleeper seats">Scania Multi-Axle AC Sleeper </a>
+                    <section id="accordion-sleeper">
+                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Onboard Entertainment"> <img src="/static/icons/onboard-entertainment.png" height="30px" width="30px"></a>
+                        <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Bed"> <img src="/static/icons/bed.png" height="30px" width="30px"></a>
+
+                          <button
+                            data-mdb-collapse-init
+                            class="btn btn-light"
+                            type="button"
+                            data-mdb-target="#collapseSleeper"
+                            aria-expanded="false"
+                            aria-controls="collapseOne"
+                          >
+                            <i class="fas fa-circle-chevron-down fa-lg"></i> 10
+                          </button>
+
+                        <div id="collapseSleeper" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+                          <div class="accordion-body">
+                           <section id="sleeper">
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> Charging Port | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> Water | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> Track My Bus | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Blankets"> <img src="/static/icons/blanket.png" height="30px" width="30px"> Blankets | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="CCTV"> <img src="/static/icons/cctv.png" height="30px" width="30px"> CCTV | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"> Wi-Fi | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Reading Light"> <img src="/static/icons/reading-light.png" height="30px" width="30px"> Reading Light </a>
+                                </BR>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"> Snacks | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Restroom"> <img src="/static/icons/restroom.png" height="30px" width="30px"> Restroom | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Bedsheet"> <img src="/static/icons/bedsheet.png" height="30px" width="30px"> Bedsheets | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Onboard Entertainment"> <img src="/static/icons/onboard-entertainment.png" height="30px" width="30px"> Onboard Entertainment | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Privacy Curtains"> <img src="/static/icons/curtains.png" height="30px" width="30px"> Curtains | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Bed"> <img src="/static/icons/bed.png" height="30px" width="30px"> Bed | </a>
+                            <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Headset"> <img src="/static/icons/headset.png" height="30px" width="30px"> Headset </a>
+                            </section>
+                        </div>
+                      </div>
+                    </section>
                     {% endif %}
 
-                    <!-- Footer -->
-
-                    <section>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> </a>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Blankets"> <img src="/static/icons/blanket.png" height="30px" width="30px"> </a>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="CCTV"> <img src="/static/icons/cctv.png" height="30px" width="30px"> </a>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"> </a>
-                    <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"> </a>
-                    </section>
-                                </div>
+                </div>
                 <div class="bus-price lobster-regular">
                     <button type="submit" class="btn btn-danger btn-lg" style="padding-left: 20px"><strong> {{ bus.price }} </strong></button></br>
                 </div>
