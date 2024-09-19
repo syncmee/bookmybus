@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import smtplib
+import smtplib, random
 import requests
 from datetime import datetime, timedelta
 
@@ -250,11 +250,11 @@ def dashboard(user):
             departure_24, arrival_24, next_day = adjust_arrival_time(departure_time, travel_time)
             # Define bus types based on departure time
             if departure_time == '06:00' or departure_time == '18:00':
-                bus_type = 'Sleeper'; price = '₹3400'
+                bus_type = 'Sleeper'; price = '₹' + str(random.choice(range(1401,2500)))
             elif departure_time == '10:30' or departure_time == '16:45':
-                bus_type = 'AC'; price = '₹2400'
+                bus_type = 'AC'; price = '₹' + str(random.choice(range(1001,1900)))
             elif departure_time == '08:15' or departure_time == '19:15':
-                bus_type = 'Non-AC'; price = '₹1400'
+                bus_type = 'Non-AC'; price = '₹' + str(random.choice(range(700,1400)))
 
             bus = {
                 'busline': 'BookMyBus',

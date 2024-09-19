@@ -165,7 +165,7 @@
         </div>
 
         {% for bus in buses %}
-        <div class="bus-card" id="bus-card">
+        <div class="bus-card" id="bus-card-{{buses.index(bus)}}">
             <div class="bus-info">
                 <div class="bus-details">
 
@@ -184,9 +184,9 @@
                     <p>{{bus.date}}</p>
                 </div>
                 <div class="bus-details text-center encode-sans" >
-                    <h4>{{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60" > {{ bus.to.upper() }}</h4>
+                    <h1> {{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60"> {{ bus.to.upper() }} </h1>
                     {% if bus.type == "Non-AC" %}
-                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Basic travel, no air conditioning">Volvo 9600</a>
+                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC"><img src="/static/logos/scania.png"></a>
                     <section id="non-ac">
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
@@ -196,25 +196,21 @@
                     </section>
 
                     {% elif bus.type == "AC" %}
-                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Comfortable travel with air-conditioned">Volvo 1200x AC</a>
-                    <section id="accordion-ac">
+                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus"><img src="/static/logos/benz.png" > </a>
+                    <section id="accordion-ac-{{buses.index(bus)}}">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Comfortable Seats"> <img src="/static/icons/comfort-seats.png" height="30px" width="30px"></a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Leg Rest"> <img src="/static/icons/leg-rest.png" height="30px" width="30px"></a>
 
-                    <button
-                    data-mdb-collapse-init
-                    class="btn btn-light"
-                    type="button"
-                    data-mdb-target="#collapseAc"
+                    <i class="fas fa-circle-chevron-down fa-lg" data-mdb-collapse-init
+                    data-mdb-target="#collapseAc-{{buses.index(bus)}}"
                     aria-expanded="false"
-                    aria-controls="collapseAc"
-                    >
-                    <i class="fas fa-circle-chevron-down fa-lg"></i> 6
-                    </button>
+                    aria-controls="collapseAc-{{buses.index(bus)}}"
+                    data-mdb-tooltip-init data-mdb-placement="right" title="Amenities"></i> 6
 
-                    <div id="collapseAc" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+
+                    <div id="collapseAc-{{buses.index(bus)}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
                     <div class="accordion-body">
                     <section id="ac">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> Charging Port | </a>
@@ -235,25 +231,20 @@
 
 
                     {% elif bus.type == "Sleeper" %}
-                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Luxury travel with sleeper seats">Scania Multi-Axle AC Sleeper </a>
+                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus"><img src="/static/logos/volvo.png"></a>
                     <section id="accordion-sleeper">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Onboard Entertainment"> <img src="/static/icons/onboard-entertainment.png" height="30px" width="30px"></a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Bed"> <img src="/static/icons/bed.png" height="30px" width="30px"></a>
 
-                          <button
-                            data-mdb-collapse-init
-                            class="btn btn-light"
-                            type="button"
-                            data-mdb-target="#collapseSleeper"
-                            aria-expanded="false"
-                            aria-controls="collapseOne"
-                          >
-                            <i class="fas fa-circle-chevron-down fa-lg"></i> 10
-                          </button>
+                        <i class="fas fa-circle-chevron-down fa-lg" data-mdb-collapse-init
+                        data-mdb-target="#collapseSleeper-{{buses.index(bus)}}"
+                        aria-expanded="false"
+                        aria-controls="collapseSleeper-{{buses.index(bus)}}"
+                        data-mdb-tooltip-init data-mdb-placement="right" title="Amenities"></i> 10
 
-                        <div id="collapseSleeper" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+                        <div id="collapseSleeper-{{buses.index(bus)}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
                           <div class="accordion-body">
                            <section id="sleeper">
                             <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> Charging Port | </a>
@@ -286,6 +277,96 @@
         </div>
         {% endfor %}
     </div>
+</section>
+
+<section id="footer" style="margin-top:100px">
+    <!-- Footer -->
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+            <img src="/static/logos/bmb_logo-nobg.png" width="200px">
+          <p>
+ Our secure and straightforward booking process ensures that planning your travel is hassle-free. Whether you're commuting for work or planning a getaway, BookMyBus makes your journey smoother.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Policies
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Booking Policy</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Cancellation Policy</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Terms and Conditions</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Company Details</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+              Links
+          </h6>
+          <p>
+            <a href="/#pricing" class="text-reset" target="_blank">Pricing</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Settings</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Orders</a>
+          </p>
+          <p>
+            <a href="/#about" class="text-reset" target="_blank">Help</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> New Delhi, 110001, IN</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            bookmybus.info@gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 91 881 045 9229</p>
+          <p> <i class="fas fa-hashtag" style="padding-right:20px"></i>
+        <a href="https://www.facebook.com/rohit.talukdar.54" class="facebook" target="_blank" style="padding-right:5px"><i class="fab fa-facebook fa-lg" ></i></a>
+        <a href="https://www.instagram.com/rohittalukdarr/" class="instagram" target="_blank"><i class="fab fa-instagram fa-lg"style="padding-right:5px"></i></a>
+        <a href="https://github.com/syncmee/" class="github" target="_blank"><i class="fab fa-github fa-lg"style="padding-right:5px"></i></a>
+        <a href="https://www.linkedin.com/in/rohittalukdar/" class="linkedin" target="_blank"><i class="fab fa-linkedin fa-lg"style="padding-right:5px"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rtalukdar2002@gmail.com" class="google" target="_blank"style="padding-right:5px"><i class="fab fa-google fa-lg"></i></i></a>
+        </p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+</footer>
+<!-- Footer -->
 </section>
 {% endif %}
 
