@@ -186,7 +186,7 @@
                 <div class="bus-details text-center encode-sans" >
                     <h1> {{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60"> {{ bus.to.upper() }} </h1>
                     {% if bus.type == "Non-AC" %}
-                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC"><img src="/static/logos/scania.png"></a>
+                    <a ><img src="/static/logos/scania.png"data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC Bus"></a>
                     <section id="non-ac">
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
@@ -196,7 +196,7 @@
                     </section>
 
                     {% elif bus.type == "AC" %}
-                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus"><img src="/static/logos/benz.png" > </a>
+                    <a><img src="/static/logos/benz.png" data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus"> </a>
                     <section id="accordion-ac-{{buses.index(bus)}}">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
@@ -231,7 +231,7 @@
 
 
                     {% elif bus.type == "Sleeper" %}
-                    <a data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus"><img src="/static/logos/volvo.png"></a>
+                    <a><img src="/static/logos/volvo.png"  data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus"></a>
                     <section id="accordion-sleeper">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
