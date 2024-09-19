@@ -281,18 +281,18 @@ def dashboard(user):
 def passenger_info():
     # Get bus details from the form submission
     print(request.form)
-    bus_details = {
-        'bus_id': request.form['bus_id'],
-        'departure_time': request.form['departure_time'],
-        'arrival_time': request.form['arrival_time'],
-        'date': request.form['date'],
-        'from': request.form['from'],
-        'to': request.form['to'],
-        'price': request.form['price']
-    }
+    bus_id = request.form.get('bus_id')
+    departure_time = request.form.get('departure_time')
+    arrival_time = request.form.get('arrival_time')
+    date = request.form.get('date')
+    from_city = request.form.get('from')
+    to_city = request.form.get('to')
+    price = request.form.get('price')
+    user = request.form.get('user')
 
     # Render the passenger info page with bus details
-    return render_template('passenger_info.html', bus_details=bus_details)
+    return render_template('passenger_info.html', user=user, bus_id=bus_id, departure_time=departure_time,
+                           arrival_time=arrival_time, date=date, from_city=from_city, to_city=to_city, price=price)
 
 
 @login_manager.unauthorized_handler

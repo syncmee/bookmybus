@@ -1,0 +1,76 @@
+ #bus-seats {
+      display: grid;
+      grid-template-columns: repeat(10, 40px);
+      gap: 10px;
+
+    }
+
+    .seat {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .available {
+      background-image: url('/static/icons/bus_seat_available.png'); /* Replace with your image path */
+      background-size: cover; /* Adjusts the size of the background image */
+      background-position: center; /* Centers the background image */
+    }
+
+    .booked {
+      background-image: url('/static/icons/bus_seat_booked.png'); /* Replace with your image path */
+      background-size: cover; /* Adjusts the size of the background image */
+      background-position: center; /* Centers the background image */
+      cursor: not-allowed;
+    }
+
+    .selected {
+      background-image: url('/static/icons/bus_seat_selected.png'); /* Replace with your image path */
+      background-size: cover; /* Adjusts the size of the background image */
+      background-position: center; /* Centers the background image */
+    }
+    .custom-modal-size {
+    max-width: 65%; /* Adjust width as needed */
+    max-height: 100vh; /* Adjust height as needed */
+    margin-left: 30px;
+    }
+
+    .custom-modal-body {
+        overflow-y: auto; /* Adds scroll if content overflows */
+    }
+
+      #bus-sleeper {
+      display: grid;
+      grid-template-columns: repeat(8, 80px); /* Adjust the column width */
+      gap: 10px;
+
+    }
+
+    .sleeper {
+      width: 80px;
+      height: 40px;
+
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .sleeper-available {
+      background-image: url('/static/icons/sleeper-available.png'); /* Replace with your image path */
+      background-size: cover; /* Adjusts the size of the background image */
+      background-position: center; /* Centers the background image */
+    }
+
+    .sleeper-booked {
+      background-image: url('/static/icons/sleeper-booked.png'); /* Replace with your image path */
+      background-size: cover; /* Adjusts the size of the background image */
+      background-position: center; /* Centers the background image */
+      cursor: not-allowed;
+    }
+
+    .sleeper-selected {
+      background-image: url('/static/icons/sleeper-selected.png'); /* Replace with your image path */
+      background-size: cover; /* Adjusts the size of the background image */
+      background-position: center; /* Centers the background image */
+    }

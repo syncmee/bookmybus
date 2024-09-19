@@ -21,7 +21,7 @@
 </div>
 
 <div class="bg-image"
-     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+     style="background-image: url('{{ url_for('static', filename='images/bg.jpg') }}');
             min-height: 100vh">
 
 <section id="header" style="background-color: white;">
@@ -165,7 +165,7 @@
         </div>
 
         {% for bus in buses %}
-      <form action="{{ url_for('passenger_info') }}" method="post">
+      <form action="{{ url_for('passenger_info', user=user) }}" method="post">
         <div class="bus-card" id="bus-card-{{buses.index(bus)}}">
             <div class="bus-info">
                 <div class="bus-details">
@@ -284,6 +284,7 @@
         <input type="hidden" name="from" value="{{ bus.from }}">
         <input type="hidden" name="to" value="{{ bus.to }}">
         <input type="hidden" name="price" value="{{ bus.price }}">
+        <input type="hidden" name="user" value="{{ user }}">
         <!-- Add other hidden fields as needed -->
       </form>
         {% endfor %}
