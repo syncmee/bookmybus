@@ -165,6 +165,7 @@
         </div>
 
         {% for bus in buses %}
+      <form action="{{ url_for('passenger_info') }}" method="post">
         <div class="bus-card" id="bus-card-{{buses.index(bus)}}">
             <div class="bus-info">
                 <div class="bus-details">
@@ -275,6 +276,16 @@
 
             </div>
         </div>
+          <!-- Hidden inputs to pass bus details to the next page -->
+        <input type="hidden" name="bus_id" value="{{ bus.duration }}">
+        <input type="hidden" name="departure_time" value="{{ bus.departure_time }}">
+        <input type="hidden" name="arrival_time" value="{{ bus.arrival_time }}">
+        <input type="hidden" name="date" value="{{ bus.date }}">
+        <input type="hidden" name="from" value="{{ bus.from }}">
+        <input type="hidden" name="to" value="{{ bus.to }}">
+        <input type="hidden" name="price" value="{{ bus.price }}">
+        <!-- Add other hidden fields as needed -->
+      </form>
         {% endfor %}
     </div>
 </section>

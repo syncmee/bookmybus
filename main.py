@@ -277,6 +277,24 @@ def dashboard(user):
 
 
 
+@app.route('/passenger_info', methods=['POST'])
+def passenger_info():
+    # Get bus details from the form submission
+    print(request.form)
+    bus_details = {
+        'bus_id': request.form['bus_id'],
+        'departure_time': request.form['departure_time'],
+        'arrival_time': request.form['arrival_time'],
+        'date': request.form['date'],
+        'from': request.form['from'],
+        'to': request.form['to'],
+        'price': request.form['price']
+    }
+
+    # Render the passenger info page with bus details
+    return render_template('passenger_info.html', bus_details=bus_details)
+
+
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     flash('Please Login First.', 'warning')
