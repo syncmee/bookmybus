@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib, random
 import requests
+import gunicorn
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
@@ -269,6 +270,7 @@ def dashboard(user):
             }
             buses.append(bus)
 
+
         return render_template("dashboard.html", user=user, show_details_form=True,
                                from_destination=from_destination, to_destination=to_destination,
                                travel_date=travel_date, buses=buses, VALID_DESTINATIONS=VALID_DESTINATIONS)
@@ -278,6 +280,7 @@ def dashboard(user):
 
 
 @app.route('/passenger_info', methods=['POST'])
+@login_required
 def passenger_info():
     # Get bus details from the form submission
     print(request.form)
