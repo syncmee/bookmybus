@@ -17,30 +17,52 @@
 <section id="header">
   <div class="header" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
     <div class="container">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
-        <div class="col-md-3 ">
-          <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img src="static/logos/bmb_header.gif" height="50">
+      <!-- Updated navbar section -->
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+          <!-- Logo -->
+          <a class="navbar-brand" href="/">
+            <img src="static/logos/bmb_header.gif" height="50" alt="BookMyBus Logo">
           </a>
-        </div>
+          
+          <!-- Toggler/collapsible Button -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <!-- Navbar links -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link px-2 link-body-emphasis" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2 link-body-emphasis" href="#destinations">Destinations</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2 link-body-emphasis" href="#features">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2 link-body-emphasis" href="#pricing">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2 link-body-emphasis" href="#about">About</a>
+              </li>
+            </ul>
+          </div>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#home" class="nav-link px-2 link-body-emphasis">Home</a></li>
-          <li><a href="#destinations" class="nav-link px-2 link-body-emphasis">Destinations</a></li>
-          <li><a href="#features" class="nav-link px-2 link-body-emphasis">Features</a></li>
-          <li><a href="#pricing" class="nav-link px-2 link-body-emphasis">Pricing</a></li>
-          <li><a href="#about" class="nav-link px-2 link-body-emphasis">About</a></li>
-        </ul>
-
-        <div class="col-md-3 text-end">
-          <a href="{{ url_for('login') }}">
-            <button type="button" class="btn btn-dark">Login</button>
-          </a>
+          <!-- Login Button -->
+          <div class="text-end">
+            <a href="{{ url_for('login') }}">
+              <button type="button" class="btn btn-dark">Login</button>
+            </a>
+          </div>
         </div>
-      </header>
+      </nav>
     </div>
   </div>
 </section>
+
 <!-- Home -->
 <section id="home">
   <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-aos="fade-down" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
