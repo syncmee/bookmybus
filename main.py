@@ -8,18 +8,19 @@ import gunicorn
 import ast
 import os
 from datetime import datetime, timedelta
+import psycopg2
 from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')   # Necessary for session management
+app.secret_key = "your_secret_key"  # Necessary for session management
 
 # Email-Setup
-mail = os.getenv('MAIL_USERNAME')
-mail_password = os.getenv('MAIL_PASSWORD')
+mail = 'bookmybus.info@gmail.com'
+mail_password = 'qprp xuxk gaml bdca'
 
 # Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///userdata.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -41,7 +42,7 @@ VALID_DESTINATIONS = {
 }
 
 # Mapbox API key
-api_key = os.getenv('MAPBOX_API_KEY')
+api_key = 'pk.eyJ1Ijoic3luY21lIiwiYSI6ImNtMTNrdzdzdzB2YXIyanMxaHMzZmZzamwifQ.8KxUY8AEe-zwc8ACUmEWtw'
 
 # Define city coordinates for Mapbox Directions API
 city_coordinates = {
@@ -326,7 +327,7 @@ def ticket_confirmation():
     departure_time = request.form.get('departure_time')
     arrival_time = request.form.get('arrival_time')
     date = request.form.get('date')
-
+    seat_count = request.form.get('seat_count')
     # Here, you can process the booking (e.g., save to the database, send email confirmation, etc.)
 
     # Render the ticket confirmation page
@@ -334,7 +335,7 @@ def ticket_confirmation():
                            email=email, address=address, country=country, state=state,
                            zip_code=zip, total_price=total_price, bus_type=bus_type,
                            from_city=from_city, to_city=to_city,
-                           departure_time=departure_time, arrival_time=arrival_time, date=date)
+                           departure_time=departure_time, arrival_time=arrival_time, date=date,seat_count=seat_count)
 
 
 
