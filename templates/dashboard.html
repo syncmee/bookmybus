@@ -17,7 +17,7 @@
 </head>
 <body>
 <div id="loading">
-<img src="/static/logos/loading_logo.gif" alt="Loading..." width="500px" height="500px" >
+<img src="/static/logos/loading_logo.gif" alt="Loading..." class="img-fluid" >
 </div>
 
 <div class="bg-image"
@@ -187,7 +187,8 @@
                 <div class="bus-details text-center encode-sans" >
                     <h1> {{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60"> {{ bus.to.upper() }} </h1>
                     {% if bus.type == "Non-AC" %}
-                    <a ><img src="/static/logos/scania.png"data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC Bus"></a>
+                    <a ><img src="/static/logos/scania.png"data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC Bus">
+                     <input type="hidden" name="bus_type" value="Volvo 9600x AC Sleeper Bus"></a>
                     <section id="non-ac">
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
@@ -197,7 +198,8 @@
                     </section>
 
                     {% elif bus.type == "AC" %}
-                    <a><img src="/static/logos/benz.png" data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus"> </a>
+                    <a><img src="/static/logos/benz.png" data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus">
+                    <input type="hidden" name="bus_type" value="Mercedes-Benz Super A40/AC Bus"></a>
                     <section id="accordion-ac-{{buses.index(bus)}}">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>
@@ -232,7 +234,8 @@
 
 
                     {% elif bus.type == "Sleeper" %}
-                    <a><img src="/static/logos/volvo.png"  data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus"></a>
+                    <a><img src="/static/logos/volvo.png"  data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus">
+                    <input type="hidden" name="bus_type" value="Volvo 9600x AC Sleeper Bus"></a>
                     <section id="accordion-sleeper">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Wi-Fi"> <img src="/static/icons/wifi.png" height="30px" width="30px"></a>

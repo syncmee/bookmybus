@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib, random
 import requests
 import gunicorn
+import ast
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
@@ -251,9 +252,9 @@ def dashboard(user):
             departure_24, arrival_24, next_day = adjust_arrival_time(departure_time, travel_time)
             # Define bus types based on departure time
             if departure_time == '06:00' or departure_time == '18:00':
-                bus_type = 'Sleeper'; price = '₹' + str(random.choice(range(1401,2500)))
+                bus_type = 'Sleeper'; price = '₹' + str(random.choice(range(1701,3000)))
             elif departure_time == '10:30' or departure_time == '16:45':
-                bus_type = 'AC'; price = '₹' + str(random.choice(range(1001,1900)))
+                bus_type = 'AC'; price = '₹' + str(random.choice(range(1001,1700)))
             elif departure_time == '08:15' or departure_time == '19:15':
                 bus_type = 'Non-AC'; price = '₹' + str(random.choice(range(700,1400)))
 
@@ -286,16 +287,52 @@ def passenger_info():
     print(request.form)
     bus_id = request.form.get('bus_id')
     departure_time = request.form.get('departure_time')
-    arrival_time = request.form.get('arrival_time')
+    a_time = request.form.get('arrival_time')
     date = request.form.get('date')
     from_city = request.form.get('from')
     to_city = request.form.get('to')
     price = request.form.get('price')
     user = request.form.get('user')
+    bus_type = request.form.get('bus_type')
+    string_atime = a_time
+    sp = int(price.replace('₹', '').replace(',', '').strip())
+    seat_price = sp
+# Convert the string to a list
+    arrival_time = ast.literal_eval(string_atime)
+
 
     # Render the passenger info page with bus details
     return render_template('passenger_info.html', user=user, bus_id=bus_id, departure_time=departure_time,
-                           arrival_time=arrival_time, date=date, from_city=from_city, to_city=to_city, price=price)
+                           arrival_time=arrival_time, date=date, from_city=from_city, to_city=to_city, price=price,seat_price=seat_price,bus_type=bus_type)
+
+@app.route('/ticket_confirmation', methods=['POST'])
+@login_required
+def ticket_confirmation():
+    # Get all the details from the form submission
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email = request.form.get('email')
+    address = request.form.get('address')
+    country = request.form.get('country')
+    state = request.form.get('state')
+    zip = request.form.get('zip')
+    total_price = request.form.get('total_price')
+    bus_type = request.form.get('bus_type')
+    from_city = request.form.get('from_city')
+    to_city = request.form.get('to_city')
+    departure_time = request.form.get('departure_time')
+    arrival_time = request.form.get('arrival_time')
+    date = request.form.get('date')
+
+    # Here, you can process the booking (e.g., save to the database, send email confirmation, etc.)
+
+    # Render the ticket confirmation page
+    return render_template('ticket_confirmation.html', first_name=first_name, last_name=last_name,
+                           email=email, address=address, country=country, state=state,
+                           zip_code=zip, total_price=total_price, bus_type=bus_type,
+                           from_city=from_city, to_city=to_city,
+                           departure_time=departure_time, arrival_time=arrival_time, date=date)
+
 
 
 @login_manager.unauthorized_handler
