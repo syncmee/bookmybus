@@ -6,17 +6,20 @@ import smtplib, random
 import requests
 import gunicorn
 import ast
+import os
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Necessary for session management
+app.secret_key = os.getenv('SECRET_KEY')   # Necessary for session management
 
 # Email-Setup
-mail = "bookmybus.info@gmail.com"
-mail_password = "qprp xuxk gaml bdca"
+mail = os.getenv('MAIL_USERNAME')
+mail_password = os.getenv('MAIL_PASSWORD')
 
 # Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///userdata.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -38,7 +41,7 @@ VALID_DESTINATIONS = {
 }
 
 # Mapbox API key
-api_key = "pk.eyJ1Ijoic3luY21lIiwiYSI6ImNtMTNrdzdzdzB2YXIyanMxaHMzZmZzamwifQ.8KxUY8AEe-zwc8ACUmEWtw"
+api_key = os.getenv('MAPBOX_API_KEY')
 
 # Define city coordinates for Mapbox Directions API
 city_coordinates = {
