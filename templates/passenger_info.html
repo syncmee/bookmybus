@@ -74,23 +74,20 @@
   </header>
 </section>
 <!--Display Flash message-->
-<div class="container">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-dismissible fade show alert-{{ category }}" role="alert">
-            <strong>{{ message }}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-</div>
+     <div class="container" style="margin-top: 30px">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-dismissible fade show alert-{{ category }}" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
 
-
-
-
-<div class="container" bis_skin_checked="1" style="background: white;margin-bottom:100px ;margin-top:50px; padding-left: 30px; padding-right: 30px;padding-bottom: 30px; border-radius: 40px; border: 2px solid black;
+<div class="container" bis_skin_checked="1" style="background: white;margin-bottom:100px ;margin-top:50px; padding-left: 30px; padding-right: 30px;padding-bottom: 100px; border-radius: 40px; border: 2px solid black;
     border-color: black;">
   <form method="POST" action="{{ url_for('ticket_confirmation', user=user) }}" class="needs-validation was-validated">
   <main>
@@ -98,7 +95,6 @@
       <img src="static/logos/bmb_logo-nobg.png" style="margin-bottom: 30px; height: 50px">
       <button type="button" class="btn btn-dark btn-lg col-12" data-mdb-ripple-init disabled style="margin-bottom: 10px">{{from_city}} ➜ {{to_city}}</button>
     </div>
-
     <div class="row g-5" bis_skin_checked="1">
       <div class="col-md-5 col-lg-4 order-md-last" bis_skin_checked="1">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -109,7 +105,7 @@
             <div bis_skin_checked="1">
               <h6 class="my-0">Adults</h6>
             </div>
-            <span class="text-body-secondary" id="seatCount" name="seat_count">1</span>
+            <span class="text-body-secondary" id="seatCount" name="seat_count">0</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div bis_skin_checked="1">
@@ -232,7 +228,7 @@
               <label for="age" class="form-label ">Age</label>
               <select class="form-select" id="age" name="age" required="">
                 <option value="">Choose...</option>
-                {% for age in range(1,100) %}
+                {% for age in range(18,91) %}
                 <option>{{age}}</option>
                 {% endfor %}
               </select>
@@ -248,6 +244,9 @@
           <input type="hidden" name="departure_time" value="{{ departure_time }}">
           <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
           <input type="hidden" name="date" value="{{ date }}">
+          <input type="hidden" id="selectedSeats" name="selected_seats" value="">
+          <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
+
 
 </form>
 </div>

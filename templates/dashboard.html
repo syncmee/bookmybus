@@ -17,7 +17,7 @@
 </head>
 <body>
 <div id="loading">
-<img src="/static/logos/loading_logo.gif" alt="Loading..." class="img-fluid" >
+<img src="/static/logos/loading_logo.gif" alt="Loading..." class="img-fluid">
 </div>
 
 <div class="bg-image"
@@ -35,13 +35,13 @@
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
-              <a href="/" class="nav-link text-black">
+              <a href="{{ url_for('dashboard', user=user) }}" class="nav-link text-black">
                 <i class="fas fa-house"></i>
                 Home
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-black">
+              <a href="{{ url_for('bookings', user=user) }}" class="nav-link text-black">
                 <i class="fas fa-ticket"></i>
                   My Tickets
               </a>

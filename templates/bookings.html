@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="static/scripts/styles.css">
+</head>
+<body>
+    <h1>My Bookings</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>PNR</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Date</th>
+                <th>Bus Type</th>
+                <th>Booked On</th>
+                <th>Seat Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.pnr }}</td>
+                <td>{{ booking.first_name }}</td>
+                <td>{{ booking.last_name }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ booking.from_city }}</td>
+                <td>{{ booking.to_city }}</td>
+                <td>{{ booking.departure_time }}</td>
+                <td>{{ booking.arrival_time }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.bus_type }}</td>
+                <td>{{ booking.booking_date}}</td>
+                <td>{{ booking.seat_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

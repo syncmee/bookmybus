@@ -29,6 +29,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # Redirect to login page if unauthorized access
 
+# PNR Generator
+
+
 # Destinations for Ticket-Booking
 VALID_DESTINATIONS = {
     'from': ["Agra", "Mumbai", "Jaipur", "Delhi", "Bengaluru", "Hyderabad", "Chennai",
@@ -143,6 +146,28 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+
+class TicketBooking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign key linking to the User table
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    address = db.Column(db.Text, nullable=False)
+    country = db.Column(db.String(100), nullable=False)
+    state = db.Column(db.String(100), nullable=False)
+    pnr = db.Column(db.String(20), nullable=False)
+    bus_type = db.Column(db.String(50), nullable=False)
+    from_city = db.Column(db.String(100), nullable=False)
+    to_city = db.Column(db.String(100), nullable=False)
+    departure_time = db.Column(db.String, nullable=False)
+    arrival_time = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    booking_date = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
+
+    # Relationship to link back to User
+    user = db.relationship('User', backref=db.backref('bookings', lazy=True))
 
 # Flask-Login user loader function
 @login_manager.user_loader
@@ -303,6 +328,8 @@ def passenger_info():
     seat_price = sp
 # Convert the string to a list
     arrival_time = ast.literal_eval(string_atime)
+    flash('Please Choose Your Seats', 'danger')
+    # Here, you can process the booking (e.g., save to the database, send email confirmation, etc.)
 
 
     # Render the passenger info page with bus details
@@ -320,24 +347,66 @@ def ticket_confirmation():
     country = request.form.get('country')
     state = request.form.get('state')
     zip = request.form.get('zip')
-    total_price = request.form.get('total_price')
     bus_type = request.form.get('bus_type')
     from_city = request.form.get('from_city')
     to_city = request.form.get('to_city')
     departure_time = request.form.get('departure_time')
     arrival_time = request.form.get('arrival_time')
     date = request.form.get('date')
-    seat_count = request.form.get('seat_count')
-    # Here, you can process the booking (e.g., save to the database, send email confirmation, etc.)
+    selected_seats = request.form.get('selected_seats')
+    selected_seat_count = request.form.get('selected_seat_count')
+    age = request.form.get('age')
+    digit_4 = random.choice(range(1000, 9999))
+    pnr = f"BMB{digit_4}"
+
+    # Check if a booking already exists for this user with the same details
+    existing_booking = TicketBooking.query.filter_by(
+        user_id=current_user.id,
+        from_city=from_city,
+        to_city=to_city,
+        departure_time=departure_time,
+        date=date
+    ).first()
+
+    if existing_booking:
+        flash('You have already booked a ticket for this journey!', 'warning')
+        return redirect(url_for('dashboard', user=current_user.name))
+
+    # Create a new TicketBooking record
+    new_booking = TicketBooking(
+        user_id=current_user.id,  # Reference to the current logged-in user
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+        address=address,
+        country=country,
+        state=state,
+        pnr=pnr,
+        bus_type=bus_type,
+        from_city=from_city,
+        to_city=to_city,
+        departure_time=departure_time,
+        arrival_time=arrival_time,
+        date=date,
+        age=age,
+
+    )
+
+    db.session.add(new_booking)
+    db.session.commit()
 
     # Render the ticket confirmation page
     return render_template('ticket_confirmation.html', first_name=first_name, last_name=last_name,
                            email=email, address=address, country=country, state=state,
-                           zip_code=zip, total_price=total_price, bus_type=bus_type,
+                           zip_code=zip, bus_type=bus_type,
                            from_city=from_city, to_city=to_city,
-                           departure_time=departure_time, arrival_time=arrival_time, date=date,seat_count=seat_count)
+                           departure_time=departure_time, arrival_time=arrival_time, date=date,selected_seats=selected_seats,selected_seat_count=selected_seat_count,age=age,pnr=pnr)
 
-
+@app.route('/dashboard/bookings')
+@login_required
+def bookings():
+    user_bookings = current_user.bookings  # Get all bookings for the logged-in user
+    return render_template('bookings.html', bookings=user_bookings)
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
