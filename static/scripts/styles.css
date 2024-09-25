@@ -1,3 +1,11 @@
+/* Ensure consistent box-sizing across elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Loading overlay */
 #loading {
   position: fixed;
   width: 100%;
@@ -9,19 +17,59 @@
   z-index: 9999; /* Always on top */
 }
 
+/* Media queries for responsiveness */
+@media (max-width: 576px) {
+  .carousel-caption h1 {
+    font-size: 1.5rem; /* Adjust heading size for mobile */
+  }
+  .carousel-caption p {
+    font-size: 1rem; /* Adjust paragraph size for mobile */
+  }
+  .btn-lg {
+    padding: 10px 20px; /* Adjust button size */
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .carousel-caption h1 {
+    font-size: 2rem; /* Slightly bigger heading for tablets */
+  }
+  .carousel-caption p {
+    font-size: 1.2rem; /* Slightly bigger paragraph size for tablets */
+  }
+  .btn-lg {
+    padding: 12px 24px; /* Adjust button size for tablets */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .carousel-caption h1 {
+    font-size: 2.5rem; /* Adjust heading size for small laptops */
+  }
+  .carousel-caption p {
+    font-size: 1.5rem; /* Adjust paragraph size */
+  }
+  .btn-lg {
+    padding: 15px 30px; /* Adjust button size */
+  }
+}
+
 html,
 body {
   height: 100%;
 }
+
+/* Sticky header for all platforms */
 .header {
   position: sticky;
-  top: 0; /* Makes the header stay at the top of the screen */
-  width: 100%; /* Ensures the header spans the full width of the viewport */
-  background-color: white; /* Optional: To ensure the header has a background color */
+  top: 0;
+  width: 100%;
+  background-color: white;
   opacity: 1;
-  z-index: 1000; /* Ensures the header stays above other content */
+  z-index: 1000; /* Ensure header stays on top */
 }
 
+/* Form styles for various platforms */
 .form-signin {
   max-width: 330px;
   padding: 1rem;
@@ -43,32 +91,60 @@ body {
   border-top-right-radius: 0;
 }
 
+/* Smooth scrolling for anchor links */
 :root {
   scroll-behavior: smooth;
 }
 
-.border-black-outline {
-    border: 1px solid black;
-}
+/* Input and textarea styles */
 input.form-control,
 textarea.form-control {
-    border: 2px solid black; /* Black border */
-    border-radius: 4px; /* Optional: Rounded corners */
-    padding: 10px; /* Adds some padding inside the input */
-    transition: border-color 0.3s ease-in-out; /* Smooth transition on focus */
+  border: 2px solid black; /* Black border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px;
+  transition: border-color 0.3s ease-in-out;
 }
 
+/* Custom black outline border */
+.border-black-outline {
+  border: 1px solid black;
+}
+
+/* Social links styling */
 .social-links a {
-    margin-right: 10px;
-    transition: color 0.3s ease; /* Smooth transition for color change */
+  margin-right: 10px;
+  transition: color 0.3s ease; /* Smooth transition for color change */
 }
-.social-links a.facebook { color: #3b5998; } /* Facebook blue */
-.social-links a.instagram { color: #E1306C; } /* Instagram pink */
-.social-links a.github { color: white; } /* Twitter blue */
-.social-links a.linkedin { color: #0077b5; } /* LinkedIn blue */
-.social-links a.google { color: #DB4437; } /* Google red */
 
-/* Optionally, add hover effects to make them lighter when hovered */
+.social-links a.facebook {
+  color: #3b5998;
+}
+
+.social-links a.instagram {
+  color: #E1306C;
+}
+
+.social-links a.github {
+  color: white;
+}
+
+.social-links a.linkedin {
+  color: #0077b5;
+}
+
+.social-links a.google {
+  color: #DB4437;
+}
+
+/* Hover effects for social links */
 .social-links a:hover {
-    opacity: 0.5; /* Make them slightly lighter on hover */
+  opacity: 0.5;
+}
+
+/* Optional reduced motion for performance on slower devices */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none;
+    transition: none;
+  }
 }
