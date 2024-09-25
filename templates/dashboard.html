@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book My Bus - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
@@ -25,55 +25,62 @@
             min-height: 100vh">
 
 <section id="header" style="background-color: white;">
-    <header>
-    <div class="px-3 py-2  border-bottom">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-           <img src="/static/logos/bmb_header.gif" height="50">
+  <div class="header" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
+    <div class="container-fluid">
+      <!-- Bootstrap Navbar -->
+      <header class="navbar navbar-expand-md d-flex flex-wrap align-items-center justify-content-between">
+        <!-- Logo Section -->
+        <div class="col-md-3">
+          <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="/static/logos/bmb_header.gif" height="50">
           </a>
+        </div>
 
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-            <li>
-              <a href="{{ url_for('dashboard', user=user) }}" class="nav-link text-black">
-                <i class="fas fa-house"></i>
-                Home
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible Navigation Menu -->
+        <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
+          <ul class="navbar-nav mb-2 mb-md-0">
+            <li class="nav-item">
+              <a href="{{ url_for('dashboard', user=user) }}" class="nav-link px-2 text-black">
+                <i class="fas fa-house"></i> Home
               </a>
             </li>
-            <li>
-              <a href="{{ url_for('bookings', user=user) }}" class="nav-link text-black">
-                <i class="fas fa-ticket"></i>
-                  My Tickets
+            <li class="nav-item">
+              <a href="{{ url_for('bookings', user=user) }}" class="nav-link px-2 text-black">
+                <i class="fas fa-ticket"></i> My Tickets
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-                <i class="fas fa-bars-progress"></i>
-                Check Status
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black">
+                <i class="fas fa-bars-progress"></i> Check Status
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-                <i class="far fa-address-card"></i>
-                Cancel Ticket
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black">
+                <i class="far fa-address-card"></i> Cancel Ticket
               </a>
             </li>
+            <!-- User Dropdown -->
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color:#A13333">
-                <i class="fas fa-user"></i>
-                {{ user.title() }}
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a></li>
-            </ul>
-          </li>
+              <a class="nav-link dropdown-toggle px-2" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color: #A13333;">
+                <i class="fas fa-user"></i> {{ user.title() }}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
-      </div>
+      </header>
     </div>
-  </header>
+  </div>
 </section>
+
 <!--Display Flash message-->
 <div class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -114,7 +121,7 @@
         </div>
 
         <!-- Swap Icon -->
-        <div class="bus-search-section">
+        <div class="bus-search-section d-none d-md-block">
             <div class="swap-icon">⇄</div>
         </div>
 
@@ -170,7 +177,7 @@
             <div class="bus-info">
                 <div class="bus-details">
 
-                    <h3> <img src="/static/logos/bmb_logo-nobg.png" width="150px" style="padding-right: 5px"></h3>
+                    <h3> <img src="/static/logos/bmb_logo-nobg.png" width="150px" style="padding-right: 5px" class="img-fluid"></h3>
                     <h6>
                       {{ bus.departure_time }} - {{ bus.arrival_time[0] }}
                       {% if '+1' in bus.arrival_time %}
@@ -185,9 +192,9 @@
                     <p>{{bus.date}}</p>
                 </div>
                 <div class="bus-details text-center encode-sans" >
-                    <h1> {{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60"> {{ bus.to.upper() }} </h1>
+                    <h1> {{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60" class="img-fluid"> {{ bus.to.upper() }} </h1>
                     {% if bus.type == "Non-AC" %}
-                    <a ><img src="/static/logos/scania.png"data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC Bus">
+                    <a ><img src="/static/logos/scania.png" class="img-fluid" data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC Bus">
                      <input type="hidden" name="bus_type" value="Volvo 9600x AC Sleeper Bus"></a>
                     <section id="non-ac">
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
@@ -198,7 +205,7 @@
                     </section>
 
                     {% elif bus.type == "AC" %}
-                    <a><img src="/static/logos/benz.png" data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus">
+                    <a><img src="/static/logos/benz.png" class="img-fluid" data-mdb-tooltip-init data-mdb-placement="right" title="Mercedes-Benz Super A40/AC Bus">
                     <input type="hidden" name="bus_type" value="Mercedes-Benz Super A40/AC Bus"></a>
                     <section id="accordion-ac-{{buses.index(bus)}}">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>
@@ -234,7 +241,7 @@
 
 
                     {% elif bus.type == "Sleeper" %}
-                    <a><img src="/static/logos/volvo.png"  data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus">
+                    <a><img src="/static/logos/volvo.png" class="img-fluid"  data-mdb-tooltip-init data-mdb-placement="right" title="Volvo 9600x AC Sleeper Bus">
                     <input type="hidden" name="bus_type" value="Volvo 9600x AC Sleeper Bus"></a>
                     <section id="accordion-sleeper">
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Snacks"> <img src="/static/icons/snacks.png" height="30px" width="30px"></a>

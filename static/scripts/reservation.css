@@ -9,7 +9,8 @@
   align-items: center;
   z-index: 9999; /* Always on top */
 }
-/* Bus Search  */
+
+/* Bus Search */
 #bus-search-form {
     display: flex;
     justify-content: center;
@@ -23,8 +24,6 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     padding: 15px;
     border: 2px solid black;
-    border-color: black;
-    /* Remove any flex properties specific to center alignment as they are handled by the parent */
 }
 
 .bus-search-section {
@@ -32,20 +31,20 @@
     align-items: center;
     padding: 10px 20px;
     border-right: 1px solid #ddd;
-        }
+}
 
 .bus-search-section:last-child {
     border-right: none;
-        }
+}
 
 .icon {
     margin-right: 10px;
-        }
+}
 
 .input-wrapper {
     display: flex;
     flex-direction: column;
-        }
+}
 
 input, .date-input {
     border: none;
@@ -53,17 +52,17 @@ input, .date-input {
     font-size: 16px;
     color: #333;
     font-weight: 500;
-        }
+}
 
 .date-input {
     display: flex;
     flex-direction: column;
-        }
+}
 
 input::placeholder {
     font-weight: normal;
     color: #aaa;
-        }
+}
 
 .swap-icon {
     font-size: 20px;
@@ -84,105 +83,125 @@ input::placeholder {
 
 .search-btn:hover {
     background-color: #c0392b;
-        }
-
 }
+
 .flatpickr-input {
     border: none;
     outline: none;
 }
-.oswald-header {
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* Replace with desired weight */
-  font-style: normal;
+@media (max-width: 768px) {
+    .bus-search-container {
+        flex-direction: column; /* Stack the form vertically */
+        width: 80%; /* Ensure it fits within the screen */
+    }
+
+    .bus-search-section {
+        width: 100%; /* Full width for each section */
+        border-right: none; /* Remove borders that may look odd */
+        margin-bottom: 0px; /* Add spacing between sections */
+
+
+    }
+
+    .search-btn {
+        width: 100%; /* Make the button full width */
+        border-radius: 0 0 40px 40px; /* Adjust the border-radius for mobile */
+    }
+
+
+    }
 
 }
-.lobster-regular {
-  font-family: "Lobster", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size:220px;
+
+/* Typography */
+.oswald-header {
+    font-family: "Oswald", sans-serif;
+    font-weight: 400; /* Replace with desired weight */
+    font-style: normal;
 }
+
+.lobster-regular {
+    font-family: "Lobster", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 220px;
+}
+
 .encode-sans {
-  font-family: "Encode Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 125;
+    font-family: "Encode Sans", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "wdth" 125;
 }
 
 /* Search Results */
 #search-results {
     display: flex;
     justify-content: center;
-
 }
-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 20px;
 
-        }
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
 
-        .bus-card {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 3px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            border: 2px solid black;
+.bus-card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 3px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 2px solid black;
+}
 
-        }
+.bus-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    color: black;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 
-        .bus-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0px;
-            color: black;
-            font-family: "Oswald", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 400; /* Replace with desired weight */
-            font-style: normal;
-        }
+.bus-details {
+    display: flex;
+    flex-direction: column;
+}
 
-        .bus-details {
-            display: flex;
-            flex-direction: column;
-            .space-grotesk {
-              font-family: "Space Grotesk", sans-serif;
-              font-optical-sizing: auto;
-              font-weight: 300;
-              font-style: normal;
-            }
+.bus-details h6 {
+    margin-bottom: 5px;
+}
 
-        }
+.bus-details p {
+    margin: 0;
+}
 
-        .bus-details h6 {
-            margin-bottom: 5px;
-        }
+.bus-price {
+    font-size: 1.2em;
+    font-weight: bold;
+}
 
-        .bus-details p {
-            margin: 0px;
-        }
+.space-grotesk {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
 
-        .bus-price {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
 
+/* Footer */
 footer {
     position: sticky; /* Sticks the footer to the bottom of the page */
-    bottom: 0; /* Aligns the footer to the bottom */
-    width: 100%; /* Makes sure the footer spans the full width of the page */
-    background-color: rgba(255,255,255,0) !important; /* You can change this to match your design */
-    text-align: center; /* Centers the content of the footer */
-    padding: 10px 0; /* Adds padding for some breathing room */
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for visual separation */
-    z-index: 1000; /* Ensures it stays above other elements */
-    margin-top: 30px
+    bottom: 0;
+    width: 100%; /* Ensures full width */
+    background-color: rgba(255, 255, 255, 0) !important;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Visual separation */
+    z-index: 1000; /* Ensures it stays on top */
+    margin-top: 30px;
 }

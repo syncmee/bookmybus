@@ -23,7 +23,7 @@
     font-size: 1.5rem; /* Adjust heading size for mobile */
   }
   .carousel-caption p {
-    font-size: 1rem; /* Adjust paragraph size for mobile */
+    font-size: 0.8rem; /* Adjust paragraph size for mobile */
   }
   .btn-lg {
     padding: 10px 20px; /* Adjust button size */
@@ -44,10 +44,10 @@
 
 @media (min-width: 768px) and (max-width: 992px) {
   .carousel-caption h1 {
-    font-size: 2.5rem; /* Adjust heading size for small laptops */
+    font-size: 3.5rem; /* Adjust heading size for small laptops */
   }
   .carousel-caption p {
-    font-size: 1.5rem; /* Adjust paragraph size */
+    font-size: 2.5rem; /* Adjust paragraph size */
   }
   .btn-lg {
     padding: 15px 30px; /* Adjust button size */
