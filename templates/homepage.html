@@ -49,10 +49,15 @@
               <a href="#about" class="nav-link px-2 link-body-emphasis">About</a>
             </li>
           </ul>
+          <div class="col-12 text-start mt-3 d-md-none">
+            <a href="{{ url_for('login') }}">
+              <button type="button" class="btn btn-dark">Login</button>
+            </a>
+          </div>
         </div>
 
-        <!-- Login Button -->
-        <div class="col-md-3 text-end">
+        <!-- Login Button (Visible only on desktop) -->
+        <div class="col-md-3 text-end d-none d-md-block">
           <a href="{{ url_for('login') }}">
             <button type="button" class="btn btn-dark">Login</button>
           </a>
