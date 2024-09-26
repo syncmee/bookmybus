@@ -195,13 +195,13 @@ input::placeholder {
         font-size: 0.1rem; /* Decrease the font size inside bus-search */
     }
     #bus-search h1 {
-        font-size: 0.9rem
-    }
-    #bus-search h6 {
         font-size: 0.8rem
     }
-    #bus-search p {
+    #bus-search h6 {
         font-size: 0.7rem
+    }
+    #bus-search p {
+        font-size: 0.6rem
     }
 
     #bus-search .bus-card {

@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+<div id="loading">
+<img src="/static/logos/loading_logo.gif" alt="Loading..." class="img-fluid">
+</div>
 <!--- Header --->
 <section id="header">
   <div class="header" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
@@ -510,7 +513,14 @@
   </div>
 </section>
 <!-- Scripts -->
-
+<script>
+    window.addEventListener("load", function() {
+  setTimeout(function() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  }, 2010); // 2000ms = 2 seconds
+});
+</script>
 <script
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js">
