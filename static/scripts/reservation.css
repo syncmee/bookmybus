@@ -107,10 +107,8 @@ input::placeholder {
         width: 100%; /* Make the button full width */
         border-radius: 0 0 40px 40px; /* Adjust the border-radius for mobile */
     }
-
-
-    }
-
+    .h1 {
+    font-size: 1rem}
 }
 
 /* Typography */
@@ -190,6 +188,44 @@ input::placeholder {
     font-family: "Space Grotesk", sans-serif;
     font-weight: 300;
     font-style: normal;
+}
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    #bus-search h1, #bus-search h2, #bus-search h3, #bus-search h6, {
+        font-size: 0.1rem; /* Decrease the font size inside bus-search */
+    }
+    #bus-search h1 {
+        font-size: 1.1rem
+    }
+    #bus-search h6 {
+        font-size: 0.8rem
+    }
+    #bus-search p {
+        font-size: 0.7rem
+    }
+
+    #bus-search .bus-card {
+        padding: 8px; /* Reduce padding inside the bus card */
+    }
+
+    #bus-search .bus-price button {
+        font-size: 0.7rem; /* Reduce button text size */
+        padding: 8px 12px; /* Smaller button padding */
+    }
+
+    #bus-search .img-fluid {
+        width: 70px; /* Reduce image size proportionally */
+        height: auto;
+    }
+
+    #bus-search section img {
+        height: 20px; /* Smaller icon sizes */
+        width: 20px;
+    }
+
+    #bus-search .accordion-body {
+        font-size: 0.5rem; /* Slightly smaller text for accordion body */
+    }
 }
 
 

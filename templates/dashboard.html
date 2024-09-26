@@ -195,7 +195,7 @@
                     <h1> {{ bus.from.upper() }} <img src="/static/icons/bus-direction.gif" width="120" height="60" class="img-fluid"> {{ bus.to.upper() }} </h1>
                     {% if bus.type == "Non-AC" %}
                     <a ><img src="/static/logos/scania.png" class="img-fluid" data-mdb-tooltip-init data-mdb-placement="right" title="Scania Irizar i8 Premium Non-AC Bus">
-                     <input type="hidden" name="bus_type" value="Volvo 9600x AC Sleeper Bus"></a>
+                     <input type="hidden" name="bus_type" value="Scania  Irizar i8 Non-AC Bus"></a>
                     <section id="non-ac">
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> </a>
                         <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> </a>
@@ -222,7 +222,7 @@
 
                     <div id="collapseAc-{{buses.index(bus)}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
                     <div class="accordion-body">
-                    <section id="ac">
+                    <section id="ac" >
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Charging Port"> <img src="/static/icons/charging-port.png" height="30px" width="30px"> Charging Port | </a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Water Bottle"> <img src="/static/icons/water-bottle.png" height="30px" width="30px"> Water | </a>
                     <a href="#bus-card" data-mdb-tooltip-init data-mdb-placement="bottom" title="Track My Bus"> <img src="/static/icons/trackbus.png" height="30px" width="30px"> Track My Bus | </a>
