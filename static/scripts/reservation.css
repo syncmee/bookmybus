@@ -129,7 +129,7 @@ input::placeholder {
     font-family: "Encode Sans", sans-serif;
     font-weight: 100;
     font-style: normal;
-    font-variation-settings: "wdth" 125;
+    font-variation-settings: "width" 125;
 }
 
 /* Search Results */
@@ -195,7 +195,7 @@ input::placeholder {
         font-size: 0.1rem; /* Decrease the font size inside bus-search */
     }
     #bus-search h1 {
-        font-size: 1.1rem
+        font-size: 0.9rem
     }
     #bus-search h6 {
         font-size: 0.8rem
