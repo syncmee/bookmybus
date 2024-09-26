@@ -20,7 +20,7 @@ mail = 'bookmybus.info@gmail.com'
 mail_password = 'qprp xuxk gaml bdca'
 
 # Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///userdata.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:zrgCbtWHHEWkWNctrbOKYRreQOHkmPFj@autorack.proxy.rlwy.net:34128/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -145,7 +145,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
 
 class TicketBooking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
