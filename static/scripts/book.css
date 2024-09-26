@@ -31,49 +31,108 @@
       background-size: cover; /* Adjusts the size of the background image */
       background-position: center; /* Centers the background image */
     }
+/* Base Modal Styles */
+.custom-modal-size {
+    max-width: 60%; /* Default for larger screens */
+    max-height: 90vh; /* Default modal height */
+    margin-left: auto;
+    margin-right: auto; /* Center the modal */
+    padding: 15px;
+    justify-content: center;
+}
+
+.custom-modal-body {
+    overflow-y: auto; /* Scroll if content overflows */
+    padding: 10px; /* Base padding */
+}
+
+/* Seat Grid */
+#bus-seats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); /* Flexible grid based on screen size */
+    gap: 10px; /* Spacing between seats */
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Seat Images */
+.available, .booked, .selected {
+    background-size: cover;
+    background-position: center;
+}
+
+/* PC/Large Screen (Default) */
+@media (min-width: 1025px) {
     .custom-modal-size {
-    max-width: 65%; /* Adjust width as needed */
-    max-height: 100vh; /* Adjust height as needed */
-    margin-left: 30px;
-    justify-content:center
+        max-width: 75%; /* Smaller width for large screens */
+        max-height: 80vh; /* Reduce height for large screens */
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .custom-modal-size {
+        max-width: 70%; /* Larger modal on tablets */
+        max-height: 85vh; /* Slightly taller for tablets */
+    }
+
+    #bus-seats {
+        grid-template-columns: repeat(auto-fill, minmax(35px, 1fr)); /* Adjust grid for tablets */
+        gap: 8px; /* Reduce gap slightly */
+    }
+
+    .seat {
+        width: 35px;
+        height: 35px; /* Slightly smaller seats on tablets */
     }
 
     .custom-modal-body {
-        overflow-y: auto; /* Adds scroll if content overflows */
+        padding: 8px; /* Less padding on tablets */
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+    .custom-modal-size {
+        max-width: 100%; /* Almost full width for mobile */
+        max-height: 75vh; /* Reduced height to fit mobile screens */
     }
 
-      #bus-sleeper {
-      display: grid;
-      grid-template-columns: repeat(8, 80px); /* Adjust the column width */
-      gap: 10px;
-
+    #bus-seats {
+        grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); /* Smaller seats grid on mobile */
+        gap: 6px; /* Reduce gap for mobile */
     }
 
-    .sleeper {
-      width: 80px;
-      height: 40px;
-
-      border-radius: 5px;
-      cursor: pointer;
+    .seat {
+        width: 30px;
+        height: 30px; /* Smaller seats for mobile screens */
     }
 
-    .sleeper-available {
-      background-image: url('/static/icons/sleeper-available.png'); /* Replace with your image path */
-      background-size: cover; /* Adjusts the size of the background image */
-      background-position: center; /* Centers the background image */
+    .custom-modal-body {
+        padding: 5px; /* Minimal padding for mobile */
+    }
+    .container {
+        margin-left: 0; /* No left margin */
+        margin-right: 0; /* No right margin */
+        padding: 0 10px; /* Horizontal padding for container */
     }
 
-    .sleeper-booked {
-      background-image: url('/static/icons/sleeper-booked.png'); /* Replace with your image path */
-      background-size: cover; /* Adjusts the size of the background image */
-      background-position: center; /* Centers the background image */
-      cursor: not-allowed;
+}
+
+/* Additional Tweaks for Small Devices */
+@media (max-width: 480px) {
+    .seat {
+        width: 28px;
+        height: 28px; /* Even smaller seats for very small mobile screens */
     }
 
-    .sleeper-selected {
-      background-image: url('/static/icons/sleeper-selected.png'); /* Replace with your image path */
-      background-size: cover; /* Adjusts the size of the background image */
-      background-position: center; /* Centers the background image */
+    #bus-seats {
+        gap: 5px; /* Reduce gap further for extra small screens */
     }
-
-
+}

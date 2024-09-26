@@ -19,6 +19,9 @@
 <h1>{{departure_time }}</h1>
 <h1>{{arrival_time }}</h1>
 <h1>{{pnr}}</h1>
-<a href="{{ url_for('bookings') }}">your bookings</a>
+<h1>{{total_price}}</h1>
+<a href="{{ url_for('bookings', user=current_user.name) }}">your bookings</a>
+
+<input type="hidden" name="user" value="{{ user }}">
 </body>
 </html>

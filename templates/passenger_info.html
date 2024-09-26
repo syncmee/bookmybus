@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book My Bus - Ticket</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
@@ -23,55 +23,61 @@
      style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
             min-height: 100vh">
 
-<section id="header" style="background: white">
-    <header>
-    <div class="px-3 py-2  border-bottom">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-           <img src="/static/logos/bmb_header.gif" height="50">
+<section id="header" style="background-color: white;">
+  <div class="header" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
+    <div class="container-fluid">
+      <!-- Bootstrap Navbar -->
+      <header class="navbar navbar-expand-md d-flex flex-wrap align-items-center justify-content-between">
+        <!-- Logo Section -->
+        <div class="col-md-3">
+          <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="/static/logos/bmb_header.gif" height="50">
           </a>
+        </div>
 
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-            <li>
-              <a href="/" class="nav-link text-black">
-                <i class="fas fa-house"></i>
-                Home
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible Navigation Menu -->
+        <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
+          <ul class="navbar-nav mb-2 mb-md-0">
+            <li class="nav-item">
+              <a href="{{ url_for('dashboard', user=user) }}" class="nav-link px-2 text-black">
+                <i class="fas fa-house"></i> Home
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-                <i class="fas fa-ticket"></i>
-                  My Tickets
+            <li class="nav-item">
+              <a href="{{ url_for('bookings', user=user) }}" class="nav-link px-2 text-black">
+                <i class="fas fa-ticket"></i> My Tickets
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-                <i class="fas fa-bars-progress"></i>
-                Check Status
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black">
+                <i class="fas fa-bars-progress"></i> Check Status
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-                <i class="far fa-address-card"></i>
-                Cancel Ticket
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black">
+                <i class="far fa-address-card"></i> Cancel Ticket
               </a>
             </li>
+            <!-- User Dropdown -->
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color:#A13333">
-                <i class="fas fa-user"></i>
-                {{ user.title() }}
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a></li>
-            </ul>
-          </li>
+              <a class="nav-link dropdown-toggle px-2" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color: #A13333;">
+                <i class="fas fa-user"></i> {{ user.title() }}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign Out</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
-      </div>
+      </header>
     </div>
-  </header>
+  </div>
 </section>
 <!--Display Flash message-->
      <div class="container" style="margin-top: 30px">
@@ -87,169 +93,173 @@
         {% endwith %}
     </div>
 
-<div class="container" bis_skin_checked="1" style="background: white;margin-bottom:100px ;margin-top:50px; padding-left: 30px; padding-right: 30px;padding-bottom: 100px; border-radius: 40px; border: 2px solid black;
-    border-color: black;">
-  <form method="POST" action="{{ url_for('ticket_confirmation', user=user) }}" class="needs-validation was-validated">
-  <main>
-    <div class="py-5 text-center" bis_skin_checked="1">
-      <img src="static/logos/bmb_logo-nobg.png" style="margin-bottom: 30px; height: 50px">
-      <button type="button" class="btn btn-dark btn-lg col-12" data-mdb-ripple-init disabled style="margin-bottom: 10px">{{from_city}} ➜ {{to_city}}</button>
-    </div>
-    <div class="row g-5" bis_skin_checked="1">
-      <div class="col-md-5 col-lg-4 order-md-last" bis_skin_checked="1">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Trip Summary</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div bis_skin_checked="1">
-              <h6 class="my-0">Adults</h6>
-            </div>
-            <span class="text-body-secondary" id="seatCount" name="seat_count">0</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div bis_skin_checked="1">
-              <h6 class="my-0">bookmybus</h6>
-              <small class="text-body-secondary">{{bus_type}}</small>
-            </div>
-            <span class="text-body-secondary">{{price}}</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div bis_skin_checked="1">
-              <h6 class="my-0">{{from_city}} - {{to_city}}</h6>
-              <small class="text-body-secondary">{{bus_id}} | {{departure_time}} - {{arrival_time[0]}} {{arrival_time[1]}} | {{date}}</small>
+<div class="container" bis_skin_checked="1" style="background: white; margin-bottom:100px; margin-top:30px; padding-left: 30px; padding-right: 30px; padding-bottom: 100px; border-radius: 40px; border: 2px solid black; border-color: black;">
+    <form method="POST" action="{{ url_for('ticket_confirmation', user=user) }}" class="needs-validation was-validated">
+        <main>
+            <!-- Logo and Button Row -->
+            <div class="py-5 text-center">
+                <img src="static/logos/bmb_logo-nobg.png" style="margin-bottom: 30px; height: 50px;">
+                <button type="button" class="btn btn-dark btn-lg col-12" data-mdb-ripple-init disabled style="margin-bottom: 10px">{{from_city}} ➜ {{to_city}}</button>
             </div>
 
-          </li>
+            <!-- Trip Summary and Passenger Details Section -->
+            <div class="row g-5">
+                <!-- Trip Summary Column (smaller on small screens) -->
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">Trip Summary</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">Adults</h6>
+                            </div>
+                            <span class="text-body-secondary" id="seatCount" name="seat_count">0</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">bookmybus</h6>
+                                <small class="text-body-secondary">{{bus_type}}</small>
+                            </div>
+                            <span class="text-body-secondary">{{price}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">{{from_city}} - {{to_city}}</h6>
+                                <small class="text-body-secondary">{{bus_id}} | {{departure_time}} - {{arrival_time[0]}} {{arrival_time[1]}} | {{date}}</small>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (INR)</span>
+                            <strong><span id="totalPrice" name="total_price">0</span></strong>
+                            <input type="hidden" id="totalPriceInput" name="total_price" value="0">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-end">
+                            <button type="submit" class="btn btn-dark text-end">Book Ticket</button>
+                        </li>
+                    </ul>
+                </div>
 
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (INR)</span>
-            <strong><span id="totalPrice" name="total_price">{{ price }}</span></strong>
-          </li>
+                <!-- Passenger Details Column -->
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3 text-primary">Passenger Details</h4>
 
-          <li class="list-group-item d-flex justify-content-end">
+                    <!-- Form Row 1: Name and Gender -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="firstName" name="first_name" placeholder="First name" value="" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Last name" value="" required>
+                        </div>
 
-            <button type="submit" class="btn btn-dark text-end">Book Ticket</button>
-          </li>
-        </ul>
+                        <!-- Select Seat Button -->
+                        <button type="button" class="btn btn-secondary mt-3" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
+                            Select Seat
+                        </button>
 
+                        <!-- Gender Radio Buttons -->
+                        <div class="col-12 mt-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" required>
+                                <label class="form-check-label" for="inlineRadio1">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" required>
+                                <label class="form-check-label" for="inlineRadio2">Female</label>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Form Row 2: Email and Address -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+                        </div>
+                    </div>
 
-      </div>
-      <div class="col-md-7 col-lg-8" bis_skin_checked="1">
-        <h4 class="mb-3 text-primary">Passenger Detail</h4>
-
-          <div class="row" bis_skin_checked="1">
-            <div class="col-sm-6" bis_skin_checked="1">
-              <label for="firstName" class="form-label"></label>
-              <input type="text" class="form-control" id="firstName" name="first_name" placeholder="First name" value="" required="">
+                    <!-- Form Row 3: Country, State, Age -->
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country" name="country" required>
+                                <option value="">Choose...</option>
+                                <option>India</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" id="state" name="state" required>
+                                <option value="">Choose...</option>
+                                <option value="">Choose...</option>
+                                <option value="AP">Andhra Pradesh</option>
+                                <option value="AR">Arunachal Pradesh</option>
+                                <option value="AS">Assam</option>
+                                <option value="BR">Bihar</option>
+                                <option value="CT">Chhattisgarh</option>
+                                <option value="GA">Gujarat</option>
+                                <option value="HR">Haryana</option>
+                                <option value="HP">Himachal Pradesh</option>
+                                <option value="JK">Jammu and Kashmir</option>
+                                <option value="GA">Goa</option>
+                                <option value="JH">Jharkhand</option>
+                                <option value="KA">Karnataka</option>
+                                <option value="KL">Kerala</option>
+                                <option value="MP">Madhya Pradesh</option>
+                                <option value="MH">Maharashtra</option>
+                                <option value="MN">Manipur</option>
+                                <option value="ML">Meghalaya</option>
+                                <option value="MZ">Mizoram</option>
+                                <option value="NL">Nagaland</option>
+                                <option value="OR">Odisha</option>
+                                <option value="PB">Punjab</option>
+                                <option value="RJ">Rajasthan</option>
+                                <option value="SK">Sikkim</option>
+                                <option value="TN">Tamil Nadu</option>
+                                <option value="TG">Telangana</option>
+                                <option value="TR">Tripura</option>
+                                <option value="UT">Uttarakhand</option>
+                                <option value="UP">Uttar Pradesh</option>
+                                <option value="WB">West Bengal</option>
+                                <option value="AN">Andaman and Nicobar Islands</option>
+                                <option value="CH">Chandigarh</option>
+                                <option value="DN">Dadra and Nagar Haveli</option>
+                                <option value="DD">Daman and Diu</option>
+                                <option value="DL">Delhi</option>
+                                <option value="LD">Lakshadweep</option>
+                                <option value="PY">Puducherry</option>
+                              </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="age" class="form-label">Age</label>
+                            <select class="form-select" id="age" name="age" required>
+                                <option value="">Choose...</option>
+                                {% for age in range(18,91) %}
+                                <option>{{age}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </main>
 
-            <div class="col-sm-6" bis_skin_checked="1">
-              <label for="lastName" class="form-label"></label>
-              <input type="text" class="form-control" id="lastName" name="last_name"placeholder="Last name" value="" required="">
-            </div>
-            <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
-              Select Seat
-            </button>
-            <div class="col-12" style="margin-top: 10px">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" required/>
-              <label class="form-check-label" for="inlineRadio1">Male</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" required/>
-              <label class="form-check-label" for="inlineRadio2">Female</label>
-            </div>
-            </div>
-
-            <div class="col-12" bis_skin_checked="1">
-              <label for="email" class="form-label"></label>
-              <input type="email" class="form-control" id="email" name="email"placeholder="Email" required>
-            </div>
-
-            <div class="col-12" bis_skin_checked="1">
-              <label for="address" class="form-label"></label>
-              <input type="text" class="form-control" id="address" name="address" placeholder="Address" required="">
-            </div>
-
-            <div class="col-md-4" bis_skin_checked="1">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" name="country"required="">
-                <option value="">Choose...</option>
-                <option>India</option>
-              </select>
-            </div>
-
-            <div class="col-md-4" bis_skin_checked="1">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" name="state" required="">
-                <option value="">Choose...</option>
-                <option value="AP">Andhra Pradesh</option>
-                <option value="AR">Arunachal Pradesh</option>
-                <option value="AS">Assam</option>
-                <option value="BR">Bihar</option>
-                <option value="CT">Chhattisgarh</option>
-                <option value="GA">Gujarat</option>
-                <option value="HR">Haryana</option>
-                <option value="HP">Himachal Pradesh</option>
-                <option value="JK">Jammu and Kashmir</option>
-                <option value="GA">Goa</option>
-                <option value="JH">Jharkhand</option>
-                <option value="KA">Karnataka</option>
-                <option value="KL">Kerala</option>
-                <option value="MP">Madhya Pradesh</option>
-                <option value="MH">Maharashtra</option>
-                <option value="MN">Manipur</option>
-                <option value="ML">Meghalaya</option>
-                <option value="MZ">Mizoram</option>
-                <option value="NL">Nagaland</option>
-                <option value="OR">Odisha</option>
-                <option value="PB">Punjab</option>
-                <option value="RJ">Rajasthan</option>
-                <option value="SK">Sikkim</option>
-                <option value="TN">Tamil Nadu</option>
-                <option value="TG">Telangana</option>
-                <option value="TR">Tripura</option>
-                <option value="UT">Uttarakhand</option>
-                <option value="UP">Uttar Pradesh</option>
-                <option value="WB">West Bengal</option>
-                <option value="AN">Andaman and Nicobar Islands</option>
-                <option value="CH">Chandigarh</option>
-                <option value="DN">Dadra and Nagar Haveli</option>
-                <option value="DD">Daman and Diu</option>
-                <option value="DL">Delhi</option>
-                <option value="LD">Lakshadweep</option>
-                <option value="PY">Puducherry</option>
-              </select>
-            </div>
-
-            <div class="col-md-4" style="height: 30.39px; width: 217.87px">
-              <label for="age" class="form-label ">Age</label>
-              <select class="form-select" id="age" name="age" required="">
-                <option value="">Choose...</option>
-                {% for age in range(18,91) %}
-                <option>{{age}}</option>
-                {% endfor %}
-              </select>
-          </div>
-          </div>
-      </div>
-    </div>
-  </main>
-          <input type="hidden" name="total_price" value="{{ price }}">
-          <input type="hidden" name="bus_type" value="{{ bus_type }}">
-          <input type="hidden" name="from_city" value="{{ from_city }}">
-          <input type="hidden" name="to_city" value="{{ to_city }}">
-          <input type="hidden" name="departure_time" value="{{ departure_time }}">
-          <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
-          <input type="hidden" name="date" value="{{ date }}">
-          <input type="hidden" id="selectedSeats" name="selected_seats" value="">
-          <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
-
-
-</form>
+        <!-- Hidden Inputs for Ticket Data -->
+        <input type="hidden" name="total_price" value="{{ price }}">
+        <input type="hidden" name="bus_type" value="{{ bus_type }}">
+        <input type="hidden" name="from_city" value="{{ from_city }}">
+        <input type="hidden" name="to_city" value="{{ to_city }}">
+        <input type="hidden" name="departure_time" value="{{ departure_time }}">
+        <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
+        <input type="hidden" name="date" value="{{ date }}">
+        <input type="hidden" id="selectedSeats" name="selected_seats" value="">
+        <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
+    </form>
 </div>
+
 
 
 <!-- Modal -->

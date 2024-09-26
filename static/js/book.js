@@ -60,3 +60,14 @@ function updateSeatCount() {
   const totalPrice = seatCount * seatPrice;
   document.getElementById('totalPrice').textContent = `₹${totalPrice}`;
 }
+
+function updateTotalPrice(newPrice) {
+    const totalPriceElement = document.getElementById('totalPrice');
+    const totalPriceInput = document.getElementById('totalPriceInput');
+
+    totalPriceElement.textContent = newPrice.toFixed(2); // Update displayed price
+    totalPriceInput.value = newPrice.toFixed(2); // Update hidden input for form submission
+}
+
+// Example of calling this function when seat selection changes
+// updateTotalPrice(newCalculatedPrice);

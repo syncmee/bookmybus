@@ -357,6 +357,7 @@ def ticket_confirmation():
     selected_seat_count = request.form.get('selected_seat_count')
     age = request.form.get('age')
     digit_4 = random.choice(range(1000, 9999))
+    total_price = request.form.get('total_price')
     pnr = f"BMB{digit_4}"
 
     # Check if a booking already exists for this user with the same details
@@ -400,7 +401,7 @@ def ticket_confirmation():
                            email=email, address=address, country=country, state=state,
                            zip_code=zip, bus_type=bus_type,
                            from_city=from_city, to_city=to_city,
-                           departure_time=departure_time, arrival_time=arrival_time, date=date,selected_seats=selected_seats,selected_seat_count=selected_seat_count,age=age,pnr=pnr)
+                           departure_time=departure_time, arrival_time=arrival_time, date=date,selected_seats=selected_seats,selected_seat_count=selected_seat_count,age=age,pnr=pnr,total_price=total_price)
 
 @app.route('/dashboard/bookings')
 @login_required
