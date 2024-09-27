@@ -247,21 +247,6 @@
             </div>
         </main>
 
-        <!-- Hidden Inputs for Ticket Data -->
-        <input type="hidden" name="total_price" value="{{ price }}">
-        <input type="hidden" name="bus_type" value="{{ bus_type }}">
-        <input type="hidden" name="from_city" value="{{ from_city }}">
-        <input type="hidden" name="to_city" value="{{ to_city }}">
-        <input type="hidden" name="departure_time" value="{{ departure_time }}">
-        <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
-        <input type="hidden" name="date" value="{{ date }}">
-        <input type="hidden" id="selectedSeats" name="selected_seats" value="">
-        <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
-    </form>
-</div>
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static"
   data-mdb-keyboard="false">
@@ -317,6 +302,24 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="/static/js/book.js"></script>
+
+
+
+        <!-- Hidden Inputs for Ticket Data -->
+        <input type="hidden" name="total_price" value="{{ price }}">
+        <input type="hidden" name="bus_type" value="{{ bus_type }}">
+        <input type="hidden" name="from_city" value="{{ from_city }}">
+        <input type="hidden" name="to_city" value="{{ to_city }}">
+        <input type="hidden" name="departure_time" value="{{ departure_time }}">
+        <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
+        <input type="hidden" name="date" value="{{ date }}">
+
+            <!-- Hidden Inputs for Seat Data -->
+    <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
+
+    </form>
+</div>
+
 
 </body>
 </html>

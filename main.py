@@ -326,7 +326,7 @@ def passenger_info():
     string_atime = a_time
     sp = int(price.replace('₹', '').replace(',', '').strip())
     seat_price = sp
-# Convert the string to a list
+    # Convert the string to a list
     arrival_time = ast.literal_eval(string_atime)
     flash('Please Choose Your Seats', 'danger')
     # Here, you can process the booking (e.g., save to the database, send email confirmation, etc.)
@@ -358,6 +358,7 @@ def ticket_confirmation():
     age = request.form.get('age')
     digit_4 = random.choice(range(1000, 9999))
     total_price = request.form.get('total_price')
+
     pnr = f"BMB{digit_4}"
 
     # Check if a booking already exists for this user with the same details

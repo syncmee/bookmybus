@@ -71,3 +71,34 @@ function updateTotalPrice(newPrice) {
 
 // Example of calling this function when seat selection changes
 // updateTotalPrice(newCalculatedPrice);
+let selectedSeats = [];  // Array to store selected seat numbers
+let seatPrice = parseInt(document.getElementById('seatPrice').dataset.seatPrice);  // Fetch seat price from modal
+
+function selectSeat(seat) {
+    if (seat.classList.contains('booked')) {
+        return;  // Ignore clicks on booked seats
+    }
+
+    let seatNumber = seat.id.split('_')[1];  // Get seat number from the seat's ID
+
+    // Toggle seat selection
+    if (seat.classList.contains('selected')) {
+        seat.classList.remove('selected');
+        selectedSeats = selectedSeats.filter(s => s !== seatNumber);  // Remove from selected seats
+    } else {
+        seat.classList.add('selected');
+        selectedSeats.push(seatNumber);  // Add to selected seats
+    }
+
+    // Update the selected seats count and total price
+    let seatCount = selectedSeats.length;
+    let totalPrice = seatCount * seatPrice;
+
+    document.getElementById('seatCountmodal').innerText = seatCount;  // Update the modal seat count
+    document.getElementById('totalPrice').innerText = totalPrice;  // Update the total price display
+    document.getElementById('totalPriceInput').value = totalPrice;  // Update hidden input value
+
+    // Update the hidden fields for form submission
+    document.getElementById('selectedSeats').value = selectedSeats.join(', ');  // Store selected seats as a comma-separated string
+    document.getElementById('selectedSeatCount').value = seatCount;  // Store the seat count
+}

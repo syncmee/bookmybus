@@ -20,6 +20,8 @@
 <h1>{{arrival_time }}</h1>
 <h1>{{pnr}}</h1>
 <h1>{{total_price}}</h1>
+<h1>{{selected_seats}}</h1>
+<h1>{{selected_seat_count}}</h1>
 <a href="{{ url_for('bookings', user=current_user.name) }}">your bookings</a>
 
 <input type="hidden" name="user" value="{{ user }}">
