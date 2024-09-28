@@ -131,7 +131,7 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (INR)</span>
-                            <strong><span id="totalPrice" name="total_price">0</span></strong>
+                            <strong><span id="totalPrice">0</span></strong>
                             <input type="hidden" id="totalPriceInput" name="total_price" value="0">
                         </li>
                         <li class="list-group-item d-flex justify-content-end">
@@ -268,7 +268,7 @@
               {% if num in (2, 12, 4, 14, 9, 10, 30, 40) %}
                   <div class="seat booked" id="seat_{{num}}" onclick="selectSeat(this)" data-mdb-tooltip-init data-mdb-placement="right" title="Seat {{ num }}: Booked"></div>
               {% else %}
-                  <div class="seat available" onclick="selectSeat(this)" data-mdb-tooltip-init data-mdb-placement="right" title="Seat {{ num }}: Available"></div>
+                  <div class="seat available" id="seat_{{num}}" onclick="selectSeat(this)" data-mdb-tooltip-init data-mdb-placement="right" title="Seat {{ num }}: Available"></div>
               {% endif %}
           {% endfor %}
         </div>
@@ -284,6 +284,24 @@
         </div>
     </div>
   </div>
+</div>
+
+
+
+<!-- Hidden Inputs for Ticket Data -->
+<input type="hidden" name="total_price" value="{{ price }}">
+<input type="hidden" name="bus_type" value="{{ bus_type }}">
+<input type="hidden" name="from_city" value="{{ from_city }}">
+<input type="hidden" name="to_city" value="{{ to_city }}">
+<input type="hidden" name="departure_time" value="{{ departure_time }}">
+<input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
+<input type="hidden" name="date" value="{{ date }}">
+
+    <!-- Hidden Inputs for Seat Data -->
+<input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
+<input type="hidden" id="selectedSeatsInput" name="selected_seats" value="1,2">
+
+    </form>
 </div>
 
 <!--Scripts-->
@@ -302,24 +320,6 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="/static/js/book.js"></script>
-
-
-
-        <!-- Hidden Inputs for Ticket Data -->
-        <input type="hidden" name="total_price" value="{{ price }}">
-        <input type="hidden" name="bus_type" value="{{ bus_type }}">
-        <input type="hidden" name="from_city" value="{{ from_city }}">
-        <input type="hidden" name="to_city" value="{{ to_city }}">
-        <input type="hidden" name="departure_time" value="{{ departure_time }}">
-        <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
-        <input type="hidden" name="date" value="{{ date }}">
-
-            <!-- Hidden Inputs for Seat Data -->
-    <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
-
-    </form>
-</div>
-
 
 </body>
 </html>

@@ -3,10 +3,9 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib, random
-import requests
-import gunicorn
-import ast
-import os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import requests, ast, os, gunicorn
 from datetime import datetime, timedelta
 import psycopg2
 from dotenv import load_dotenv
@@ -164,6 +163,9 @@ class TicketBooking(db.Model):
     arrival_time = db.Column(db.String, nullable=False)
     date = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
+    selected_seats = db.Column(db.String, nullable=False)
+    selected_seat_count = db.Column(db.Integer, nullable=False)
+    total_price = db.Column(db.Integer, nullable=False)
     booking_date = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
 
     # Relationship to link back to User
@@ -182,18 +184,48 @@ def home():
         email = request.form.get('email')
         message = request.form.get('message-text')
 
-        with smtplib.SMTP("smtp.gmail.com") as connection:
-            connection.starttls()
-            connection.login(user=mail, password=mail_password)
-            connection.sendmail(from_addr=mail,
-                                to_addrs=email,
-                                msg=f"Subject: [BookMyBus Customer Support] - {subject} \n\n"
-                                    f"##- Please type your reply above this line -##\n"
-                                    f"Hey {name},\nThanks for reaching out to us\n"
-                                    f"{name}: {message}\n"
-                                    f"Soon Our Support Team Will Get Back To You Under This Thread. \n\n"
-                                    f"Thank you for choosing Book My Bus"
-                                )
+        # Email configuration
+        receiver_email = email
+        sender_email = 'bookmybus.info@gmail.com'
+        password = 'qprp xuxk gaml bdca'
+        email_subject = f"{name} [Subject - {subject}] - bookmybus"
+        smtp_server = "smtp.gmail.com"
+        smtp_port = 587
+
+        # Create the MIMEMultipart object
+        message = MIMEMultipart("alternative")
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        message["Subject"] = email_subject
+
+        # Read the HTML content from an external file
+        html_file_path = "templates/contact_us.html"  # Path to  HTML file
+
+        with open(html_file_path, "r") as file:
+            html_content = file.read()
+
+
+        # Attach the HTML content to the email
+        html_part = MIMEText(html_content, "html")
+        message.attach(html_part)
+
+        # Sending the email
+        try:
+            # Connect to the SMTP server
+            server = smtplib.SMTP(smtp_server, smtp_port)
+            server.starttls()  # Upgrade the connection to a secure encrypted TLS connection
+
+            # Login to the email account
+            server.login(sender_email, password)
+
+            # Send the email
+            server.sendmail(sender_email, receiver_email, message.as_string())
+            print("Email sent successfully!")
+
+        finally:
+            # Close the connection
+            server.quit()
+
     return render_template('homepage.html')
 
 @app.route('/test')
@@ -358,7 +390,6 @@ def ticket_confirmation():
     age = request.form.get('age')
     digit_4 = random.choice(range(1000, 9999))
     total_price = request.form.get('total_price')
-
     pnr = f"BMB{digit_4}"
 
     # Check if a booking already exists for this user with the same details
@@ -391,11 +422,57 @@ def ticket_confirmation():
         arrival_time=arrival_time,
         date=date,
         age=age,
+        selected_seats=selected_seats,
+        selected_seat_count=selected_seat_count,
+        total_price=total_price
 
     )
 
     db.session.add(new_booking)
     db.session.commit()
+
+    # Email configuration
+    receiver_email = email
+    sender_email = 'bookmybus.info@gmail.com'
+    password = 'qprp xuxk gaml bdca'
+    email_subject = "Ticket Confirmation- bookmybus"
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+
+    # Create the MIMEMultipart object
+    message = MIMEMultipart("alternative")
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = email_subject
+
+    # Read the HTML content from an external file
+    html_file_path = "templates/ticket_booked.html.html"  # Path to  HTML file
+
+    with open(html_file_path, "r") as file:
+        html_file = file.read()
+        # html_content = html_file.replace()
+
+    # Attach the HTML content to the email
+    html_part = MIMEText(html_content, "html")
+    message.attach(html_part)
+
+    # Sending the email
+    try:
+        # Connect to the SMTP server
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()  # Upgrade the connection to a secure encrypted TLS connection
+
+        # Login to the email account
+        server.login(sender_email, password)
+
+        # Send the email
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        print("Email sent successfully!")
+
+    finally:
+        # Close the connection
+        server.quit()
+
 
     # Render the ticket confirmation page
     return render_template('ticket_confirmation.html', first_name=first_name, last_name=last_name,
