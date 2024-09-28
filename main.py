@@ -450,7 +450,7 @@ def ticket_confirmation():
 
     with open(html_file_path, "r", encoding="utf-8") as file:
         html_file = file.read()
-        html_content = html_file.replace('[TotalPrice]', total_price).replace('[DATE]',booking_day).replace('[NAME]', first_name +' '+ last_name).replace('[BMB####]', pnr).replace('[FROM]',from_city).replace('[TO]',to_city).replace('[BUSTYPE]', bus_type).replace('[DEP-DATE]',date).replace('[SEAT-NO]', selected_seats).replace('[DEP-TIME]',departure_time).replace('[ARV-TIME]',arrival_time)
+        html_content = html_file.replace('[TotalPrice]', total_price).replace('[DATE]',booking_day).replace('[NAME]', first_name.title() +' '+ last_name.title()).replace('[BMB####]', pnr).replace('[FROM]',from_city).replace('[TO]',to_city).replace('[BUSTYPE]', bus_type).replace('[DEP-DATE]',date).replace('[SEAT-NO]', selected_seats).replace('[DEP-TIME]',departure_time).replace('[ARV-TIME]',arrival_time)
 
     # Attach the HTML content to the email
     html_part = MIMEText(html_content, "html", "utf-8")

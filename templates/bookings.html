@@ -81,44 +81,51 @@
 </section>
 
 <h1>My Bookings</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>PNR</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Departure Time</th>
-                <th>Arrival Time</th>
-                <th>Date</th>
-                <th>Bus Type</th>
-                <th>Booked On</th>
-                <th>Seat Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for booking in bookings %}
-            <tr>
-                <td>{{ booking.pnr }}</td>
-                <td>{{ booking.first_name }}</td>
-                <td>{{ booking.last_name }}</td>
-                <td>{{ booking.email }}</td>
-                <td>{{ booking.from_city }}</td>
-                <td>{{ booking.to_city }}</td>
-                <td>{{ booking.departure_time }}</td>
-                <td>{{ booking.arrival_time }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.bus_type }}</td>
-                <td>{{ booking.booking_date}}</td>
-                <td>{{ booking.seat_price }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+        <th>PNR</th>
+        <th>Booking Details</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Date</th>
+        <th>Bus Type</th>
+        <th>Booked On</th>
+        <th>Seat Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for booking in bookings %}
+    <tr>
+      <td>{{ booking.pnr }}</td>
+      <td>
+        <div class="d-flex align-items-center">
+          <img
+              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+              />
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{ booking.first_name }} {{ booking.last_name }}</p>
+            <p class="text-muted mb-0">{{ booking.email }}</p>
+          </div>
+        </div>
+      </td>
+      <td>{{ booking.from_city }}</td>
+      <td>{{ booking.to_city }}</td>
+      <td>{{ booking.departure_time }}</td>
+      <td>{{ booking.arrival_time }}</td>
+      <td>{{ booking.date }}</td>
+      <td>{{ booking.bus_type }}</td>
+      <td>{{ booking.booking_date }}</td>
+      <td>{{ booking.total_price }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 
 
 
