@@ -485,7 +485,10 @@ def ticket_confirmation():
 @login_required
 def bookings():
     user_bookings = current_user.bookings  # Get all bookings for the logged-in user
-    return render_template('bookings.html', bookings=user_bookings)
+    current_time = datetime.now()
+    for booking in user_bookings:
+        booking.date = datetime.strptime(booking.date, '%B %d, %Y')
+    return render_template('bookings.html', bookings=user_bookings, current_time=current_time)
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():

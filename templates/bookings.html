@@ -8,13 +8,19 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link href="/static/scripts/book.css" rel="stylesheet">
-    <link href="/static/scripts/styles.css" rel="stylesheet">
-    <link href="/static/scripts/reservation.css" rel="stylesheet">
 <!--Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <style>
+
+@media (max-width: 767.98px) { /* Mobile and tablet */
+  thead {
+    display: none; /* Hide the thead */
+  }
+}
+  </style>
+
 </head>
 <body>
 
@@ -80,53 +86,151 @@
   </div>
 </section>
 
-<h1>My Bookings</h1>
-<table class="table align-middle mb-0 bg-white">
-  <thead class="bg-light">
-    <tr>
+<section id="bookings" class="p-4 table-responsive">
+  <table class="table align-middle mb-0 bg-white table-responsive">
+    <thead class="bg-light">
+      <tr>
+        <th>Passenger Info</th>
+        <th>Route</th>
+        <th>Status</th>
         <th>PNR</th>
-        <th>Booking Details</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Departure Time</th>
-        <th>Arrival Time</th>
-        <th>Date</th>
-        <th>Bus Type</th>
-        <th>Booked On</th>
-        <th>Seat Price</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for booking in bookings %}
-    <tr>
-      <td>{{ booking.pnr }}</td>
-      <td>
-        <div class="d-flex align-items-center">
-          <img
-              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-              alt=""
-              style="width: 45px; height: 45px"
-              class="rounded-circle"
-              />
-          <div class="ms-3">
-            <p class="fw-bold mb-1">{{ booking.first_name }} {{ booking.last_name }}</p>
-            <p class="text-muted mb-0">{{ booking.email }}</p>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider table-divider-color">
+      {% for booking in bookings %}
+      <tr class="d-block d-md-table-row mb-4 mb-md-0"> <!-- Make each row block-level on mobile -->
+        <!-- Passenger Info -->
+        <td class="d-block d-md-table-cell">
+          <div class="d-flex align-items-center">
+            <div>
+              <p class="fw-bold mb-1">{{booking.first_name}} {{booking.last_name}}</p>
+              <p class="text-muted mb-0">{{booking.email}}</p>
+            </div>
           </div>
-        </div>
-      </td>
-      <td>{{ booking.from_city }}</td>
-      <td>{{ booking.to_city }}</td>
-      <td>{{ booking.departure_time }}</td>
-      <td>{{ booking.arrival_time }}</td>
-      <td>{{ booking.date }}</td>
-      <td>{{ booking.bus_type }}</td>
-      <td>{{ booking.booking_date }}</td>
-      <td>{{ booking.total_price }}</td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+        </td>
 
+        <!-- Route -->
+        <td class="d-block d-md-table-cell">
+          <button type="button" class="btn btn-dark" data-mdb-ripple-init disabled>{{booking.from_city}} ➜ {{booking.to_city}}</button>
+        </td>
+
+        <!-- Status -->
+        <td class="d-block d-md-table-cell">
+          {% if current_time > booking.date %}
+          <span class="badge badge-danger rounded-pill d-inline">Expired</span>
+          {% else %}
+          <span class="badge badge-success rounded-pill d-inline">Active</span>
+          {% endif %}
+        </td>
+
+        <!-- PNR -->
+        <td class="d-block d-md-table-cell">
+          {{booking.pnr}}
+        </td>
+
+        <!-- Actions -->
+        <td class="d-block d-md-table-cell">
+          <button type="button" class="btn btn-dark btn-sm btn-rounded">
+            <i class="fas fa-pen"></i>
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+
+<section id="footer" style="margin-top:100px">
+    <!-- Footer -->
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+            <img src="/static/logos/bmb_logo-nobg.png" width="200px">
+          <p>
+ Our secure and straightforward booking process ensures that planning your travel is hassle-free. Whether you're commuting for work or planning a getaway, BookMyBus makes your journey smoother.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Policies
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Booking Policy</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Cancellation Policy</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Terms and Conditions</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Company Details</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+              Links
+          </h6>
+          <p>
+            <a href="/#pricing" class="text-reset" target="_blank">Pricing</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Settings</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Orders</a>
+          </p>
+          <p>
+            <a href="/#about" class="text-reset" target="_blank">Help</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> New Delhi, 110001, IN</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            bookmybus.info@gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 91 881 045 9229</p>
+          <p> <i class="fas fa-hashtag" style="padding-right:20px"></i>
+        <a href="https://www.facebook.com/rohit.talukdar.54" class="facebook" target="_blank" style="padding-right:5px"><i class="fab fa-facebook fa-lg" ></i></a>
+        <a href="https://www.instagram.com/rohittalukdarr/" class="instagram" target="_blank"><i class="fab fa-instagram fa-lg"style="padding-right:5px"></i></a>
+        <a href="https://github.com/syncmee/" class="github" target="_blank"><i class="fab fa-github fa-lg"style="padding-right:5px"></i></a>
+        <a href="https://www.linkedin.com/in/rohittalukdar/" class="linkedin" target="_blank"><i class="fab fa-linkedin fa-lg"style="padding-right:5px"></i></a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rtalukdar2002@gmail.com" class="google" target="_blank"style="padding-right:5px"><i class="fab fa-google fa-lg"></i></i></a>
+        </p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+</footer>
+<!-- Footer -->
+</section>
 
 
 
@@ -155,7 +259,6 @@
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="/static/js/book.js"></script>
 
 </body>
 </html>
