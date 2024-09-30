@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="/static/scripts/book.css" rel="stylesheet">
+    <link href="/static/scripts/styles.css" rel="stylesheet">
+    <link href="/static/scripts/reservation.css" rel="stylesheet">
 <!--Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +21,9 @@
   thead {
     display: none; /* Hide the thead */
   }
+  table-group-divider {
+        display: none; /* Hides the table divider on mobile devices */
+    }
 }
   </style>
 
@@ -28,7 +34,6 @@
 <div class="bg-image"
      style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
             min-height: 100vh">
-
 <section id="header" style="background-color: white;">
   <div class="header" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
     <div class="container-fluid">
@@ -86,18 +91,32 @@
   </div>
 </section>
 
-<section id="bookings" class="p-4 table-responsive">
+<div class="container" style="margin-top: 30px">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-dismissible fade show alert-{{ category }}" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
+
+<section id="bookings" class="p-4 table-responsive ">
   <table class="table align-middle mb-0 bg-white table-responsive">
     <thead class="bg-light">
       <tr>
         <th>Passenger Info</th>
         <th>Route</th>
+        <th>Bus</th>
         <th>Status</th>
-        <th>PNR</th>
+        <th>Date</th>
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody class="table-group-divider table-divider-color">
+    <tbody class="table-group-divider table-divider-color ">
       {% for booking in bookings %}
       <tr class="d-block d-md-table-row mb-4 mb-md-0"> <!-- Make each row block-level on mobile -->
         <!-- Passenger Info -->
@@ -105,35 +124,73 @@
           <div class="d-flex align-items-center">
             <div>
               <p class="fw-bold mb-1">{{booking.first_name}} {{booking.last_name}}</p>
-              <p class="text-muted mb-0">{{booking.email}}</p>
+              <p class="text-muted mb-0">{{booking.pnr}}</p>
             </div>
           </div>
         </td>
 
         <!-- Route -->
-        <td class="d-block d-md-table-cell">
+        <td class="d-block d-md-table-cell ">
           <button type="button" class="btn btn-dark" data-mdb-ripple-init disabled>{{booking.from_city}} ➜ {{booking.to_city}}</button>
         </td>
+        <td class="d-block d-md-table-cell">
+          <div class="d-flex align-items-center">
+            <div>
+              <p class="fw-bold mb-1">{{booking.bus_type}}</p>
+              <p class="text-muted mb-0">Seat: {{booking.selected_seats}}</p>
+            </div>
+          </div>
+        </td>
+
 
         <!-- Status -->
         <td class="d-block d-md-table-cell">
-          {% if current_time > booking.date %}
+          {% if current_time > booking.date_formated %}
           <span class="badge badge-danger rounded-pill d-inline">Expired</span>
           {% else %}
-          <span class="badge badge-success rounded-pill d-inline">Active</span>
+          <span class="badge badge-success rounded-pill d-inline">Confirmed</span>
           {% endif %}
         </td>
 
-        <!-- PNR -->
+        <!-- DATE -->
         <td class="d-block d-md-table-cell">
-          {{booking.pnr}}
+          {{booking.date}}
         </td>
 
         <!-- Actions -->
         <td class="d-block d-md-table-cell">
-          <button type="button" class="btn btn-dark btn-sm btn-rounded">
-            <i class="fas fa-pen"></i>
-          </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-dark btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-pen"></i>
+                </button>
+              {% if current_time > booking.date_formated %}
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <form action="{{ url_for('remove_ticket', ticket_id=booking.id) }}" method="POST">
+                            <button type="submit" class="dropdown-item">Remove Ticket</button>
+                        </form>
+                    </li>
+                    <li>
+                        <a class="dropdown-item disabled" href="#">Cancel Ticket</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item disabled" href="#">Download Ticket</a> <!-- This can be implemented later -->
+                    </li>
+                </ul>
+              {% else %}
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item disabled">Remove Ticket</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">Cancel Ticket</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">Download Ticket</a> <!-- This can be implemented later -->
+                    </li>
+                </ul>
+              {% endif %}
+            </div>
         </td>
       </tr>
       {% endfor %}
@@ -142,12 +199,12 @@
 </section>
 
 
-<section id="footer" style="margin-top:100px">
+<section id="footer" style="margin-top:50px">
     <!-- Footer -->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted">
 
   <!-- Section: Links  -->
-  <section class="">
+  <section>
     <div class="container text-center text-md-start mt-5">
       <!-- Grid row -->
       <div class="row mt-3">
