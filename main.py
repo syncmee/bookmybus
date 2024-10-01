@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -7,6 +7,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import requests, ast, os, gunicorn
 from datetime import datetime, timedelta
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from io import BytesIO
 import psycopg2
 from dotenv import load_dotenv
 load_dotenv()
@@ -504,6 +507,35 @@ def remove_ticket(ticket_id):
     db.session.commit()
     flash("Ticket has been removed successfully!", 'success')
     return redirect(url_for('bookings', user=current_user.name))
+@app.route('/download_ticket/<int:ticket_id>')
+
+def download_ticket(ticket_id):
+    # Fetch the booking details from the database using ticket_id
+    booking = TicketBooking.query.get_or_404(ticket_id)  # Implement this function
+
+    # Create a BytesIO buffer to hold the PDF data
+    buffer = BytesIO()
+
+    # Create a canvas
+    pdf = canvas.Canvas(buffer, pagesize=letter)
+    pdf.setTitle("Ticket")
+
+    # Add ticket details to the PDF
+    pdf.drawString(100, 750, f"Passenger Name: {booking.first_name} {booking.last_name}")
+    pdf.drawString(100, 730, f"PNR: {booking.pnr}")
+    pdf.drawString(100, 710, f"Route: {booking.from_city} ➜ {booking.to_city}")
+    pdf.drawString(100, 690, f"Bus: {booking.bus_type}")
+    pdf.drawString(100, 670, f"Date: {booking.date}")
+
+    # Finish up and save the PDF
+    pdf.save()
+
+    # Move the buffer position to the beginning
+    buffer.seek(0)
+
+    # Send the PDF to the client
+    return send_file(buffer, as_attachment=True, download_name=f"E-Ticket_{ticket_id}.pdf",
+                     mimetype='application/pdf')
 
 
 @login_manager.unauthorized_handler

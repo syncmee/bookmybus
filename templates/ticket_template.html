@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket</title>
+    <style>
+        /* Add styles for your ticket layout */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .ticket {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <h2>Your Ticket</h2>
+        <p><strong>Passenger:</strong> {{ booking.first_name }} {{ booking.last_name }}</p>
+        <p><strong>PNR:</strong> {{ booking.pnr }}</p>
+        <p><strong>Route:</strong> {{ booking.from_city }} ➜ {{ booking.to_city }}</p>
+        <p><strong>Bus Type:</strong> {{ booking.bus_type }}</p>
+        <p><strong>Seats:</strong> {{ booking.selected_seats }}</p>
+        <p><strong>Date:</strong> {{ booking.date }}</p>
+        <p><strong>Status:</strong> {% if current_time > booking.date_formated %}Expired{% else %}Confirmed{% endif %}</p>
+    </div>
+</body>
+</html>

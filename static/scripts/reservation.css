@@ -191,14 +191,12 @@ input::placeholder {
 }
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-    #bus-search h1, #bus-search h2, #bus-search h3, #bus-search h6, {
-        font-size: 0.1rem; /* Decrease the font size inside bus-search */
-    }
+
     #bus-search h1 {
         font-size: 0.8rem
     }
     #bus-search h6 {
-        font-size: 0.7rem
+        font-size: 0.6rem
     }
     #bus-search p {
         font-size: 0.6rem
@@ -247,5 +245,5 @@ footer {
     background-color: white;
     border-radius: 40px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
-    border: 2px solid black;
+    border: 2px solid white;
 }
