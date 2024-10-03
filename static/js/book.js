@@ -30,3 +30,12 @@ function updateSeatCount() {
   document.getElementById('selectedSeatsInput').value = selectedSeatNumbers; // Update the hidden input for selected seats
   document.getElementById('selectedSeatCount').value = seatCount; // Update the hidden input for selected seat count
 }
+
+// Function to validate seat selection before form submission
+function validateSeatSelection(event) {
+  const selectedSeats = document.querySelectorAll('.seat.selected');
+  if (selectedSeats.length === 0) {
+    event.preventDefault(); // Prevent form submission
+    alert('Please select at least one seat before submitting the form.'); // Alert the user
+  }
+}

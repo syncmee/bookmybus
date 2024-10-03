@@ -169,6 +169,7 @@ class TicketBooking(db.Model):
     selected_seats = db.Column(db.String, nullable=False)
     selected_seat_count = db.Column(db.Integer, nullable=False)
     total_price = db.Column(db.Integer, nullable=False)
+    duration = db.Column(db.String, nullable=False)
     booking_date = db.Column(db.DateTime, default=booking_day, nullable=False)
 
     # Relationship to link back to User
@@ -233,8 +234,8 @@ def home():
 
 @app.route('/test')
 def test():
-
-    return render_template('test.html', )
+    flash('Your ticket is booked for this journey!', 'success')
+    return render_template('test.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -374,6 +375,7 @@ def passenger_info():
 @app.route('/ticket_confirmation', methods=['POST'])
 @login_required
 def ticket_confirmation():
+    flash('Your ticket is booked for this journey!', 'success')
     # Get all the details from the form submission
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
@@ -393,6 +395,7 @@ def ticket_confirmation():
     age = request.form.get('age')
     digit_4 = random.choice(range(1000, 9999))
     total_price = request.form.get('total_price')
+    duration = request.form.get('duration')
     pnr = f"BMB{digit_4}"
 
     # Check if a booking already exists for this user with the same details
@@ -427,7 +430,8 @@ def ticket_confirmation():
         age=age,
         selected_seats=selected_seats,
         selected_seat_count=selected_seat_count,
-        total_price=total_price
+        total_price=total_price,
+        duration=duration
 
     )
 
@@ -482,7 +486,7 @@ def ticket_confirmation():
                            email=email, address=address, country=country, state=state,
                            zip_code=zip, bus_type=bus_type,
                            from_city=from_city, to_city=to_city,
-                           departure_time=departure_time, arrival_time=arrival_time, date=date,selected_seats=selected_seats,selected_seat_count=selected_seat_count,age=age,pnr=pnr,total_price=total_price)
+                           departure_time=departure_time, arrival_time=arrival_time, date=date,selected_seats=selected_seats,selected_seat_count=selected_seat_count,age=age,pnr=pnr,total_price=total_price,duration=duration)
 
 @app.route('/dashboard/bookings')
 @login_required

@@ -17,7 +17,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <body>
-
+<div id="loading">
+<img src="/static/logos/loading_logo.gif" alt="Loading..." class="img-fluid" >
+</div>
 
 <div class="bg-image"
      style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
@@ -94,7 +96,7 @@
     </div>
 
 <div class="container" bis_skin_checked="1" style="background: white; margin-bottom:100px; margin-top:30px; padding-left: 30px; padding-right: 30px; padding-bottom: 100px; border-radius: 40px; border: 2px solid black; border-color: black;">
-    <form method="POST" action="{{ url_for('ticket_confirmation', user=user) }}" class="needs-validation was-validated">
+    <form method="POST" action="{{ url_for('ticket_confirmation', user=user) }}" class="needs-validation was-validated" id="passengerinfo">
         <main>
             <!-- Logo and Button Row -->
             <div class="py-5 text-center">
@@ -154,7 +156,7 @@
                         </div>
 
                         <!-- Select Seat Button -->
-                        <button type="button" class="btn btn-secondary mt-3" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
+                        <button type="button" id="selectseat" class="btn btn-outline-danger mt-3" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
                             Select Seat
                         </button>
 
@@ -296,6 +298,7 @@
 <input type="hidden" name="departure_time" value="{{ departure_time }}">
 <input type="hidden" name="arrival_time" value="{{ arrival_time[0] }} {{ arrival_time[1] }}">
 <input type="hidden" name="date" value="{{ date }}">
+<input type="hidden" name="duration" value="{{ bus_id }}">
 
     <!-- Hidden Inputs for Seat Data -->
 <input type="hidden" id="selectedSeatCount" name="selected_seat_count" value="0">
@@ -303,7 +306,7 @@
 
     </form>
 </div>
-
+</div>
 <!--Scripts-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script

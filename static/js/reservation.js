@@ -3,11 +3,9 @@ const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, '0'); // Month starts from 0, so add 1
 const day = String(today.getDate()).padStart(2, '0'); // Add leading zero if necessary
 
-// Format date as YYYY-MM-DD
-const formattedDate = `${year}-${month}-${day}`;
 
 // Set the value of the date input to today's date
-document.getElementById('date-input').value = formattedDate;
+document.getElementById('date-input').display = 'Select Date...';
 
 // Add a 2-second delay before removing the loading screen
 window.addEventListener("load", function() {
@@ -23,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     flatpickr(dateInput, {
         dateFormat: "F j, Y",
-        minDate: "today"// Custom Flatpickr options here
+        minDate: new Date().fp_incr(1)// Custom Flatpickr options here
     });
 
     calendarIcon.addEventListener('click', function() {
