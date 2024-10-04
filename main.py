@@ -179,8 +179,8 @@ class TicketBooking(db.Model):
 
 # Google OAuth Configuration
 google_bp = make_google_blueprint(
-    client_id=os.getenv("GOOGLE_CLIENT_ID"),  # Load from environment variable
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),  # Load from environment variable
+    client_id="174801150713-r8108gfsub1p6v7bbr2pgsc7l1rdjhub.apps.googleusercontent.com",       # Replace with your Google Client ID
+    client_secret="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", # Replace with your Google Client Secret
     redirect_to="google_login"
 )
 app.register_blueprint(google_bp, url_prefix="/google_login")
