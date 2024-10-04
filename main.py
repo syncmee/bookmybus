@@ -7,9 +7,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import requests, ast, os, gunicorn
 from datetime import datetime, timedelta
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from io import BytesIO
+import pdfcrowd
+import sys
+import os
+import tempfile
 import psycopg2
 from dotenv import load_dotenv
 load_dotenv()
@@ -512,34 +513,44 @@ def remove_ticket(ticket_id):
     flash("Ticket has been removed successfully!", 'success')
     return redirect(url_for('bookings', user=current_user.name))
 @app.route('/download_ticket/<int:ticket_id>')
-
 def download_ticket(ticket_id):
     # Fetch the booking details from the database using ticket_id
     booking = TicketBooking.query.get_or_404(ticket_id)  # Implement this function
+    name = f"{booking.first_name} + ' ' + {booking.last_name}"
 
-    # Create a BytesIO buffer to hold the PDF data
-    buffer = BytesIO()
+    try:
+        # Create the API client instance
+        client = pdfcrowd.HtmlToPdfClient('syncme', '0473b692705df598eb4ee6ec77f82839')
 
-    # Create a canvas
-    pdf = canvas.Canvas(buffer, pagesize=letter)
-    pdf.setTitle("Ticket")
+        # Render the HTML directly to a string
+        rendered_html = render_template('ticketpdf.html', name=name, pnr=booking.pnr,
+                                        FROM_CITY=booking.from_city, to_city=booking.to_city, dep=booking.departure_time, arv=booking.arrival_time,
+                                        duration=booking.duration, seats=booking.selected_seats, date=booking.date,
+                                        bustype=booking.bus_type)
 
-    # Add ticket details to the PDF
-    pdf.drawString(100, 750, f"Passenger Name: {booking.first_name} {booking.last_name}")
-    pdf.drawString(100, 730, f"PNR: {booking.pnr}")
-    pdf.drawString(100, 710, f"Route: {booking.from_city} ➜ {booking.to_city}")
-    pdf.drawString(100, 690, f"Bus: {booking.bus_type}")
-    pdf.drawString(100, 670, f"Date: {booking.date}")
+        # Create a temporary HTML file
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.html') as temp_html:
+            temp_html.write(rendered_html.encode('utf-8'))
+            temp_html_path = temp_html.name
 
-    # Finish up and save the PDF
-    pdf.save()
+        # Define the output PDF file path
+        output_file_path = os.path.join(app.root_path, 'static', f'{booking.pnr}-Ticket.pdf')
 
-    # Move the buffer position to the beginning
-    buffer.seek(0)
+        # Run the conversion using the temporary HTML file
+        client.convertFileToFile(temp_html_path, output_file_path)
 
-    # Send the PDF to the client
-    return send_file(buffer, as_attachment=True, download_name=f"E-Ticket_{ticket_id}.pdf",
-                     mimetype='application/pdf')
+        # Send the generated PDF file to the user
+        return send_file(output_file_path, as_attachment=True)
+
+    except pdfcrowd.Error as why:
+        sys.stderr.write('Pdfcrowd Error: {}\n'.format(why))
+        return "An error occurred while generating the PDF: {}".format(why), 500
+
+    finally:
+        # Clean up the temporary file
+        if os.path.exists(temp_html_path):
+            os.remove(temp_html_path)
+
 
 
 @login_manager.unauthorized_handler
