@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
+from flask_dance.contrib.google import make_google_blueprint, google
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib, random
 from email.mime.multipart import MIMEMultipart
@@ -17,7 +18,6 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Necessary for session management
-
 # Email-Setup
 mail = 'bookmybus.info@gmail.com'
 mail_password = 'qprp xuxk gaml bdca'
@@ -26,6 +26,7 @@ mail_password = 'qprp xuxk gaml bdca'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:zrgCbtWHHEWkWNctrbOKYRreQOHkmPFj@autorack.proxy.rlwy.net:34128/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
 
 # Initialize Flask-Login
 login_manager = LoginManager()
@@ -176,6 +177,14 @@ class TicketBooking(db.Model):
     # Relationship to link back to User
     user = db.relationship('User', backref=db.backref('bookings', lazy=True))
 
+# Google OAuth Configuration
+google_bp = make_google_blueprint(
+    client_id="174801150713-r8108gfsub1p6v7bbr2pgsc7l1rdjhub.apps.googleusercontent.com",       # Replace with your Google Client ID
+    client_secret="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", # Replace with your Google Client Secret
+    redirect_to="google_login"
+)
+app.register_blueprint(google_bp, url_prefix="/google_login")
+
 # Flask-Login user loader function
 @login_manager.user_loader
 def load_user(user_id):
@@ -280,6 +289,33 @@ def login():
                 return redirect(url_for('login'))
 
     return render_template('sign-up.html')
+
+@app.route('/google_login')
+def google_login():
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+
+    resp = google.get("/plus/v1/people/me")  # You can use another API endpoint if preferred
+    if resp.ok:
+        google_info = resp.json()
+        email = google_info["emails"][0]["value"]
+        name = google_info["displayName"]
+
+        # Check if user already exists
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            # Register the user if not found
+            user = User(name=name, username=email.split('@')[0], email=email)
+            db.session.add(user)
+            db.session.commit()
+
+        # Log the user in
+        login_user(user)
+        flash("Logged in successfully with Google!", "success")
+        return redirect(url_for('dashboard', user=user.name))
+
+    flash("Failed to login with Google.", "danger")
+    return redirect(url_for('login'))
 
 @app.route('/dashboard/<user>', methods=['GET', 'POST'])
 @login_required
