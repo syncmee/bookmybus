@@ -55,12 +55,12 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link px-2 text-black">
+              <a href="{{ url_for('status', user=user) }}" class="nav-link px-2 text-black">
                 <i class="fas fa-bars-progress"></i> Check Status
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link px-2 text-black">
+              <a href="{{ url_for('cancellation', user=user) }}" class="nav-link px-2 text-black">
                 <i class="far fa-address-card"></i> Cancel Ticket
               </a>
             </li>
