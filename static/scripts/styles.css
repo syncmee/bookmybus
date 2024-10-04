@@ -148,3 +148,42 @@ textarea.form-control {
     transition: none;
   }
 }
+/* Features Section */
+#features .container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+#features .col {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect */
+#features .col:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+#features h3 {
+    color: #343a40;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+#features p {
+    color: #6c757d;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Image icon styling */
+#features img {
+    margin-right: 15px;
+    vertical-align: middle;
+}
