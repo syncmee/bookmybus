@@ -80,6 +80,7 @@ city_coordinates = {
     "Ranthambore": {"lat": 26.0173, "lon": 76.5026}
 }
 
+
 # Function to get distance and duration from Mapbox Directions API
 def get_distance_mapbox(api_key, origin, destination):
     url = f"https://api.mapbox.com/directions/v5/mapbox/driving/{origin};{destination}"
