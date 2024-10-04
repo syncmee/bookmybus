@@ -381,6 +381,7 @@ def dashboard(user):
     return render_template("dashboard.html", user=user, show_details_form=False, VALID_DESTINATIONS=VALID_DESTINATIONS)
 
 
+
 @app.route('/passenger_info', methods=['POST'])
 @login_required
 def passenger_info():
