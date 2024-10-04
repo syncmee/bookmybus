@@ -72,12 +72,12 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url_for('status', user=user) }}" class="nav-link px-2 text-black">
+              <a href="#" class="nav-link px-2 text-black">
                 <i class="fas fa-bars-progress"></i> Check Status
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ url_for('cancellation', user=user) }}" class="nav-link px-2 text-black">
+              <a href="#" class="nav-link px-2 text-black">
                 <i class="far fa-address-card"></i> Cancel Ticket
               </a>
             </li>
@@ -170,7 +170,7 @@
                 <button type="button" class="btn btn-dark btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-pen"></i>
                 </button>
-                  {% if current_time > booking.date_formated %}
+              {% if current_time > booking.date_formated %}
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <form action="{{ url_for('remove_ticket', ticket_id=booking.id) }}" method="POST">
