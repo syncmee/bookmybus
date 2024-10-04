@@ -534,25 +534,6 @@ def bookings():
     return render_template('bookings.html', bookings=user_bookings, current_time=current_time)
 
 
-@app.route('/dashboard/cancel')
-@login_required
-def cancellation():
-    user_bookings = current_user.bookings  # Get all bookings for the logged-in user
-    current_time = datetime.now()
-    for booking in user_bookings:
-        booking.date_formated = datetime.strptime(booking.date, '%B %d, %Y')
-    return render_template('cancellation.html', bookings=user_bookings, current_time=current_time)
-
-@app.route('/dashboard/status')
-@login_required
-def status():
-    user_bookings = current_user.bookings  # Get all bookings for the logged-in user
-    current_time = datetime.now()
-    for booking in user_bookings:
-        booking.date_formated = datetime.strptime(booking.date, '%B %d, %Y')
-    return render_template('status.html', bookings=user_bookings, current_time=current_time)
-
-
 @app.route('/remove_ticket/<int:ticket_id>', methods=['POST'])
 @login_required
 def remove_ticket(ticket_id):
@@ -566,20 +547,6 @@ def remove_ticket(ticket_id):
     db.session.commit()
     flash("Ticket has been removed successfully!", 'success')
     return redirect(url_for('bookings', user=current_user.name))
-
-@app.route('/cancel_ticker/<int:ticket_id>', methods=['POST'])
-@login_required
-def cancel_ticket(ticket_id):
-    ticket = TicketBooking.query.get_or_404(ticket_id)
-    # Ensure that the current user is authorized to delete the ticket
-    if ticket.user_id != current_user.id:
-        flash("You are not authorized to remove this ticket", 'danger')
-        return redirect(url_for('cancellation', user=current_user.name))
-
-    db.session.delete(ticket)
-    db.session.commit()
-    flash("Ticket has been cancelled successfully!", 'danger')
-    return redirect(url_for('cancellation', user=current_user.name))
 @app.route('/download_ticket/<int:ticket_id>')
 def download_ticket(ticket_id):
     # Fetch the booking details from the database using ticket_id

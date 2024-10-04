@@ -28,7 +28,3 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput._flatpickr.open(); // Open Flatpickr date picker
     });
 });
-
-function confirmCancelTicket() {
-    return confirm("Are you sure you want to cancel this ticket?");
-}
