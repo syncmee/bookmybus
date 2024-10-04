@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Flask==3.0.3
 Flask-Login==0.6.2
 Flask-SQLAlchemy==2.5.1
@@ -8,3 +9,12 @@ requests==2.32.3
 gunicorn==23.0.0
 pdfcrowd==6.2.0
 psycopg2==2.9.9
+=======
+requests~=2.32.3
+Flask~=3.0.3
+Werkzeug~=3.0.3
+gunicorn~=23.0.0
+psycopg2~=2.9.9
+python-dotenv~=1.0.1
+pdfcrowd~=6.2.0
+>>>>>>> parent of 384ac31 (new)
