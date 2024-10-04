@@ -516,7 +516,7 @@ def remove_ticket(ticket_id):
 def download_ticket(ticket_id):
     # Fetch the booking details from the database using ticket_id
     booking = TicketBooking.query.get_or_404(ticket_id)  # Implement this function
-    name = f"{booking.first_name} + ' ' + {booking.last_name}"
+    name = f"{booking.first_name} {booking.last_name}"
 
     try:
         # Create the API client instance
@@ -526,7 +526,7 @@ def download_ticket(ticket_id):
         rendered_html = render_template('ticketpdf.html', name=name, pnr=booking.pnr,
                                         FROM_CITY=booking.from_city, to_city=booking.to_city, dep=booking.departure_time, arv=booking.arrival_time,
                                         duration=booking.duration, seats=booking.selected_seats, date=booking.date,
-                                        bustype=booking.bus_type)
+                                        bustype=booking.bus_type,age=booking.age)
 
         # Create a temporary HTML file
         with tempfile.NamedTemporaryFile(delete=False, suffix='.html') as temp_html:
