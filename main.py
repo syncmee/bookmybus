@@ -3,9 +3,11 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib, random
+from flask import Flask, redirect, url_for, session
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import requests, ast, os, gunicorn
+import requests, ast, gunicorn
+from authlib.integrations.flask_client import OAuth
 from datetime import datetime, timedelta
 import pdfcrowd
 import sys
@@ -16,14 +18,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key"  # Necessary for session management
-
+app.secret_key = os.getenv("SECRET_KEY")
 # Email-Setup
-mail = 'bookmybus.info@gmail.com'
-mail_password = 'qprp xuxk gaml bdca'
+mail = os.getenv("EMAIL")
+mail_password = os.getenv("EMAIL_PASSWORD")
 
 # Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:zrgCbtWHHEWkWNctrbOKYRreQOHkmPFj@autorack.proxy.rlwy.net:34128/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -48,7 +49,7 @@ VALID_DESTINATIONS = {
 }
 
 # Mapbox API key
-api_key = 'pk.eyJ1Ijoic3luY21lIiwiYSI6ImNtMTNrdzdzdzB2YXIyanMxaHMzZmZzamwifQ.8KxUY8AEe-zwc8ACUmEWtw'
+api_key = os.getenv("MAPBOX_API_KEY")
 
 # Define city coordinates for Mapbox Directions API
 city_coordinates = {
@@ -101,7 +102,7 @@ def get_distance_mapbox(api_key, origin, destination):
         duration_str = f"{hours} hr {minutes} min" if hours > 0 else f"{minutes} min"
         return duration_str
     return "No route found"
-from datetime import datetime, timedelta
+
 
 def adjust_arrival_time(departure_time_str, travel_time_str):
     # Parse departure time assuming it's provided in 24-hour format
@@ -133,12 +134,19 @@ def adjust_arrival_time(departure_time_str, travel_time_str):
 
     return departure_time_str_24, arrival_time_str_24, next_day_indicator
 
-# Example usage
-departure_time_str = "23:00"  # 24-hour format input
-travel_time_str = "2 hr 30 min"
-departure_24, arrival_24, next_day = adjust_arrival_time(departure_time_str, travel_time_str)
-print(f"Departure Time: {departure_24}")
-print(f"Arrival Time: {arrival_24} {next_day}")
+
+# OAuth configuration
+oauth = OAuth(app)
+google = oauth.register(
+    name='google',
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    userinfo_endpoint='https://www.googleapis.com/oauth2/v3/userinfo',
+    jwks_uri='https://www.googleapis.com/oauth2/v3/certs',
+    client_kwargs={'scope': 'openid email profile'},
+)
 
 
 
@@ -148,7 +156,8 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=True)  # Make password optional for Google logins
+    google_id = db.Column(db.String(100), unique=True, nullable=True) # Google ID for OAuth
 
 class TicketBooking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -281,6 +290,47 @@ def login():
 
     return render_template('sign-up.html')
 
+@app.route('/google')
+def google_login():
+    redirect_uri = url_for('auth_callback', _external=True)
+    print(f'Redirect URI: {redirect_uri}')  # Check if this matches the one in Google Console
+    return google.authorize_redirect(redirect_uri)
+
+@app.route('/auth/callback')
+def auth_callback():
+    # Get the token and user info
+    token = google.authorize_access_token()
+    user_info = google.get('https://www.googleapis.com/oauth2/v3/userinfo').json()
+
+    # Extract user info
+    user_email = user_info['email']  # Get the email from Google user info
+    user_name = user_email.split('@')[0]  # Extract username from email
+    name = user_info.get('name', '')  # Get the user's name
+    google_id = user_info['sub']  # Google ID
+
+    # Check if user exists in your database by email
+    user = User.query.filter_by(email=user_email).first()
+
+    if user:
+        # If the user exists, log them in
+        login_user(user)  # Use Flask-Login to manage the session
+        session['email'] = user.email
+
+        # Check if Google ID is already linked; if not, link it
+        if not user.google_id:
+            user.google_id = google_id  # Link the Google account
+            db.session.commit()  # Commit the changes to the database
+
+    else:
+        # User does not exist, create a new account
+        new_user = User(email=user_email, name=name, google_id=google_id, username=user_name)
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)  # Log the new user in
+        session['email'] = user_email
+
+    return redirect(url_for('dashboard', user=current_user.name))  # Render the dashboard with the user's name
+
 @app.route('/dashboard/<user>', methods=['GET', 'POST'])
 @login_required
 def dashboard(user):
@@ -410,7 +460,7 @@ def ticket_confirmation():
 
     if existing_booking:
         flash('You have already booked a ticket for this journey!', 'warning')
-        return redirect(url_for('dashboard', user=current_user.name))
+        return redirect(url_for('bookings', user=current_user.name))
 
     # Create a new TicketBooking record
     new_booking = TicketBooking(
