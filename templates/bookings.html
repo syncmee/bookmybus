@@ -190,7 +190,7 @@
                         <a class="dropdown-item disabled">Remove Ticket</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">Cancel Ticket</a>
+                        <a class="dropdown-item" href="{{ url_for('cancellation', user=current_user.name) }}">Cancel Ticket</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{ url_for('download_ticket', ticket_id=booking.id) }}">Download Ticket</a> <!-- This can be implemented later -->
