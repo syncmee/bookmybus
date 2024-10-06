@@ -97,22 +97,21 @@
     <form action="/login" method="post">
       <div class="text-center mb-3">
         <p>Sign in with:</p>
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
-          <i class="fab fa-apple"></i>
-        </button>
+        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Apple logins">
+          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-apple"></i></button>
+        </span>
 
         <a href="{{ url_for('google_login') }}" class="btn btn-dark btn-floating mx-1">
             <i class="fab fa-google"></i>
         </a>
 
-
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
-          <i class="fab fa-twitter"></i>
-        </button>
-
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
+        <a href="{{ url_for('github_login') }}" class="btn btn-dark btn-floating mx-1">
           <i class="fab fa-github"></i>
-        </button>
+        </a>
+
+        <a href="{{ url_for('twitter_login') }}" class="btn btn-dark btn-floating mx-1">
+          <i class="fab fa-twitter"></i>
+        </a>
       </div>
 
       <p class="text-center">or:</p>
@@ -158,21 +157,21 @@
     <form action="/login" method="post">
       <div class="text-center mb-3">
         <p>Sign up with:</p>
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
-          <i class="fab fa-apple"></i>
-        </button>
+        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Apple logins">
+          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-apple"></i></button>
+        </span>
 
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
+        <a href="{{ url_for('google_login') }}" class="btn btn-dark btn-floating mx-1">
           <i class="fab fa-google"></i>
-        </button>
+        </a>
 
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
-          <i class="fab fa-twitter"></i>
-        </button>
-
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-floating mx-1">
+        <a href="{{ url_for('github_login') }}" class="btn btn-dark btn-floating mx-1">
           <i class="fab fa-github"></i>
-        </button>
+        </a>
+
+        <a href="{{ url_for('twitter_login') }}" class="btn btn-dark btn-floating mx-1">
+          <i class="fab fa-twitter"></i>
+        </a>
       </div>
 
       <p class="text-center">or:</p>
@@ -207,7 +206,7 @@
         <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
           aria-describedby="registerCheckHelpText" />
         <label class="form-check-label" for="registerCheck">
-          I have read and agree to the <a href="#">terms and conditions</a>
+          I have read and agree to the <a href="{{url_for('policy')}}" target="_blank">terms and conditions</a>
         </label>
       </div>
       <!-- Submit button -->
