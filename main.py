@@ -162,13 +162,12 @@ github = oauth.register(
 
 twitter = oauth.register(
     name='twitter',
-    client_id=os.getenv("TWITTER_CLIENT_ID"),  # Your Twitter API Key
-    client_secret=os.getenv("TWITTER_CLIENT_SECRET"),  # Your Twitter API Secret Key
+    client_id=os.getenv('TWITTER_CLIENT_ID'),
+    client_secret=os.getenv('TWITTER_CLIENT_SECRET'),
     request_token_url='https://api.twitter.com/oauth/request_token',
     access_token_url='https://api.twitter.com/oauth/access_token',
     authorize_url='https://api.twitter.com/oauth/authenticate',
-    userinfo_endpoint='https://api.twitter.com/1.1/account/verify_credentials.json',
-    client_kwargs={'scope': 'include_email=true'},
+    client_kwargs={'scope': 'read,email'}
 )
 facebook = oauth.register(
     name='facebook',
@@ -331,7 +330,7 @@ def login():
 
 @app.route('/google')
 def google_login():
-    redirect_uri = url_for('auth_callback', _external=True)
+    redirect_uri = url_for('auth_callback', _external=True,_scheme='https')
     print(f'Redirect URI: {redirect_uri}')  # Check if this matches the one in Google Console
     return google.authorize_redirect(redirect_uri)
 
@@ -372,7 +371,7 @@ def auth_callback():
 
 @app.route('/login/github')
 def github_login():
-    redirect_uri = url_for('github_callback', _external=True)
+    redirect_uri = url_for('github_callback', _external=True,_scheme='https')
     return github.authorize_redirect(redirect_uri)
 
 @app.route('/github/callback')
@@ -425,7 +424,7 @@ def github_callback():
 
 @app.route('/login/twitter')
 def twitter_login():
-    redirect_uri = url_for('twitter_callback', _external=True)
+    redirect_uri = url_for('twitter_callback', _external=True,_scheme='https')
     return twitter.authorize_redirect(redirect_uri)
 
 @app.route('/twitter/callback')
@@ -465,7 +464,7 @@ def twitter_callback():
     return redirect(url_for('dashboard', user=current_user.name))  # Render the dashboard with the user's name
 @app.route('/login/facebook')
 def facebook_login():
-    redirect_uri = url_for('auth_facebook', _external=True)
+    redirect_uri = url_for('auth_facebook', _external=True,_scheme='https')
     return oauth.facebook.authorize_redirect(redirect_uri)
 
 @app.route('/auth/facebook/callback')
