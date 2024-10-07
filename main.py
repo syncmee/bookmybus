@@ -270,9 +270,8 @@ def home():
 @app.route('/policy')
 def policy():
     return render_template('policy.html')
-@app.route('/test')
+@app.route('/terms')
 def test():
-    flash('Your ticket is booked for this journey!', 'success')
     return render_template('test.html')
 
 @app.route('/login', methods=['GET', 'POST'])
