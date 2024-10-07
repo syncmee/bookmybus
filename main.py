@@ -160,15 +160,6 @@ github = oauth.register(
     client_kwargs={'scope': 'user:email'},
 )
 
-twitter = oauth.register(
-    name='twitter',
-    client_id=os.getenv('TWITTER_CLIENT_ID'),
-    client_secret=os.getenv('TWITTER_CLIENT_SECRET'),
-    request_token_url='https://api.twitter.com/oauth/request_token',
-    access_token_url='https://api.twitter.com/oauth/access_token',
-    authorize_url='https://api.twitter.com/oauth/authenticate',
-    client_kwargs={'scope': 'read,email'}
-)
 facebook = oauth.register(
     name='facebook',
     client_id=os.getenv("FACEBOOK_CLIENT_ID"),
@@ -191,8 +182,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(255), nullable=True)  # Make password optional for Google logins
     google_id = db.Column(db.String(100), unique=True, nullable=True) # Google ID for OAuth
     github_id = db.Column(db.String(100), unique=True, nullable=True) # GitHub ID for OAuth
-    facebook_id = db.Column(db.String(100), unique=True, nullable=True) # Twiiter ID for OAuth
-    twitter_id = db.Column(db.String(100), unique=True, nullable=True) # Facebook ID for OAuth
+    facebook_id = db.Column(db.String(100), unique=True, nullable=True) # Facebook ID for OAuth
 
 class TicketBooking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -422,46 +412,6 @@ def github_callback():
 
     return redirect(url_for('dashboard', user=current_user.name))  # Redirect to the dashboard with the user's name
 
-@app.route('/login/twitter')
-def twitter_login():
-    redirect_uri = url_for('twitter_callback', _external=True,_scheme='https')
-    return twitter.authorize_redirect(redirect_uri)
-
-@app.route('/twitter/callback')
-def twitter_callback():
-    # Get the token and user info
-    token = twitter.authorize_access_token()
-    resp = twitter.get('https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true')
-    profile = resp.json()
-
-    # Extract user info
-    user_email = profile.get('email')  # Get the email from Twitter user info
-    user_name = user_email.split('@')[0] if user_email else None  # Extract username from email, if available
-    name = profile.get('name', '')  # Get the user's name
-    twitter_id = profile.get('id_str')  # Twitter ID
-
-    # Check if user exists in your database by email
-    user = User.query.filter_by(email=user_email).first() if user_email else None
-
-    if user:
-        # If the user exists, log them in
-        login_user(user)  # Use Flask-Login to manage the session
-        session['email'] = user.email
-
-        # Check if Twitter ID is already linked; if not, link it
-        if not user.twitter_id:
-            user.twitter_id = twitter_id  # Link the Twitter account
-            db.session.commit()  # Commit the changes to the database
-
-    else:
-        # User does not exist, create a new account
-        new_user = User(email=user_email, name=name, twitter_id=twitter_id, username=user_name)
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user)  # Log the new user in
-        session['email'] = user_email
-
-    return redirect(url_for('dashboard', user=current_user.name))  # Render the dashboard with the user's name
 @app.route('/login/facebook')
 def facebook_login():
     redirect_uri = url_for('auth_facebook', _external=True,_scheme='https')
