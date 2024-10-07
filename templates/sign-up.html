@@ -97,21 +97,20 @@
     <form action="/login" method="post">
       <div class="text-center mb-3">
         <p>Sign in with:</p>
+        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Apple logins">
+          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-apple"></i></button>
+        </span>
         <a href="{{ url_for('google_login') }}" class="btn btn-dark btn-floating mx-1">
-            <i class="fab fa-google"></i>
+          <i class="fab fa-google"></i>
         </a>
 
         <a href="{{ url_for('github_login') }}" class="btn btn-dark btn-floating mx-1">
           <i class="fab fa-github"></i>
         </a>
 
-        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Apple logins">
-          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-apple"></i></button>
-        </span>
-
-        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Twitter logins">
-          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-twitter"></i></button>
-        </span>
+        <a href="{{ url_for('facebook_login') }}" class="btn btn-dark btn-floating mx-1">
+          <i class="fab fa-facebook"></i>
+        </a>
       </div>
 
       <p class="text-center">or:</p>
@@ -157,6 +156,9 @@
     <form action="/login" method="post">
       <div class="text-center mb-3">
         <p>Sign up with:</p>
+        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Apple logins">
+          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-apple"></i></button>
+        </span>
         <a href="{{ url_for('google_login') }}" class="btn btn-dark btn-floating mx-1">
           <i class="fab fa-google"></i>
         </a>
@@ -164,13 +166,10 @@
         <a href="{{ url_for('github_login') }}" class="btn btn-dark btn-floating mx-1">
           <i class="fab fa-github"></i>
         </a>
-        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Apple logins">
-          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-apple"></i></button>
-        </span>
 
-        <span class="d-inline-block" tabindex="0" data-mdb-tooltip-init title="Currently not accepting Twitter logins">
-          <button class="btn btn-dark btn-floating mx-1" style="pointer-events: none;" type="button" disabled> <i class="fab fa-twitter"></i></button>
-        </span>
+        <a href="{{ url_for('facebook_login') }}" class="btn btn-dark btn-floating mx-1">
+          <i class="fab fa-facebook"></i>
+        </a>
 
       </div>
 

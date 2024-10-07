@@ -170,7 +170,17 @@ twitter = oauth.register(
     userinfo_endpoint='https://api.twitter.com/1.1/account/verify_credentials.json',
     client_kwargs={'scope': 'include_email=true'},
 )
-
+facebook = oauth.register(
+    name='facebook',
+    client_id=os.getenv("FACEBOOK_CLIENT_ID"),
+    client_secret=os.getenv("FACEBOOK_CLIENT_SECRET"),
+    access_token_url='https://graph.facebook.com/oauth/access_token',
+    access_token_params=None,
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    authorize_params=None,
+    api_base_url='https://graph.facebook.com/',
+    client_kwargs={'scope': 'email public_profile'}
+)
 
 
 # User model for SQLAlchemy
@@ -182,6 +192,8 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(255), nullable=True)  # Make password optional for Google logins
     google_id = db.Column(db.String(100), unique=True, nullable=True) # Google ID for OAuth
     github_id = db.Column(db.String(100), unique=True, nullable=True) # GitHub ID for OAuth
+    facebook_id = db.Column(db.String(100), unique=True, nullable=True) # Twiiter ID for OAuth
+    twitter_id = db.Column(db.String(100), unique=True, nullable=True) # Facebook ID for OAuth
 
 class TicketBooking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -451,6 +463,46 @@ def twitter_callback():
         session['email'] = user_email
 
     return redirect(url_for('dashboard', user=current_user.name))  # Render the dashboard with the user's name
+@app.route('/login/facebook')
+def facebook_login():
+    redirect_uri = url_for('auth_facebook', _external=True)
+    return oauth.facebook.authorize_redirect(redirect_uri)
+
+@app.route('/auth/facebook/callback')
+def auth_facebook():
+    # Get the token and user info from Facebook
+    token = facebook.authorize_access_token()
+    user_info = facebook.get('https://graph.facebook.com/me?fields=id,name,email').json()
+
+    # Extract user info
+    user_email = user_info['email']  # Get the email from Facebook user info
+    user_name = user_email.split('@')[0]  # Extract username from email
+    name = user_info.get('name', '')  # Get the user's name
+    facebook_id = user_info['id']  # Facebook ID
+
+    # Check if user exists in your database by email
+    user = User.query.filter_by(email=user_email).first()
+
+    if user:
+        # If the user exists, log them in
+        login_user(user)  # Use Flask-Login to manage the session
+        session['email'] = user.email
+
+        # If Facebook ID is not already linked, link it
+        if not user.facebook_id:
+            user.facebook_id = facebook_id  # Link the Facebook account
+            db.session.commit()  # Commit the changes to the database
+
+    else:
+        # User does not exist, create a new account
+        new_user = User(email=user_email, name=name, facebook_id=facebook_id, username=user_name)
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)  # Log the new user in
+        session['email'] = user_email
+
+    # Redirect to dashboard with the user's name
+    return redirect(url_for('dashboard', user=current_user.name))
 
 @app.route('/dashboard/<user>', methods=['GET', 'POST'])
 @login_required
